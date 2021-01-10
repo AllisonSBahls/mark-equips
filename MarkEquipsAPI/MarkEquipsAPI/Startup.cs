@@ -1,4 +1,6 @@
 using MarkEquipsAPI.Models.Context;
+using MarkEquipsAPI.Repository;
+using MarkEquipsAPI.Repository.Implementations;
 using MarkEquipsAPI.Services;
 using MarkEquipsAPI.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +39,8 @@ namespace MarkEquipsAPI
             services.AddApiVersioning();
 
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
+            services.AddScoped<IEntitieRepository, EquipmentRepositoryImplementation>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

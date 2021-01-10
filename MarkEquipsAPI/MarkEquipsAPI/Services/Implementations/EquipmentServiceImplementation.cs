@@ -1,5 +1,6 @@
 ﻿using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Models.Context;
+using MarkEquipsAPI.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,78 +9,38 @@ namespace MarkEquipsAPI.Services.Implementations
 {
     public class EquipmentServiceImplementation : IEntitieService
     {
-        private readonly MarkEquipsContext _context;
+        private readonly IEntitieRepository _repository;
 
-        public EquipmentServiceImplementation(MarkEquipsContext context)
+        public EquipmentServiceImplementation(IEntitieRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public List<Equipment> FindAll()
         {
-            return _context.Equipments.ToList();
+            return _repository.FindAll();
         }
 
         public Equipment FindByID(long id)
         {
-            return _context.Equipments.SingleOrDefault(e => e.Id.Equals(id));
+            return _repository.FindByID(id);
         }
 
         public Equipment Create(Equipment equipment)
         {
-            try
-            {
-                _context.Add(equipment);
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return equipment;
+            
+            return _repository.Create(equipment);
         }
 
         public Equipment Update(Equipment equipment)
         {
-            if (!Exists(equipment.Id)) return new Equipment();
-
-            var result = _context.Equipments.SingleOrDefault(e => e.Id.Equals(equipment.Id));
-
-            if (result != null)
-            {
-                try
-                {
-                    _context.Entry(result).CurrentValues.SetValues(equipment);
-                    _context.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            return equipment;
+            return _repository.Update(equipment);
         }
 
         public void Delete(long id)
         {
-            var result = _context.Equipments.SingleOrDefault(e => e.Id.Equals(id));
-            if (result != null)
-            {
-                try
-                {
-                    _context.Equipments.Remove(result);
-                    _context.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+            _repository.Delete(id);
         }
-
-        private bool Exists(long id)
-        {
-            return _context.Equipments.Any(e => e.Id.Equals(id));
-        }
+      
     }
 }
