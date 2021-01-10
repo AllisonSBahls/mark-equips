@@ -34,6 +34,7 @@ namespace MarkEquipsAPI
 
             services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddApiVersioning();
 
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
         }

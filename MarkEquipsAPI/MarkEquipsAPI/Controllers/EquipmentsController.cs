@@ -5,14 +5,15 @@ using Microsoft.Extensions.Logging;
 
 namespace MarkEquipsAPI.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]
-    public class EquipmentController : ControllerBase
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class EquipmentsController : ControllerBase
     {
         private readonly IEntitieService _entitieService;
-        private readonly ILogger<EquipmentController> _logger;
+        private readonly ILogger<EquipmentsController> _logger;
 
-        public EquipmentController(ILogger<EquipmentController> logger, IEntitieService entitieService)
+        public EquipmentsController(ILogger<EquipmentsController> logger, IEntitieService entitieService)
         {
             _entitieService = entitieService;
             _logger = logger;
