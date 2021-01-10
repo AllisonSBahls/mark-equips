@@ -25,6 +25,7 @@ namespace MarkEquipsAPI.Services.Implementations
 
         public List<Equipment> FindAll()
         {
+            return _context.Equipments.ToList();
         }
 
         public Equipment FindByID(long id)

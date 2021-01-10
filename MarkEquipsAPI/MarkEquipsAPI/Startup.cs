@@ -32,8 +32,8 @@ namespace MarkEquipsAPI
 
             services.AddControllers();
 
-            var connection = Configuration["MarkEquipContext:MarkEquipContextString"];
-            services.AddDbContext<MarkEquipsContext>(options => options.UseMySql(connection));
+            services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
         }
