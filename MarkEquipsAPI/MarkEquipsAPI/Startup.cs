@@ -1,9 +1,11 @@
+using MarkEquipsAPI.Models.Context;
 using MarkEquipsAPI.Services;
 using MarkEquipsAPI.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +31,10 @@ namespace MarkEquipsAPI
         {
 
             services.AddControllers();
+
+            var connection = Configuration["MarkEquipContext:MarkEquipContextString"];
+            services.AddDbContext<MarkEquipsContext>(options => options.UseMySql(connection));
+
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
         }
 

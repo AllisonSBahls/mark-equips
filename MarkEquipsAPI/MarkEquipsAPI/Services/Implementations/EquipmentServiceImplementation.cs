@@ -1,24 +1,30 @@
 ﻿using MarkEquipsAPI.Models;
+using MarkEquipsAPI.Models.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MarkEquipsAPI.Services.Implementations
 {
     public class EquipmentServiceImplementation : IEntitieService
     {
+        private readonly MarkEquipsContext _context;
+        public EquipmentServiceImplementation(MarkEquipsContext context)
+        {
+            _context = context;
+        }
         public Equipment Create(Equipment equipment)
         {
             return equipment;
         }
-
-        public void Delete(long id)
+        public Equipment Update(Equipment equipment)
         {
             throw new NotImplementedException();
         }
 
+
         public List<Equipment> FindAll()
         {
-            throw new NotImplementedException();
         }
 
         public Equipment FindByID(long id)
@@ -26,7 +32,7 @@ namespace MarkEquipsAPI.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public Equipment Update(Equipment equipment)
+        public void Delete(long id)
         {
             throw new NotImplementedException();
         }
