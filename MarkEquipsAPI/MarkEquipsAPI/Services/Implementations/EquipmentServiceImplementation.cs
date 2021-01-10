@@ -9,19 +9,11 @@ namespace MarkEquipsAPI.Services.Implementations
     public class EquipmentServiceImplementation : IEntitieService
     {
         private readonly MarkEquipsContext _context;
+
         public EquipmentServiceImplementation(MarkEquipsContext context)
         {
             _context = context;
         }
-        public Equipment Create(Equipment equipment)
-        {
-            return equipment;
-        }
-        public Equipment Update(Equipment equipment)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public List<Equipment> FindAll()
         {
@@ -30,12 +22,64 @@ namespace MarkEquipsAPI.Services.Implementations
 
         public Equipment FindByID(long id)
         {
-            throw new NotImplementedException();
+            return _context.Equipments.SingleOrDefault(e => e.Id.Equals(id));
+        }
+
+        public Equipment Create(Equipment equipment)
+        {
+            try
+            {
+                _context.Add(equipment);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return equipment;
+        }
+
+        public Equipment Update(Equipment equipment)
+        {
+            if (!Exists(equipment.Id)) return new Equipment();
+
+            var result = _context.Equipments.SingleOrDefault(e => e.Id.Equals(equipment.Id));
+
+            if (result != null)
+            {
+                try
+                {
+                    _context.Entry(result).CurrentValues.SetValues(equipment);
+                    _context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return equipment;
         }
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var result = _context.Equipments.SingleOrDefault(e => e.Id.Equals(id));
+            if (result != null)
+            {
+                try
+                {
+                    _context.Equipments.Remove(result);
+                    _context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        private bool Exists(long id)
+        {
+            return _context.Equipments.Any(e => e.Id.Equals(id));
         }
     }
 }
