@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public IActionResult Get(int id)
         {
             var equip = _entitieService.FindByID(id);
             if (equip == null) return NotFound();
@@ -47,7 +47,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public IActionResult Delete(int id)
         {
             _entitieService.Delete(id);
             return NoContent();

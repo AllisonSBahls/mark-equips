@@ -6,9 +6,9 @@ namespace MarkEquipsAPI.Services.Implementations
 {
     public class EquipmentServiceImplementation : IEntitieService
     {
-        private readonly IEntitieRepository _repository;
+        private readonly IRepository<Equipment> _repository;
 
-        public EquipmentServiceImplementation(IEntitieRepository repository)
+        public EquipmentServiceImplementation(IRepository<Equipment> repository)
         {
             _repository = repository;
         }
@@ -18,7 +18,7 @@ namespace MarkEquipsAPI.Services.Implementations
             return _repository.FindAll();
         }
 
-        public Equipment FindByID(long id)
+        public Equipment FindByID(int id)
         {
             return _repository.FindByID(id);
         }
@@ -34,7 +34,7 @@ namespace MarkEquipsAPI.Services.Implementations
             return _repository.Update(equipment);
         }
 
-        public void Delete(long id)
+        public void Delete(int id)
         {
             _repository.Delete(id);
         }

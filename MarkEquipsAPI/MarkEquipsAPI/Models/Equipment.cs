@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MarkEquipsAPI.Models.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarkEquipsAPI.Models
 {
-    public class Equipment
+    public class Equipment : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Number { get; set; }

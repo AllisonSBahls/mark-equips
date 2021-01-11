@@ -1,6 +1,5 @@
 using MarkEquipsAPI.Repository.Context;
 using MarkEquipsAPI.Repository;
-using MarkEquipsAPI.Repository.Implementations;
 using MarkEquipsAPI.Services;
 using MarkEquipsAPI.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MarkEquipsAPI.Repository.Generic;
 
 namespace MarkEquipsAPI
 {
@@ -36,7 +36,7 @@ namespace MarkEquipsAPI
 
             services.AddScoped<SeedingReservations>();
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
-            services.AddScoped<IEntitieRepository, EquipmentRepositoryImplementation>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
         }
 
