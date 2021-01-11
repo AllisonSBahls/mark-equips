@@ -11,6 +11,9 @@
 bin
 obj
 
+MarkEquipsAPI\MarkEquipsAPI\bin
+MarkEquipsAPI\MarkEquipsAPI\obj
+
 # compiled output
 /dist
 /tmp
@@ -411,3 +414,5 @@ MarkEquipsAPI/.vs
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+MarkEquipsAPI/MarkEquipsAPI/Migrations/

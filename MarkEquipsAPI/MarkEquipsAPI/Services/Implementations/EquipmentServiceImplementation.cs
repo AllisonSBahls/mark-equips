@@ -1,9 +1,6 @@
 ﻿using MarkEquipsAPI.Models;
-using MarkEquipsAPI.Models.Context;
 using MarkEquipsAPI.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MarkEquipsAPI.Services.Implementations
 {

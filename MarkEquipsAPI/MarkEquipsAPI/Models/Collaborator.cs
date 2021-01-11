@@ -1,11 +1,14 @@
-﻿using System;
+﻿using MarkEquipsAPI.Models.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Models
 {
     public class Collaborator
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public LevelPermission Permission { get; set; }
+        public List<Reserver> Reservations { get; set; }
     }
 }

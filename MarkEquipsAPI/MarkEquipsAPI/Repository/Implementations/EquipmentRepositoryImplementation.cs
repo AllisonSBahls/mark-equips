@@ -1,5 +1,5 @@
 ﻿using MarkEquipsAPI.Models;
-using MarkEquipsAPI.Models.Context;
+using MarkEquipsAPI.Repository.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +41,7 @@ namespace MarkEquipsAPI.Repository.Implementations
 
         public Equipment Update(Equipment equipment)
         {
-            if (!Exists(equipment.Id)) return new Equipment();
+            if (!Exists(equipment.Id)) return null;
 
             var result = _context.Equipments.SingleOrDefault(e => e.Id.Equals(equipment.Id));
 
