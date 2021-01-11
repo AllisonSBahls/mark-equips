@@ -36,9 +36,11 @@ namespace MarkEquipsAPI.Services.Implementations
             return _repository.FindByID(id);
         }
 
+
         public Collaborator Update(Collaborator collaborator)
         {
             return _repository.Update(collaborator);
         }
+
     }
 }

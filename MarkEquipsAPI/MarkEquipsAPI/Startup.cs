@@ -37,7 +37,6 @@ namespace MarkEquipsAPI
             services.AddScoped<SeedingReservations>();
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
             services.AddScoped<ICollaboratorService, CollaboratorServiceImplementation>();
-            services.AddScoped<IReserverService, ReserverServiceImplementation>();
             services.AddScoped<IScheduleService, ScheduleServiceImplementation>();
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));

@@ -11,6 +11,7 @@ namespace MarkEquipsAPI.Services.Implementations
     {
         private readonly IRepository<Schedule> _repository;
 
+
         public ScheduleServiceImplementation(IRepository<Schedule> repository)
         {
             _repository = repository;

@@ -10,5 +10,6 @@ namespace MarkEquipsAPI.Services
         List<Collaborator> FindAll();
         Collaborator Update(Collaborator collaborator);
         void Delete(int id);
+
     }
 }

@@ -5,8 +5,9 @@ using MarkEquipsAPI.Models.Enums;
 
 namespace MarkEquipsAPI.Models
 {
-    public class Reserver : BaseEntity
+    public class Reserver
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public ReserveStatus Status { get; set; }
         public int CollaboratorId { get; set; }

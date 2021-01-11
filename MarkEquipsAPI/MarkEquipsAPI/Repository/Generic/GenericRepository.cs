@@ -82,7 +82,6 @@ namespace MarkEquipsAPI.Repository.Generic
             }
         }
 
-
         public bool Exists(int id)
         {
             return dataset.Any(e => e.Id.Equals(id));

@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Models;
+using MarkEquipsAPI.Repository;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
