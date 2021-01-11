@@ -10,10 +10,10 @@ namespace MarkEquipsAPI.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class EquipmentsController : ControllerBase
     {
-        private readonly IEntitieService _entitieService;
+        private readonly IEquipmentService _entitieService;
         private readonly ILogger<EquipmentsController> _logger;
 
-        public EquipmentsController(ILogger<EquipmentsController> logger, IEntitieService entitieService)
+        public EquipmentsController(ILogger<EquipmentsController> logger, IEquipmentService entitieService)
         {
             _entitieService = entitieService;
             _logger = logger;

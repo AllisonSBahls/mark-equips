@@ -4,34 +4,34 @@ using System.Collections.Generic;
 
 namespace MarkEquipsAPI.Services.Implementations
 {
-    public class EquipmentServiceImplementation : IEquipmentService
+    public class ReserverServiceImplementation : IReserverService
     {
-        private readonly IRepository<Equipment> _repository;
+        private readonly IRepository<Reserver> _repository;
 
-        public EquipmentServiceImplementation(IRepository<Equipment> repository)
+        public ReserverServiceImplementation(IRepository<Reserver> repository)
         {
             _repository = repository;
         }
 
-        public List<Equipment> FindAll()
+        public List<Reserver> FindAll()
         {
             return _repository.FindAll();
         }
 
-        public Equipment FindByID(int id)
+        public Reserver FindByID(int id)
         {
             return _repository.FindByID(id);
         }
 
-        public Equipment Create(Equipment equipment)
+        public Reserver Create(Reserver reserver)
         {
             
-            return _repository.Create(equipment);
+            return _repository.Create(reserver);
         }
 
-        public Equipment Update(Equipment equipment)
+        public Reserver Update(Reserver reserver)
         {
-            return _repository.Update(equipment);
+            return _repository.Update(reserver);
         }
 
         public void Delete(int id)

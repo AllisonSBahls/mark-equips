@@ -1,12 +1,13 @@
-﻿using MarkEquipsAPI.Models.Enums;
+﻿using MarkEquipsAPI.Models.Base;
+using MarkEquipsAPI.Models.Enums;
 using System;
 using System.Collections.Generic;
 
 namespace MarkEquipsAPI.Models
 {
-    public class Schedule
+    public class Schedule : BaseEntity
     {
-        public int Id { get; set; }
+
         public TimeSpan HourInitial { get; set; }
         public TimeSpan HourFinal { get; set; }
         public PeriodDay Period { get; set; }

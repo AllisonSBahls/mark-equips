@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using MarkEquipsAPI.Models.Base;
 using MarkEquipsAPI.Models.Enums;
 
 namespace MarkEquipsAPI.Models
 {
-    public class Reserver
+    public class Reserver : BaseEntity
     {
-        public int Id { get; set; }
         public DateTime Date { get; set; }
         public ReserveStatus Status { get; set; }
         public int CollaboratorId { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MarkEquipsAPI.Services
 {
-    public interface IEntitieService
+    public interface IEquipmentService
     {
         Equipment Create(Equipment equipment);
         Equipment FindByID(int id);
