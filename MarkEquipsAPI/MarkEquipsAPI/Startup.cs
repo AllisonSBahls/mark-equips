@@ -34,17 +34,19 @@ namespace MarkEquipsAPI
 
             services.AddApiVersioning();
 
+            services.AddScoped<SeedingReservations>();
             services.AddScoped<IEntitieService, EquipmentServiceImplementation>();
             services.AddScoped<IEntitieRepository, EquipmentRepositoryImplementation>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingReservations seedingReservations)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingReservations.Seed();
             }
 
             app.UseHttpsRedirection();

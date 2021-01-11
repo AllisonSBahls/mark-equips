@@ -4,6 +4,6 @@
     {
         MORNING,
         EVERNING,
-        NINGHT
+        NIGHT
     }
 }
