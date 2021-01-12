@@ -1,6 +1,6 @@
 ﻿namespace MarkEquipsAPI.Models
 {
-    public class ReserserSchedule
+    public class ReserverSchedule
     {
         public int ReserverId { get; set; }
         public Reserver Reserver { get; set; }

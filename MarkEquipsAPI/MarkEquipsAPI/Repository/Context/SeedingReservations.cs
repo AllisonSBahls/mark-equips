@@ -41,15 +41,15 @@ namespace MarkEquipsAPI.Repository.Context
             Collaborator c4 = new Collaborator() { Id = 4, Name = "Eline Alburquerque", User = "eline", Password = "qewg", Permission = LevelPermission.STANDARD };
             Collaborator c5 = new Collaborator() { Id = 5, Name = "Priscila Fonseca", User = "priscila", Password = "fghf", Permission = LevelPermission.ADMINISTRATOR };
 
-            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(8, 00, 00), HourFinal = new TimeSpan(9, 00, 00)};
-            Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(9, 00, 00), HourFinal = new TimeSpan(10, 00, 00) };
-            Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(10, 00, 00), HourFinal = new TimeSpan(11, 00, 00) };
-            Schedule t1 = new Schedule() { Id = 4, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(14, 00, 00), HourFinal = new TimeSpan(15, 00, 00) };
-            Schedule t2 = new Schedule() { Id = 5, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(15, 00, 00), HourFinal = new TimeSpan(16, 00, 00) };
-            Schedule t3 = new Schedule() { Id = 6, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(16, 00, 00), HourFinal = new TimeSpan(17, 00, 00) };
-            Schedule n1 = new Schedule() { Id = 7, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(19, 00, 00), HourFinal = new TimeSpan(20, 00, 00) };
-            Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(20, 00, 00), HourFinal = new TimeSpan(21, 00, 00) };
-            Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(21, 00, 00), HourFinal = new TimeSpan(22, 00, 00) };
+            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = "08:00:00", HourFinal = "09:00:00"};
+            Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = "09:00:00", HourFinal = "10:00:00" };
+            Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = "10:00:00", HourFinal = "11:00:00" };
+            Schedule t1 = new Schedule() { Id = 4, Period = PeriodDay.EVERNING, HourInitial = "14:00:00", HourFinal = "15:00:00" };
+            Schedule t2 = new Schedule() { Id = 5, Period = PeriodDay.EVERNING, HourInitial = "15:00:00", HourFinal = "16:00:00" };
+            Schedule t3 = new Schedule() { Id = 6, Period = PeriodDay.EVERNING, HourInitial = "16:00:00", HourFinal = "17:00:00" };
+            Schedule n1 = new Schedule() { Id = 7, Period = PeriodDay.NIGHT, HourInitial = "19:00:00", HourFinal = "20:00:00" };
+            Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = "20:00:00", HourFinal = "21:00:00" };
+            Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = "21:00:00", HourFinal = "22:00:00" };
 
             Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), Status = ReserveStatus.RESERVED, Collaborator = c1, Equipment = e1 };
             Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), Status = ReserveStatus.FINISHED, Collaborator = c2, Equipment = e9 };
@@ -66,40 +66,40 @@ namespace MarkEquipsAPI.Repository.Context
             Reserver r13 = new Reserver() { Id = 13, Date = new DateTime(2021, 1, 21), Status = ReserveStatus.USING, Collaborator = c4, Equipment = e8 };
             Reserver r14 = new Reserver() { Id = 14, Date = new DateTime(2021, 1, 21), Status = ReserveStatus.RESERVED,  Collaborator = c5, Equipment = e9 };
 
-            ReserserSchedule rs1 = new ReserserSchedule() { Reserver = r1, Schedule = m1 };
-            ReserserSchedule rs2 = new ReserserSchedule() { Reserver = r2, Schedule = m2 };
-            ReserserSchedule rs3 = new ReserserSchedule() { Reserver = r3, Schedule = m3 };
-            ReserserSchedule rs4 = new ReserserSchedule() { Reserver = r4, Schedule = t2 };
-            ReserserSchedule rs5 = new ReserserSchedule() { Reserver = r5, Schedule = t1 };
-            ReserserSchedule rs6 = new ReserserSchedule() { Reserver = r6, Schedule = t3};
-            ReserserSchedule rs7 = new ReserserSchedule() { Reserver = r7, Schedule = n1 };
-            ReserserSchedule rs8 = new ReserserSchedule() { Reserver = r8, Schedule = n2 };
-            ReserserSchedule rs9 = new ReserserSchedule() { Reserver = r9, Schedule = n3 };
-            ReserserSchedule rs10 = new ReserserSchedule() { Reserver = r10, Schedule = m1 };
-            ReserserSchedule rs11 = new ReserserSchedule() { Reserver = r11, Schedule = n1 };
-            ReserserSchedule rs12 = new ReserserSchedule() { Reserver = r12, Schedule = t1 };
-            ReserserSchedule rs13 = new ReserserSchedule() { Reserver = r13, Schedule = t3 };
-            ReserserSchedule rs14 = new ReserserSchedule() { Reserver = r14, Schedule = n1 };
-            ReserserSchedule rs15 = new ReserserSchedule() { Reserver = r1, Schedule = m2 };
-            ReserserSchedule rs16 = new ReserserSchedule() { Reserver = r2, Schedule = m3 };
-            ReserserSchedule rs17 = new ReserserSchedule() { Reserver = r4, Schedule = n3 };
-            ReserserSchedule rs18 = new ReserserSchedule() { Reserver = r5, Schedule = n3 };
-            ReserserSchedule rs19 = new ReserserSchedule() { Reserver = r7, Schedule = n3 };
-            ReserserSchedule rs20 = new ReserserSchedule() { Reserver = r14, Schedule = m2 };
+            ReserverSchedule rs1 = new ReserverSchedule() { Reserver = r1, Schedule = m1 };
+            ReserverSchedule rs2 = new ReserverSchedule() { Reserver = r2, Schedule = m2 };
+            ReserverSchedule rs3 = new ReserverSchedule() { Reserver = r3, Schedule = m3 };
+            ReserverSchedule rs4 = new ReserverSchedule() { Reserver = r4, Schedule = t2 };
+            ReserverSchedule rs5 = new ReserverSchedule() { Reserver = r5, Schedule = t1 };
+            ReserverSchedule rs6 = new ReserverSchedule() { Reserver = r6, Schedule = t3};
+            ReserverSchedule rs7 = new ReserverSchedule() { Reserver = r7, Schedule = n1 };
+            ReserverSchedule rs8 = new ReserverSchedule() { Reserver = r8, Schedule = n2 };
+            ReserverSchedule rs9 = new ReserverSchedule() { Reserver = r9, Schedule = n3 };
+            ReserverSchedule rs10 = new ReserverSchedule() { Reserver = r10, Schedule = m1 };
+            ReserverSchedule rs11 = new ReserverSchedule() { Reserver = r11, Schedule = n1 };
+            ReserverSchedule rs12 = new ReserverSchedule() { Reserver = r12, Schedule = t1 };
+            ReserverSchedule rs13 = new ReserverSchedule() { Reserver = r13, Schedule = t3 };
+            ReserverSchedule rs14 = new ReserverSchedule() { Reserver = r14, Schedule = n1 };
+            ReserverSchedule rs15 = new ReserverSchedule() { Reserver = r1, Schedule = m2 };
+            ReserverSchedule rs16 = new ReserverSchedule() { Reserver = r2, Schedule = m3 };
+            ReserverSchedule rs17 = new ReserverSchedule() { Reserver = r4, Schedule = n3 };
+            ReserverSchedule rs18 = new ReserverSchedule() { Reserver = r5, Schedule = n3 };
+            ReserverSchedule rs19 = new ReserverSchedule() { Reserver = r7, Schedule = n3 };
+            ReserverSchedule rs20 = new ReserverSchedule() { Reserver = r14, Schedule = m2 };
 
 
-            ReserserSchedule rs21 = new ReserserSchedule() { Reserver = r13, Schedule = m1 };
-            ReserserSchedule rs22 = new ReserserSchedule() { Reserver = r10, Schedule = m3 };
-            ReserserSchedule rs23 = new ReserserSchedule() { Reserver = r12, Schedule = t2 };
-            ReserserSchedule rs24 = new ReserserSchedule() { Reserver = r14, Schedule = t3 };
-            ReserserSchedule rs25 = new ReserserSchedule() { Reserver = r5, Schedule = t2 };
-            ReserserSchedule rs26 = new ReserserSchedule() { Reserver = r12, Schedule = m1 };
-            ReserserSchedule rs27 = new ReserserSchedule() { Reserver = r1, Schedule = m3 };
-            ReserserSchedule rs28 = new ReserserSchedule() { Reserver = r4, Schedule = m2 };
-            ReserserSchedule rs29 = new ReserserSchedule() { Reserver = r8, Schedule = n3 };
-            ReserserSchedule rs30 = new ReserserSchedule() { Reserver = r9, Schedule = m3 };
-            ReserserSchedule rs31 = new ReserserSchedule() { Reserver = r10, Schedule = t1 };
-            ReserserSchedule rs32 = new ReserserSchedule() { Reserver = r11, Schedule = t1 };
+            ReserverSchedule rs21 = new ReserverSchedule() { Reserver = r13, Schedule = m1 };
+            ReserverSchedule rs22 = new ReserverSchedule() { Reserver = r10, Schedule = m3 };
+            ReserverSchedule rs23 = new ReserverSchedule() { Reserver = r12, Schedule = t2 };
+            ReserverSchedule rs24 = new ReserverSchedule() { Reserver = r14, Schedule = t3 };
+            ReserverSchedule rs25 = new ReserverSchedule() { Reserver = r5, Schedule = t2 };
+            ReserverSchedule rs26 = new ReserverSchedule() { Reserver = r12, Schedule = m1 };
+            ReserverSchedule rs27 = new ReserverSchedule() { Reserver = r1, Schedule = m3 };
+            ReserverSchedule rs28 = new ReserverSchedule() { Reserver = r4, Schedule = m2 };
+            ReserverSchedule rs29 = new ReserverSchedule() { Reserver = r8, Schedule = n3 };
+            ReserverSchedule rs30 = new ReserverSchedule() { Reserver = r9, Schedule = m3 };
+            ReserverSchedule rs31 = new ReserverSchedule() { Reserver = r10, Schedule = t1 };
+            ReserverSchedule rs32 = new ReserverSchedule() { Reserver = r11, Schedule = t1 };
 
 
             _context.Equipments.AddRange(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);

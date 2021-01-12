@@ -13,11 +13,11 @@ namespace MarkEquipsAPI.Repository.Context
         public DbSet<Collaborator> Collaborators { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Reserver> Reservations { get; set; }
-        public DbSet<ReserserSchedule> ReserverSchedules { get; set; }
+        public DbSet<ReserverSchedule> ReserverSchedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ReserserSchedule>()
+            modelBuilder.Entity<ReserverSchedule>()
                 .HasKey(RS => new { RS.ReserverId, RS.ScheduleId });
         }
     }

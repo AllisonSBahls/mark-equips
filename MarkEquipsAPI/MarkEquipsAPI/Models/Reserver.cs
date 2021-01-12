@@ -14,6 +14,6 @@ namespace MarkEquipsAPI.Models
         public Collaborator Collaborator { get; set; }
         public int EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
-        public List<ReserserSchedule> Schedules { get; set; }
+        public List<ReserverSchedule> Schedules { get; set; }
     }
 }

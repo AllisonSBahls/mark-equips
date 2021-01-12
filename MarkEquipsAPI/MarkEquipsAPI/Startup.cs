@@ -26,7 +26,8 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
 
@@ -38,6 +39,8 @@ namespace MarkEquipsAPI
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
             services.AddScoped<ICollaboratorService, CollaboratorServiceImplementation>();
             services.AddScoped<IScheduleService, ScheduleServiceImplementation>();
+            services.AddScoped<IReserverService, ReserverServiceImplementation>();
+            services.AddScoped<IReserverRepository, ReserverRepository>();
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
@@ -63,7 +66,7 @@ namespace MarkEquipsAPI
                 endpoints.MapControllers();
             });
         }
-       
+
     }
-   
+
 }
