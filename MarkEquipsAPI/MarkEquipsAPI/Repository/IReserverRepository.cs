@@ -10,6 +10,8 @@ namespace MarkEquipsAPI.Repository
     {
         Task<List<Reserver>> FindAllAsync();
 
-        //Task<Reserver> ReserverAsync(Reserver reserver);
+        Task<Reserver> AddReserverAsync(Reserver reserver);
+        bool IsValidation(int equipId, int schedId, DateTime date);
+
     }
 }

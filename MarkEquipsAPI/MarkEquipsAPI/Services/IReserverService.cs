@@ -9,5 +9,7 @@ namespace MarkEquipsAPI.Services
     public interface IReserverService
     {
         Task<List<Reserver>> FindAllAsync();
+
+        Task<Reserver> AddReserverAsync(Reserver reserver);
     }
 }

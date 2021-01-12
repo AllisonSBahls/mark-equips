@@ -20,7 +20,18 @@ namespace MarkEquipsAPI.Services.Implementations
         {
             return await _repository.FindAllAsync();
         }
+
+        public async Task<Reserver> AddReserverAsync(Reserver reserver)
+        {
+            bool isValidate = _repository.IsValidation(reserver.EquipmentId, reserver.Schedules[0].ScheduleId, reserver.Date);
+
+            if (isValidate)
+            {
+                throw new Exception("Equipment already  registered with that same time and date, please choose another time or equipment");
+            }
+            return await _repository.AddReserverAsync(reserver);
+        }
     }
 }
-    
+
 

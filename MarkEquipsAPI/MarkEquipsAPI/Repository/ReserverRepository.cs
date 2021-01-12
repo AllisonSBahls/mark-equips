@@ -19,9 +19,6 @@ namespace MarkEquipsAPI.Repository
         }
         public async Task<List<Reserver>> FindAllAsync()
         {
-         
-                Console.WriteLine("---------- " + IsValidation(1, 7, new DateTime(2021, 01, 10)) + "---------- ");
-
             var reservations =  _context.Reservations
                 .Include(rs => rs.Schedules)
                    .ThenInclude(s => s.Schedule);
@@ -30,41 +27,33 @@ namespace MarkEquipsAPI.Repository
             
         }
 
-        /*
-        public async Task<Reserver> Reserver(Reserver reserver)
+        
+        public async Task<Reserver> AddReserverAsync(Reserver reserver)
         {
+            try
+            {
+                _context.Reservations.Add(reserver);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Insert Reserver" + e.Message);
+            }
 
-            _context.Reservations.Add(reserver);
-            
-            await _context.SaveChangesAsync();
             return reserver;
-        }*/
+        }
 
         /*
-         Validando a reserva dos equipcamentos na API,
-         Primeiro é feito a verificação dos equipamentos se na data e horário solicitado está disponivel o equipamento
-         Caso não esteja disponivel será retornado um erro de inserção
+        Validate if the equipment has the available time or not
          */
         public bool IsValidation(int equipId, int schedId, DateTime date)
         {
-            var validateIdEquips = _context.ReserverSchedules
-                .Include(rs => rs.Schedule)
-                .Include(r => r.Reserver).Where(r => r.Reserver.EquipmentId.Equals(equipId));
+            var validate = _context.ReserverSchedules
+                .Where(s => s.ScheduleId.Equals(schedId))
+                .Include(r => r.Reserver)
+                .Where(r => r.Reserver.EquipmentId.Equals(equipId) && r.Reserver.Date.Equals(date));
 
-            var validateHours = validateIdEquips.Where(s => s.ScheduleId.Equals(schedId));
-
-            var validatData = validateIdEquips.Where(s => s.Reserver.Date.Equals(date));
-
-            if (validateIdEquips.Any() && validateHours.Any() && validatData.Any())
-            {
-                Console.WriteLine("Não é possivel reserver o equipamento para esse horário por o mesmo já esta reservado, escolha outra outro horário ou outra data");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Equipamento disponivel para esse horário");
-                return false;
-            }
+            return validate.Any() ? true : false;
         }
     }
 }

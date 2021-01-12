@@ -1,4 +1,6 @@
-﻿using MarkEquipsAPI.Services;
+﻿using MarkEquipsAPI.Models;
+using MarkEquipsAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,13 @@ namespace MarkEquipsAPI.Controllers
         public async Task<IActionResult> Get()
         {
             return  Ok(await _entityService.FindAllAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Reserver reserver)
+        {
+            if (reserver == null) return null;
+            return Ok( await _entityService.AddReserverAsync(reserver));
         }
     }
 }
