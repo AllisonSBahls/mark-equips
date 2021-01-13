@@ -9,7 +9,9 @@ namespace MarkEquipsAPI.Services
     public interface IReserverService
     {
         Task<List<Reserver>> FindAllAsync();
-
-        Task<Reserver> AddReserverAsync(Reserver reserver);
+        Task RevokeAsync(int id);
+        Task AddReserverAsync(Reserver reserver);
+        Task<Reserver> FindByIdAsync(int id);
+        Task DeleteAsync(int id);
     }
 }

@@ -26,11 +26,39 @@ namespace MarkEquipsAPI.Controllers
             return  Ok(await _entityService.FindAllAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _entityService.FindByIdAsync(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(Reserver reserver)
         {
-            if (reserver == null) return null;
-            return Ok( await _entityService.AddReserverAsync(reserver));
+            if (reserver == null) return this.StatusCode(StatusCodes.Status404NotFound);
+            await _entityService.AddReserverAsync(reserver);
+
+            return this.StatusCode(StatusCodes.Status200OK);
+        }
+
+        [HttpPut("cancel/{id}")]
+        public async Task<IActionResult> Put(int id)
+        {
+            try { 
+            await _entityService.RevokeAsync(id);
+            return this.StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Update Controller Reserver" + e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _entityService.DeleteAsync(id);
+            return this.StatusCode(StatusCodes.Status204NoContent);
         }
     }
 }

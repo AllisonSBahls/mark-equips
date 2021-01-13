@@ -7,8 +7,9 @@ namespace MarkEquipsAPI.Models.Enums
 {
     public enum ReserveStatus
     {
-        RESERVED,
-        USING,
-        FINISHED
+        RESERVED = 1,
+        USING = 2,
+        FINISHED = 3,
+        CANCELED = 4
     }
 }
