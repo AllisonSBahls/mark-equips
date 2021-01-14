@@ -4,6 +4,7 @@ using System;
 using MarkEquipsAPI.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Repository.Generic
 {
@@ -18,73 +19,64 @@ namespace MarkEquipsAPI.Repository.Generic
             dataset = _context.Set<T>();
         }
 
-        public List<T> FindAll()
+        public async Task<List<T>> FindAllAsync()
         {
-           return dataset.ToList();
+            return await dataset.ToListAsync();
         }
 
-        public T FindByID(int id)
+        public async Task<T> FindByIDAsync(int id)
         {
-            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+            return await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-        public T Create(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             try
             {
                 dataset.Add(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception("Error in: " + e.Message);
             }
+            
             return entity;
         }
 
-        public T Update(T entity)
+        public async Task UpdateAsync(T item, T entity)
         {
-            var result = dataset.SingleOrDefault(e => e.Id.Equals(entity.Id));
-            if (result != null)
+            try
             {
-                try
-                {
-                    _context.Entry(result).CurrentValues.SetValues(entity);
-                    _context.SaveChanges();
-                    return entity;
+                _context.Entry(item).CurrentValues.SetValues(entity);
+                await _context.SaveChangesAsync();
 
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
             }
-            else
+            catch (Exception e)
             {
-                return null;
+                throw new Exception("Error in: " + e.Message);
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(T item)
         {
-            var result = dataset.SingleOrDefault(e => e.Id.Equals(id));
-            if (result != null)
-            {
+
                 try
                 {
-                    dataset.Remove(result);
-                    _context.SaveChanges();
+                   dataset.Remove(item);
+                   await  _context.SaveChangesAsync();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    throw;
-                }
+                throw new Exception("Error in: " + e.Message);
+                ;
             }
+            
         }
 
-        public bool Exists(int id)
+        public async Task<bool> ExistsAsync(int id)
         {
-            return dataset.Any(e => e.Id.Equals(id));
+            return await dataset.AnyAsync(e => e.Id.Equals(id));
         }
     }
 }

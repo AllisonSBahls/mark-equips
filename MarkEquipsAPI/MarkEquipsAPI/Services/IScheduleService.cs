@@ -1,15 +1,16 @@
 ﻿using MarkEquipsAPI.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Services
 {
     public interface IScheduleService
     {
-        Schedule Create(Schedule schedule);
-        Schedule FindByID(int id);
-        List<Schedule> FindAll();
-        Schedule Update(Schedule schedule);
-        void Delete(int id);
+        Task<Schedule> CreateAsync(Schedule schedule);
+        Task<Schedule> FindByIDAsync(int id);
+        Task<List<Schedule>> FindAllAsync();
+        Task UpdateAsync(Schedule schedule);
+        Task DeleteAsync(int id);
 
     }
 }

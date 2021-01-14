@@ -16,30 +16,36 @@ namespace MarkEquipsAPI.Services.Implementations
             _repository = repository;
         }
 
-        public Collaborator Create(Collaborator collaborator)
+        public async Task<List<Collaborator>> FindAllAsync()
         {
-            return _repository.Create(collaborator);
+            return await _repository.FindAllAsync();
         }
 
-        public void Delete(int id)
+        public async Task<Collaborator> FindByIDAsync(int id)
         {
-            _repository.Delete(id);
+            return await _repository.FindByIDAsync(id);
         }
 
-        public List<Collaborator> FindAll()
+        public async Task<Collaborator> CreateAsync(Collaborator collaborator)
         {
-            return _repository.FindAll();
+            return await _repository.CreateAsync(collaborator);
         }
 
-        public Collaborator FindByID(int id)
+        public async Task UpdateAsync(Collaborator collaborator)
         {
-            return _repository.FindByID(id);
+            var result = await _repository.FindByIDAsync(collaborator.Id);
+            if (result != null)
+            {
+                await _repository.UpdateAsync(result, collaborator);
+            }
         }
-
-
-        public Collaborator Update(Collaborator collaborator)
+        public async Task DeleteAsync(int id)
         {
-            return _repository.Update(collaborator);
+            var result = await _repository.FindByIDAsync(id);
+            if (result != null)
+            {
+                await _repository.DeleteAsync(result);
+            }
         }
 
     }

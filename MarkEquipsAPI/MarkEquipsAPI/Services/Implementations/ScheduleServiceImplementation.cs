@@ -17,29 +17,36 @@ namespace MarkEquipsAPI.Services.Implementations
             _repository = repository;
         }
 
-        public Schedule Create(Schedule schedule)
+        public async Task<List<Schedule>> FindAllAsync()
         {
-            return _repository.Create(schedule);
+            return await _repository.FindAllAsync();
         }
 
-        public void Delete(int id)
+        public async Task<Schedule> FindByIDAsync(int id)
         {
-            _repository.Delete(id);
+            return await _repository.FindByIDAsync(id);
         }
 
-        public List<Schedule> FindAll()
+        public async Task<Schedule> CreateAsync(Schedule schedule)
         {
-            return _repository.FindAll();
+            return await _repository.CreateAsync(schedule);
         }
 
-        public Schedule FindByID(int id)
+        public async Task UpdateAsync(Schedule schedule)
         {
-            return _repository.FindByID(id);
+            var result = await _repository.FindByIDAsync(schedule.Id);
+            if (result != null)
+            {
+                await _repository.UpdateAsync(result, schedule);
+            }
         }
-
-        public Schedule Update(Schedule schedule)
+        public async Task DeleteAsync(int id)
         {
-            return _repository.Update(schedule);
+            var result = await _repository.FindByIDAsync(id);
+            if (result != null)
+            {
+                await _repository.DeleteAsync(result);
+            }
         }
     }
 }

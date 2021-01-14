@@ -1,5 +1,6 @@
 ﻿using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,37 +21,41 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_entityService.FindAll());
+            return Ok( await _entityService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = _entityService.FindByID(id);
+            var result = await _entityService.FindByIDAsync(id);
             if (result == null) return NotFound();
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Post(Schedule schedule)
+        public async Task<IActionResult> Post(Schedule schedule)
         {
             if (schedule == null) return null;
-            return Ok(_entityService.Create(schedule));
+            await _entityService.CreateAsync(schedule);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
-        
+
         [HttpPut]
-        public IActionResult Put(Schedule schedule)
+        public async Task<IActionResult> Put(Schedule schedule)
         {
             if (schedule == null) return null;
-            return Ok(_entityService.Update(schedule));
+            await _entityService.UpdateAsync(schedule);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _entityService.Delete(id);
+            await _entityService.DeleteAsync(id);
             return NoContent();
         }
     }

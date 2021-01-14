@@ -61,7 +61,7 @@ namespace MarkEquipsAPI.Repository
             return result;
         }
 
-        public async Task DeleteAsync(int id, Reserver reserver)
+        public async Task DeleteAsync(Reserver reserver)
         {
             _context.Reservations.Remove(reserver);
             await _context.SaveChangesAsync();

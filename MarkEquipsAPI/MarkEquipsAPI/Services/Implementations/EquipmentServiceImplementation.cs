@@ -1,6 +1,7 @@
 ﻿using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Repository;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Services.Implementations
 {
@@ -13,31 +14,37 @@ namespace MarkEquipsAPI.Services.Implementations
             _repository = repository;
         }
 
-        public List<Equipment> FindAll()
+        public async Task<List<Equipment>> FindAllAsync()
         {
-            return _repository.FindAll();
+            return await _repository.FindAllAsync();
         }
 
-        public Equipment FindByID(int id)
+        public async Task<Equipment> FindByIDAsync(int id)
         {
-            return _repository.FindByID(id);
+            return await _repository.FindByIDAsync(id);
         }
 
-        public Equipment Create(Equipment equipment)
+        public async Task<Equipment> CreateAsync(Equipment equipment)
         {
-            
-            return _repository.Create(equipment);
+            return await _repository.CreateAsync(equipment);
         }
 
-        public Equipment Update(Equipment equipment)
+        public async Task UpdateAsync(Equipment equipment)
         {
-            return _repository.Update(equipment);
+            var result = await _repository.FindByIDAsync(equipment.Id);
+            if (result != null)
+            {
+                await _repository.UpdateAsync(result, equipment);
+            }
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var result = await _repository.FindByIDAsync(id);
+            if (result != null)
+            {
+                await _repository.DeleteAsync(result);
+            }
         }
 
-        public void Delete(int id)
-        {
-            _repository.Delete(id);
-        }
-      
     }
 }

@@ -1,7 +1,9 @@
 ﻿using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Controllers
 {
@@ -10,47 +12,53 @@ namespace MarkEquipsAPI.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class EquipmentsController : ControllerBase
     {
-        private readonly IEquipmentService _entitieService;
+        private readonly IEquipmentService _entityService;
         private readonly ILogger<EquipmentsController> _logger;
 
         public EquipmentsController(ILogger<EquipmentsController> logger, IEquipmentService entitieService)
         {
-            _entitieService = entitieService;
+            _entityService = entitieService;
             _logger = logger;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_entitieService.FindAll());
+            return Ok(await _entityService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var equip = _entitieService.FindByID(id);
-            if (equip == null) return NotFound();
-            return Ok(equip);
+            var result = await _entityService.FindByIDAsync(id);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
+
         [HttpPost]
-        public IActionResult Post([FromBody] Equipment equip)
+        public async Task<IActionResult> Post(Equipment equipment)
         {
-            if (equip == null) return BadRequest();
-            return Ok(_entitieService.Create(equip));
+            if (equipment == null) return null;
+            await _entityService.CreateAsync(equipment);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Equipment equip)
+        public async Task<IActionResult> Put(Equipment equipment)
         {
-            if (equip == null) return BadRequest();
-            return Ok(_entitieService.Update(equip));
+            if (equipment == null) return null;
+            await _entityService.UpdateAsync(equipment);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _entitieService.Delete(id);
+            await _entityService.DeleteAsync(id);
             return NoContent();
         }
     }
 }
+

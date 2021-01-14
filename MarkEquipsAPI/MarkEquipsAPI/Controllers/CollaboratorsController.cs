@@ -1,6 +1,7 @@
 ﻿using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Repository;
 using MarkEquipsAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,38 +22,43 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_entityService.FindAll());
+            return Ok(await _entityService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = _entityService.FindByID(id);
+            var result = await _entityService.FindByIDAsync(id);
             if (result == null) return NotFound();
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Post(Collaborator collaborator)
+        public async Task<IActionResult> Post(Collaborator scollaborator)
         {
-            if (collaborator == null) return null;
-            return Ok(_entityService.Create(collaborator));
+            if (scollaborator == null) return null;
+            await _entityService.CreateAsync(scollaborator);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
-        
+
         [HttpPut]
-        public IActionResult Put(Collaborator collaborator)
+        public async Task<IActionResult> Put(Collaborator scollaborator)
         {
-            if (collaborator == null) return null;
-            return Ok(_entityService.Update(collaborator));
+            if (scollaborator == null) return null;
+            await _entityService.UpdateAsync(scollaborator);
+            return this.StatusCode(StatusCodes.Status200OK);
+
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _entityService.Delete(id);
+            await _entityService.DeleteAsync(id);
             return NoContent();
         }
     }
 }
+

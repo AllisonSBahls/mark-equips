@@ -1,15 +1,16 @@
 ﻿using MarkEquipsAPI.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Services
 {
     public interface ICollaboratorService
     {
-        Collaborator Create(Collaborator collaborator);
-        Collaborator FindByID(int id);
-        List<Collaborator> FindAll();
-        Collaborator Update(Collaborator collaborator);
-        void Delete(int id);
+        Task<Collaborator> CreateAsync(Collaborator collaborator);
+        Task<Collaborator> FindByIDAsync(int id);
+        Task<List<Collaborator>> FindAllAsync();
+        Task UpdateAsync(Collaborator collaborator);
+        Task DeleteAsync(int id);
 
     }
 }

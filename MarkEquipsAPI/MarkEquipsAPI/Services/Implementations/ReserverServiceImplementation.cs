@@ -58,7 +58,7 @@ namespace MarkEquipsAPI.Services.Implementations
             {
                 var result = await _repository.FindByIdAsync(id);
                 if (result != null) { 
-                    await _repository.DeleteAsync(id, result);
+                    await _repository.DeleteAsync(result);
                 }
             }
             catch (Exception e)
