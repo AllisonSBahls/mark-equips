@@ -1,6 +1,5 @@
 .reservations-container{
     width: 90%;
-    margin-top: 40px;
     margin-left: 5%;
     background: var(--ligh-color);
 }
@@ -13,6 +12,7 @@ table {
 }
 
 .table {
+    border-top: #9e9e9e solid 1px;
     border-bottom: #9e9e9e solid 1px;
     width: 100%;
     margin-bottom: 20px;
