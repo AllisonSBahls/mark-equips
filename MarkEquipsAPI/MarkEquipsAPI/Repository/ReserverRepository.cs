@@ -22,10 +22,19 @@ namespace MarkEquipsAPI.Repository
         {
           
             var reservations = _context.Reservations
-                .Include(rs => rs.Schedules)
+                .Include(rs => rs.ReserverSchedules)
                    .ThenInclude(s => s.Schedule);
 
             return await reservations.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<Reserver> FindByIdAsync(int id)
+        {
+            var result = await _context.Reservations
+                .Include(rs => rs.ReserverSchedules)
+                   .ThenInclude(s => s.Schedule)
+                   .SingleOrDefaultAsync(p => p.Id.Equals(id));
+            return result;
         }
 
         public async Task AddReserverAsync(Reserver reserver)
@@ -55,11 +64,6 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-        public async Task<Reserver> FindByIdAsync(int id)
-        {
-            var result = await _context.Reservations.SingleOrDefaultAsync(p => p.Id.Equals(id));
-            return result;
-        }
 
         public async Task DeleteAsync(Reserver reserver)
         {

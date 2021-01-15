@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Models;
+﻿using MarkEquipsAPI.Data.DTO;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +36,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Equipment equipment)
+        public async Task<IActionResult> Post(EquipmentDto equipment)
         {
             if (equipment == null) return null;
             await _entityService.CreateAsync(equipment);
@@ -45,7 +45,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Equipment equipment)
+        public async Task<IActionResult> Put(EquipmentDto equipment)
         {
             if (equipment == null) return null;
             await _entityService.UpdateAsync(equipment);

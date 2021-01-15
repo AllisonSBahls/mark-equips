@@ -1,10 +1,7 @@
-﻿using MarkEquipsAPI.Models;
+﻿using MarkEquipsAPI.Data.DTO;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Controllers
@@ -35,7 +32,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Schedule schedule)
+        public async Task<IActionResult> Post(ScheduleDto schedule)
         {
             if (schedule == null) return null;
             await _entityService.CreateAsync(schedule);
@@ -44,7 +41,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Schedule schedule)
+        public async Task<IActionResult> Put(ScheduleDto schedule)
         {
             if (schedule == null) return null;
             await _entityService.UpdateAsync(schedule);

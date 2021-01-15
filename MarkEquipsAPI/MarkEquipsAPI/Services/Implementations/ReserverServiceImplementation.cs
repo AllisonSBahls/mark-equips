@@ -1,10 +1,10 @@
-﻿using MarkEquipsAPI.Models;
+﻿using AutoMapper;
+using MarkEquipsAPI.Data.DTO;
+using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Models.Enums;
-
 using MarkEquipsAPI.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -13,38 +13,45 @@ namespace MarkEquipsAPI.Services.Implementations
     public class ReserverServiceImplementation : IReserverService
     {
         private readonly ReserverRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ReserverServiceImplementation(ReserverRepository repository)
+        public ReserverServiceImplementation(ReserverRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<List<Reserver>> FindAllAsync()
+        public async Task<List<ReserverDto>> FindAllAsync()
         {
-            return await _repository.FindAllAsync();
+            var reservationsDto = await _repository.FindAllAsync();
+            return _mapper.Map<List<ReserverDto>>(reservationsDto);
         }
 
-        public async Task<Reserver> FindByIdAsync(int id)
+        public async Task<ReserverDto> FindByIdAsync(int id)
         {
-            return await _repository.FindByIdAsync(id);
+            var reservationsDto = await _repository.FindByIdAsync(id);
+            return _mapper.Map<ReserverDto>(reservationsDto); 
         }
 
-        public async Task AddReserverAsync(Reserver reserver)
+        public async Task AddReserverAsync(ReserverDto reserver)
         {
-            bool isValidate = await _repository.IsValidationAsync(reserver.EquipmentId, reserver.Schedules[0].ScheduleId, reserver.Date, ReserveStatus.RESERVED);
+            var result = _mapper.Map<Reserver>(reserver);
+            bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ReserverSchedules[0].ScheduleId, result.Date, ReserveStatus.RESERVED);
             Console.WriteLine(isValidate);
+
             if (isValidate)
             {
-                throw new Exception("Equipment already  registered with that same time and date, please choose another time or equipment \n");
+                throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
-            await _repository.AddReserverAsync(reserver);
+            await _repository.AddReserverAsync(result);
         }
 
         public async Task RevokeAsync(int id)
         {
-            try {
-            var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
-            await _repository.RevokeReserverAsync(statusUpdate);
+            try
+            {
+                var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
+                await _repository.RevokeReserverAsync(statusUpdate);
             }
             catch (Exception e)
             {
@@ -57,7 +64,8 @@ namespace MarkEquipsAPI.Services.Implementations
             try
             {
                 var result = await _repository.FindByIdAsync(id);
-                if (result != null) { 
+                if (result != null)
+                {
                     await _repository.DeleteAsync(result);
                 }
             }
@@ -67,7 +75,7 @@ namespace MarkEquipsAPI.Services.Implementations
             }
         }
 
- 
+
     }
 }
 

@@ -1,11 +1,7 @@
-﻿using MarkEquipsAPI.Models;
-using MarkEquipsAPI.Repository;
+﻿using MarkEquipsAPI.Data.DTO;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Controllers
@@ -36,19 +32,19 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Collaborator scollaborator)
+        public async Task<IActionResult> Post(CollaboratorDto collaborator)
         {
-            if (scollaborator == null) return null;
-            await _entityService.CreateAsync(scollaborator);
+            if (collaborator == null) return null;
+            await _entityService.CreateAsync(collaborator);
             return this.StatusCode(StatusCodes.Status200OK);
 
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Collaborator scollaborator)
+        public async Task<IActionResult> Put(CollaboratorDto collaborator)
         {
-            if (scollaborator == null) return null;
-            await _entityService.UpdateAsync(scollaborator);
+            if (collaborator == null) return null;
+            await _entityService.UpdateAsync(collaborator);
             return this.StatusCode(StatusCodes.Status200OK);
 
         }

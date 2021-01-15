@@ -1,4 +1,6 @@
-﻿using MarkEquipsAPI.Models;
+﻿using AutoMapper;
+using MarkEquipsAPI.Data.DTO;
+using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,35 +12,43 @@ namespace MarkEquipsAPI.Services.Implementations
     public class CollaboratorServiceImplementation : ICollaboratorService
     {
         private readonly IRepository<Collaborator> _repository;
+        private readonly IMapper _mapper;
 
-        public CollaboratorServiceImplementation(IRepository<Collaborator> repository)
+        public CollaboratorServiceImplementation(IRepository<Collaborator> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<List<Collaborator>> FindAllAsync()
+        public async Task<List<CollaboratorDto>> FindAllAsync()
         {
-            return await _repository.FindAllAsync();
+            var collaborator = await _repository.FindAllAsync();
+            return _mapper.Map<List<CollaboratorDto>>(collaborator);
         }
 
-        public async Task<Collaborator> FindByIDAsync(int id)
+        public async Task<CollaboratorDto> FindByIDAsync(int id)
         {
-            return await _repository.FindByIDAsync(id);
+            var collaborator = await _repository.FindByIDAsync(id);
+            return _mapper.Map<CollaboratorDto>(collaborator);
         }
 
-        public async Task<Collaborator> CreateAsync(Collaborator collaborator)
+        public async Task<CollaboratorDto> CreateAsync(CollaboratorDto collaborator)
         {
-            return await _repository.CreateAsync(collaborator);
+            var result = _mapper.Map<Collaborator>(collaborator);
+            result = await _repository.CreateAsync(result);
+            return _mapper.Map<CollaboratorDto>(result);
         }
 
-        public async Task UpdateAsync(Collaborator collaborator)
+        public async Task UpdateAsync(CollaboratorDto collaborator)
         {
-            var result = await _repository.FindByIDAsync(collaborator.Id);
+            var result = _mapper.Map<Collaborator>(collaborator);
+            var find = await _repository.FindByIDAsync(result.Id);
             if (result != null)
             {
-                await _repository.UpdateAsync(result, collaborator);
+                await _repository.UpdateAsync(find, result);
             }
         }
+
         public async Task DeleteAsync(int id)
         {
             var result = await _repository.FindByIDAsync(id);

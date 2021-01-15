@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Models;
+﻿using MarkEquipsAPI.Data.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace MarkEquipsAPI.Services
 {
     public interface IEquipmentService
     {
-        Task<Equipment> CreateAsync(Equipment equipment);
-        Task<Equipment> FindByIDAsync(int id);
-        Task<List<Equipment>> FindAllAsync();
-        Task UpdateAsync(Equipment equipment);
+        Task<EquipmentDto> CreateAsync(EquipmentDto equipment);
+        Task<EquipmentDto> FindByIDAsync(int id);
+        Task<List<EquipmentDto>> FindAllAsync();
+        Task UpdateAsync(EquipmentDto equipment);
         Task DeleteAsync(int id);
 
     }

@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Models;
+﻿using MarkEquipsAPI.Data.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace MarkEquipsAPI.Services
 {
     public interface IScheduleService
     {
-        Task<Schedule> CreateAsync(Schedule schedule);
-        Task<Schedule> FindByIDAsync(int id);
-        Task<List<Schedule>> FindAllAsync();
-        Task UpdateAsync(Schedule schedule);
+        Task<ScheduleDto> CreateAsync(ScheduleDto schedule);
+        Task<ScheduleDto> FindByIDAsync(int id);
+        Task<List<ScheduleDto>> FindAllAsync();
+        Task UpdateAsync(ScheduleDto schedule);
         Task DeleteAsync(int id);
 
     }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MarkEquipsAPI.Repository.Generic;
+using AutoMapper;
 
 namespace MarkEquipsAPI
 {
@@ -26,6 +27,7 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -33,7 +35,9 @@ namespace MarkEquipsAPI
 
             services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(connection));
 
+
             services.AddApiVersioning();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<SeedingReservations>();
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
