@@ -1,9 +1,62 @@
-.main-navbar{
-    background-color: var(--primary-color);
-    height: 3em;
-    color: var(--ligh-color);
+.container-navbar{
+    display: flex;
+
 }
 
-.text-navbar-main{
+.main-navbar{
+    background-color:var(--primary-color);
+    height: 1.8em;
+    padding-left: 40px;
+    color: var(--ligh-color);
+    display: flex;
+    align-items: center;
+}
+
+.text-main-navbar{
+    font-size: 0.9em;
+}
+
+.menu-main-navbar{
+    display: flex;
+    list-style: none;
+    font-size: 0.85em;
+}
+.menu-main-navbar li{
+    margin-left: 10%;
     
+}
+
+.menu-main-navbar li a {
+    color: var(--ligh-color);
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    padding-right: 10%;
+    padding-left: 15%;
+    transition: all .5s;
+    border: 1px solid transparent;
+}
+
+
+.menu-main-navbar li a:hover{
+    background-color:var(--primary-hover-color);
+    border: 1px solid var(--ligh-color);
+    border-radius: 10%;
+}
+
+.description-container{
+    background: var(--ligh-color);
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5em;
+    color: var(--dark-color);
+    font-size: 0.6em;
+    border-bottom: 1px solid rgb(184, 182, 182);
+}
+
+.description-container h1{
+    border-left: 1px solid lack;
+    margin-top: 1em;
+    margin-left: 40px;
+
 }
