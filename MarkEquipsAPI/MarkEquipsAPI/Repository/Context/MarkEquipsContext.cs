@@ -18,7 +18,7 @@ namespace MarkEquipsAPI.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReserverSchedule>()
-                .HasKey(RS => new { RS.ReserverId, RS.ScheduleId });
+                .HasKey(RS => new { RS.ScheduleId, RS.ReserverId });
         }
     }
 }

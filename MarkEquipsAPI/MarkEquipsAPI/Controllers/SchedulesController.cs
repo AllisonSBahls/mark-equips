@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Data.DTO;
+﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

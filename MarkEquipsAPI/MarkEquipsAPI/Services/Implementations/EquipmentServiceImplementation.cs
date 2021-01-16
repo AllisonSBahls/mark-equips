@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarkEquipsAPI.Data.DTO;
+using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Repository;
 using System.Collections.Generic;

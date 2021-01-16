@@ -2,7 +2,7 @@
 {
     public enum LevelPermission
     {
-        ADMINISTRATOR,
-        STANDARD
+        ADMINISTRATOR = 1,
+        STANDARD = 2
     }
 }

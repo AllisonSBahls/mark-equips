@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarkEquipsAPI.Data.DTO;
+using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Models.Enums;
 using MarkEquipsAPI.Repository;
@@ -21,10 +21,9 @@ namespace MarkEquipsAPI.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<List<ReserverDto>> FindAllAsync()
+        public async Task<List<ReserverSchedule>> FindAllAsync()
         {
-            var reservationsDto = await _repository.FindAllAsync();
-            return _mapper.Map<List<ReserverDto>>(reservationsDto);
+            return await _repository.FindAllAsync(); ;
         }
 
         public async Task<ReserverDto> FindByIdAsync(int id)
@@ -33,24 +32,22 @@ namespace MarkEquipsAPI.Services.Implementations
             return _mapper.Map<ReserverDto>(reservationsDto); 
         }
 
-        public async Task AddReserverAsync(ReserverDto reserver)
+        public async Task AddReserverAsync(Reserver reserver)
         {
-            var result = _mapper.Map<Reserver>(reserver);
-            bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ReserverSchedules[0].ScheduleId, result.Date, ReserveStatus.RESERVED);
-            Console.WriteLine(isValidate);
+            bool isValidate = await _repository.IsValidationAsync(reserver.EquipmentId, reserver.ReserverSchedules[0].ScheduleId, reserver.Date, ReserveStatus.RESERVED);
 
             if (isValidate)
             {
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
-            await _repository.AddReserverAsync(result);
+            await _repository.AddReserverAsync(reserver);
         }
 
         public async Task RevokeAsync(int id)
         {
             try
             {
-                var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
+                var statusUpdate = new ReserverSchedule() { ReserverId = id, Status = ReserveStatus.CANCELED };
                 await _repository.RevokeReserverAsync(statusUpdate);
             }
             catch (Exception e)

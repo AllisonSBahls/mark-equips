@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MarkEquipsAPI.Data.DTO
+﻿namespace MarkEquipsAPI.Data.DTOs
 {
     public class EquipmentDto
     {

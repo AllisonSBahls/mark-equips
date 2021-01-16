@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Data.DTO;
+﻿using MarkEquipsAPI.Data.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

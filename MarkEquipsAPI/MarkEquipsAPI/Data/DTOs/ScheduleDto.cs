@@ -1,7 +1,7 @@
 ﻿using MarkEquipsAPI.Models.Enums;
 using System.Collections.Generic;
 
-namespace MarkEquipsAPI.Data.DTO
+namespace MarkEquipsAPI.Data.DTOs
 {
     public class ScheduleDto
     {
@@ -9,7 +9,8 @@ namespace MarkEquipsAPI.Data.DTO
         public string HourInitial { get; set; }
         public string HourFinal { get; set; }
         public int Period { get; set; }
-        public List<ReserverDto> Reserves { get; set; }
+        public ReserverScheduleDto Status { get; }
+
 
     }
 }

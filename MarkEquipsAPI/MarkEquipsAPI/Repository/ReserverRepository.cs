@@ -18,12 +18,12 @@ namespace MarkEquipsAPI.Repository
         {
             _context = context;
         }
-        public async Task<List<Reserver>> FindAllAsync()
+        public async Task<List<ReserverSchedule>> FindAllAsync()
         {
           
-            var reservations = _context.Reservations
-                .Include(rs => rs.ReserverSchedules)
-                   .ThenInclude(s => s.Schedule);
+            var reservations = _context.ReserverSchedules
+                .Include(rs => rs.Reserver)
+                   .Include(s => s.Schedule);
 
             return await reservations.AsNoTracking().ToListAsync();
         }
@@ -33,6 +33,7 @@ namespace MarkEquipsAPI.Repository
             var result = await _context.Reservations
                 .Include(rs => rs.ReserverSchedules)
                    .ThenInclude(s => s.Schedule)
+               
                    .SingleOrDefaultAsync(p => p.Id.Equals(id));
             return result;
         }
@@ -51,10 +52,10 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-        public async Task RevokeReserverAsync(Reserver reserver)
+        public async Task RevokeReserverAsync(ReserverSchedule reserver)
         {
             try { 
-            _context.Reservations.Attach(reserver);
+            _context.ReserverSchedules.Attach(reserver);
             _context.Entry(reserver).Property(x => x.Status).IsModified = true;
             await _context.SaveChangesAsync();
             }
@@ -77,14 +78,13 @@ namespace MarkEquipsAPI.Repository
         public async Task<bool> IsValidationAsync(int equipId, int schedId, DateTime date, ReserveStatus status)
         {
             var validate = _context.ReserverSchedules
-                    .Where(s => s.ScheduleId.Equals(schedId))
+                    .Where(s => s.ScheduleId.Equals(schedId)
+                            && s.Status.Equals(status))
                 .Include(r => r.Reserver)
                     .Where(r => r.Reserver.EquipmentId.Equals(equipId)
-                        && r.Reserver.Date.Equals(date)
-                        && r.Reserver.Status.Equals(status));
+                        && r.Reserver.Date.Equals(date));
                         
-
-            return await validate.AnyAsync() ? true : false;
+            return await validate.AnyAsync();
         }
     }
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MarkEquipsAPI.Models.Enums;
 
 namespace MarkEquipsAPI.Models
 {
     public class ReserverSchedule
     {
         public int ReserverId { get; set; }
-        public Reserver Reserver { get; set; }
+        public virtual Reserver Reserver { get; set; }
         public int ScheduleId { get; set; }
-        public Schedule Schedule { get; set; }
+        public virtual Schedule Schedule { get; set; }
+        public ReserveStatus Status { get; set; }
+
     }
 }

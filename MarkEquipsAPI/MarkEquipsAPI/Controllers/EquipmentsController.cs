@@ -1,4 +1,4 @@
-﻿using MarkEquipsAPI.Data.DTO;
+﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +13,13 @@ namespace MarkEquipsAPI.Controllers
     public class EquipmentsController : ControllerBase
     {
         private readonly IEquipmentService _entityService;
-        private readonly ILogger<EquipmentsController> _logger;
+        //private readonly ILogger<EquipmentsController> _logger;
 
-        public EquipmentsController(ILogger<EquipmentsController> logger, IEquipmentService entitieService)
+        public EquipmentsController(//ILogger<EquipmentsController> logger, 
+            IEquipmentService entitieService)
         {
             _entityService = entitieService;
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpGet]

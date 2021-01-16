@@ -2,8 +2,8 @@
 {
     public enum PeriodDay
     {
-        MORNING,
-        EVERNING,
-        NIGHT
+        MORNING = 1,
+        EVERNING = 2,
+        NIGHT = 3
     }
 }

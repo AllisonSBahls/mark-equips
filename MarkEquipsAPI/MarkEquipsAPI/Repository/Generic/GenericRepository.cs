@@ -11,7 +11,7 @@ namespace MarkEquipsAPI.Repository.Generic
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly MarkEquipsContext _context;
-        private DbSet<T> dataset;
+        private readonly DbSet<T> dataset;
 
         public GenericRepository(MarkEquipsContext context)
         {

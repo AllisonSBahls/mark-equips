@@ -1,4 +1,5 @@
-﻿using MarkEquipsAPI.Data.DTO;
+﻿using MarkEquipsAPI.Data.DTOs;
+using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(ReserverDto reserver)
+        public async Task<IActionResult> Post(Reserver reserver)
         {
             if (reserver == null) return this.StatusCode(StatusCodes.Status404NotFound);
             await _entityService.AddReserverAsync(reserver);
