@@ -12,8 +12,8 @@ namespace MarkEquipsAPI.Data.DTOs
         public CollaboratorDto Collaborator { get; set; }
         public int EquipmentId { get; set; }
         public EquipmentDto Equipment { get; set; }
-        public List<ScheduleDto> Schedules { get; set; }
-
+        public int ScheduleId { get; set; }
+        public ScheduleDto Schedules { get; set; }
     }
 
    

@@ -11,6 +11,7 @@ namespace MarkEquipsAPI.Models
         public string HourInitial { get; set; }
         public string HourFinal { get; set; }
         public PeriodDay Period { get; set; }
-        public List<ReserverSchedule> ReserverSchedules { get; set; }
+        public List<Reserver> Reserver { get; set; }
+
     }
 }

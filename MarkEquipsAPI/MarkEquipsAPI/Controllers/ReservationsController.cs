@@ -32,7 +32,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Reserver reserver)
+        public async Task<IActionResult> Post(ReserverDto reserver)
         {
             if (reserver == null) return this.StatusCode(StatusCodes.Status404NotFound);
             await _entityService.AddReserverAsync(reserver);

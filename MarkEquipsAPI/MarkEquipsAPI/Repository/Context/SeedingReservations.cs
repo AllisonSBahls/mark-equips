@@ -41,7 +41,7 @@ namespace MarkEquipsAPI.Repository.Context
             Collaborator c4 = new Collaborator() { Id = 4, Name = "Eline Alburquerque", User = "eline", Password = "qewg", Permission = LevelPermission.STANDARD };
             Collaborator c5 = new Collaborator() { Id = 5, Name = "Priscila Fonseca", User = "priscila", Password = "fghf", Permission = LevelPermission.ADMINISTRATOR };
 
-            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = "08:00:00", HourFinal = "09:00:00"};
+            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = "08:00:00", HourFinal = "09:00:00" };
             Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = "09:00:00", HourFinal = "10:00:00" };
             Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = "10:00:00", HourFinal = "11:00:00" };
             Schedule t1 = new Schedule() { Id = 4, Period = PeriodDay.EVERNING, HourInitial = "14:00:00", HourFinal = "15:00:00" };
@@ -51,62 +51,28 @@ namespace MarkEquipsAPI.Repository.Context
             Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = "20:00:00", HourFinal = "21:00:00" };
             Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = "21:00:00", HourFinal = "22:00:00" };
 
-            Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), Collaborator = c1, Equipment = e1 };
-            Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), Collaborator = c2, Equipment = e9 };
-            Reserver r3 = new Reserver() { Id = 3, Date = new DateTime(2021, 1, 20), Collaborator = c2, Equipment = e2 };
-            Reserver r4 = new Reserver() { Id = 4, Date = new DateTime(2021, 3, 15), Collaborator = c4, Equipment = e4 };
-            Reserver r5 = new Reserver() { Id = 5, Date = new DateTime(2021, 4, 12), Collaborator = c5, Equipment = e7 };
-            Reserver r6 = new Reserver() { Id = 6, Date = new DateTime(2021, 1, 17),  Collaborator = c2, Equipment = e10 };
-            Reserver r7 = new Reserver() { Id = 7, Date = new DateTime(2021, 1, 17), Collaborator = c3, Equipment = e10 };
-            Reserver r8 = new Reserver() { Id = 8, Date = new DateTime(2021, 1, 10), Collaborator = c4, Equipment = e3 };
-            Reserver r9 = new Reserver() { Id = 9, Date = new DateTime(2021, 1, 16),  Collaborator = c1, Equipment = e4 };
-            Reserver r10 = new Reserver() { Id =10, Date = new DateTime(2021, 1, 18),  Collaborator = c3, Equipment = e5 };
-            Reserver r11 = new Reserver() { Id = 11, Date = new DateTime(2021, 1, 30), Collaborator = c2, Equipment = e6 };
-            Reserver r12 = new Reserver() { Id = 12, Date = new DateTime(2021, 1, 28), Collaborator = c3, Equipment = e7 };
-            Reserver r13 = new Reserver() { Id = 13, Date = new DateTime(2021, 1, 21),  Collaborator = c4, Equipment = e8 };
-            Reserver r14 = new Reserver() { Id = 14, Date = new DateTime(2021, 1, 21),  Collaborator = c5, Equipment = e9 };
+            Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), Collaborator = c1, Equipment = e1, Schedules = m1 };
+            Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), Collaborator = c2, Equipment = e9, Schedules = n2 };
+            Reserver r3 = new Reserver() { Id = 3, Date = new DateTime(2021, 1, 20), Collaborator = c2, Equipment = e2, Schedules = n3 };
+            Reserver r4 = new Reserver() { Id = 4, Date = new DateTime(2021, 3, 15), Collaborator = c4, Equipment = e4, Schedules = t1 };
+            Reserver r5 = new Reserver() { Id = 5, Date = new DateTime(2021, 4, 12), Collaborator = c5, Equipment = e7, Schedules = t2 };
+            Reserver r6 = new Reserver() { Id = 6, Date = new DateTime(2021, 1, 17),  Collaborator = c2, Equipment = e10, Schedules = t3 };
+            Reserver r7 = new Reserver() { Id = 7, Date = new DateTime(2021, 1, 17), Collaborator = c3, Equipment = e10, Schedules = t2 };
+            Reserver r8 = new Reserver() { Id = 8, Date = new DateTime(2021, 1, 10), Collaborator = c4, Equipment = e3, Schedules = m3 };
+            Reserver r9 = new Reserver() { Id = 9, Date = new DateTime(2021, 1, 16),  Collaborator = c1, Equipment = e4, Schedules = n2 };
+            Reserver r10 = new Reserver() { Id =10, Date = new DateTime(2021, 1, 18),  Collaborator = c3, Equipment = e5, Schedules = m1 };
+            Reserver r11 = new Reserver() { Id = 11, Date = new DateTime(2021, 1, 30), Collaborator = c2, Equipment = e6, Schedules = m2 };
+            Reserver r12 = new Reserver() { Id = 12, Date = new DateTime(2021, 1, 28), Collaborator = c3, Equipment = e7, Schedules = n2 };
+            Reserver r13 = new Reserver() { Id = 13, Date = new DateTime(2021, 1, 21),  Collaborator = c4, Equipment = e8, Schedules = n2 };
+            Reserver r14 = new Reserver() { Id = 14, Date = new DateTime(2021, 1, 21),  Collaborator = c5, Equipment = e9, Schedules = t2 };
 
-            ReserverSchedule rs1 = new ReserverSchedule() { Reserver = r1, Schedule = m1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs2 = new ReserverSchedule() { Reserver = r2, Schedule = m2, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs3 = new ReserverSchedule() { Reserver = r3, Schedule = m3, Status = ReserveStatus.FINISHED };
-            ReserverSchedule rs4 = new ReserverSchedule() { Reserver = r4, Schedule = t2, Status = ReserveStatus.FINISHED };
-            ReserverSchedule rs5 = new ReserverSchedule() { Reserver = r5, Schedule = t1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs6 = new ReserverSchedule() { Reserver = r6, Schedule = t3, Status = ReserveStatus.USING };
-            ReserverSchedule rs7 = new ReserverSchedule() { Reserver = r7, Schedule = n1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs8 = new ReserverSchedule() { Reserver = r8, Schedule = n2, Status = ReserveStatus.USING };
-            ReserverSchedule rs9 = new ReserverSchedule() { Reserver = r9, Schedule = n3, Status = ReserveStatus.USING };
-            ReserverSchedule rs10 = new ReserverSchedule() { Reserver = r10, Schedule = m1, Status = ReserveStatus.USING };
-            ReserverSchedule rs11 = new ReserverSchedule() { Reserver = r11, Schedule = n1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs12 = new ReserverSchedule() { Reserver = r12, Schedule = t1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs13 = new ReserverSchedule() { Reserver = r13, Schedule = t3, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs14 = new ReserverSchedule() { Reserver = r14, Schedule = n1, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs15 = new ReserverSchedule() { Reserver = r1, Schedule = m2, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs16 = new ReserverSchedule() { Reserver = r2, Schedule = m3, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs17 = new ReserverSchedule() { Reserver = r4, Schedule = n3, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs18 = new ReserverSchedule() { Reserver = r5, Schedule = n3, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs19 = new ReserverSchedule() { Reserver = r7, Schedule = n3, Status = ReserveStatus.RESERVED };
-            ReserverSchedule rs20 = new ReserverSchedule() { Reserver = r14, Schedule = m2, Status = ReserveStatus.RESERVED };
-
-
-            ReserverSchedule rs21 = new ReserverSchedule() { Reserver = r13, Schedule = m1 };
-            ReserverSchedule rs22 = new ReserverSchedule() { Reserver = r10, Schedule = m3 };
-            ReserverSchedule rs23 = new ReserverSchedule() { Reserver = r12, Schedule = t2 };
-            ReserverSchedule rs24 = new ReserverSchedule() { Reserver = r14, Schedule = t3 };
-            ReserverSchedule rs25 = new ReserverSchedule() { Reserver = r5, Schedule = t2 };
-            ReserverSchedule rs26 = new ReserverSchedule() { Reserver = r12, Schedule = m1 };
-            ReserverSchedule rs27 = new ReserverSchedule() { Reserver = r1, Schedule = m3 };
-            ReserverSchedule rs28 = new ReserverSchedule() { Reserver = r4, Schedule = m2 };
-            ReserverSchedule rs29 = new ReserverSchedule() { Reserver = r8, Schedule = n3 };
-            ReserverSchedule rs30 = new ReserverSchedule() { Reserver = r9, Schedule = m3 };
-            ReserverSchedule rs31 = new ReserverSchedule() { Reserver = r10, Schedule = t1 };
-            ReserverSchedule rs32 = new ReserverSchedule() { Reserver = r11, Schedule = t1 };
+           
 
 
             _context.Equipments.AddRange(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
             _context.Collaborators.AddRange(c1, c2, c3, c4, c5);
             _context.Schedules.AddRange(m1, m2, m3, t1, t2, t3, n1, n2, n3);
             _context.Reservations.AddRange(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14);
-            _context.ReserverSchedules.AddRange(rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12, rs13, rs14, rs15, rs16, rs17, rs18, rs19, rs20, rs15, rs16, rs17, rs18, rs19, rs20, rs21, rs22, rs23, rs24, rs25, rs26, rs27, rs28, rs29, rs30, rs31, rs32);
             _context.SaveChanges();
             
             //, rs15, rs16,rs17,rs18,rs19,rs20,rs21,rs22,rs23, rs24,rs25,rs26,rs27,rs28,rs29,rs30,rs31,rs32

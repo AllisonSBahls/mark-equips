@@ -21,9 +21,10 @@ namespace MarkEquipsAPI.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<List<ReserverSchedule>> FindAllAsync()
+        public async Task<List<ReserverDto>> FindAllAsync()
         {
-            return await _repository.FindAllAsync(); ;
+            var result = await _repository.FindAllAsync();
+            return _mapper.Map<List<ReserverDto>>(result);
         }
 
         public async Task<ReserverDto> FindByIdAsync(int id)
@@ -32,22 +33,24 @@ namespace MarkEquipsAPI.Services.Implementations
             return _mapper.Map<ReserverDto>(reservationsDto); 
         }
 
-        public async Task AddReserverAsync(Reserver reserver)
+        public async Task AddReserverAsync(ReserverDto reserver)
         {
-            bool isValidate = await _repository.IsValidationAsync(reserver.EquipmentId, reserver.ReserverSchedules[0].ScheduleId, reserver.Date, ReserveStatus.RESERVED);
 
+            var result = _mapper.Map<Reserver>(reserver);
+            Console.WriteLine(result.EquipmentId+ " " + result.ScheduleId + " " + result.Date);
+            bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ScheduleId, result.Date, ReserveStatus.RESERVED);
             if (isValidate)
             {
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
-            await _repository.AddReserverAsync(reserver);
+            await _repository.AddReserverAsync(result);
         }
 
         public async Task RevokeAsync(int id)
         {
             try
             {
-                var statusUpdate = new ReserverSchedule() { ReserverId = id, Status = ReserveStatus.CANCELED };
+                var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
                 await _repository.RevokeReserverAsync(statusUpdate);
             }
             catch (Exception e)

@@ -18,22 +18,22 @@ namespace MarkEquipsAPI.Repository
         {
             _context = context;
         }
-        public async Task<List<ReserverSchedule>> FindAllAsync()
+        public async Task<List<Reserver>> FindAllAsync()
         {
-          
-            var reservations = _context.ReserverSchedules
-                .Include(rs => rs.Reserver)
-                   .Include(s => s.Schedule);
+            var result = await _context.Reservations
+                .Include(c => c.Collaborator)
+                .Include(e => e.Equipment)
+                .Include(s => s.Schedules).AsNoTracking().ToListAsync();
 
-            return await reservations.AsNoTracking().ToListAsync();
+            return result;
         }
 
         public async Task<Reserver> FindByIdAsync(int id)
         {
             var result = await _context.Reservations
-                .Include(rs => rs.ReserverSchedules)
-                   .ThenInclude(s => s.Schedule)
-               
+                .Include(c => c.Collaborator)
+                .Include(e => e.Equipment)
+                .Include(s => s.Schedules).AsNoTracking()
                    .SingleOrDefaultAsync(p => p.Id.Equals(id));
             return result;
         }
@@ -52,10 +52,10 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-        public async Task RevokeReserverAsync(ReserverSchedule reserver)
+        public async Task RevokeReserverAsync(Reserver reserver)
         {
             try { 
-            _context.ReserverSchedules.Attach(reserver);
+            _context.Reservations.Attach(reserver);
             _context.Entry(reserver).Property(x => x.Status).IsModified = true;
             await _context.SaveChangesAsync();
             }
@@ -77,12 +77,11 @@ namespace MarkEquipsAPI.Repository
          */
         public async Task<bool> IsValidationAsync(int equipId, int schedId, DateTime date, ReserveStatus status)
         {
-            var validate = _context.ReserverSchedules
+            var validate = _context.Reservations
                     .Where(s => s.ScheduleId.Equals(schedId)
-                            && s.Status.Equals(status))
-                .Include(r => r.Reserver)
-                    .Where(r => r.Reserver.EquipmentId.Equals(equipId)
-                        && r.Reserver.Date.Equals(date));
+                            && s.Status.Equals(status)
+                            && s.EquipmentId.Equals(equipId)
+                            && s.Date.Equals(date));
                         
             return await validate.AnyAsync();
         }

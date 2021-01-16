@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MarkEquipsAPI.Models.Enums;
+using System;
 
 namespace MarkEquipsAPI.Models
 {
@@ -11,6 +11,8 @@ namespace MarkEquipsAPI.Models
         public Collaborator Collaborator { get; set; }
         public int EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
-        public List<ReserverSchedule> ReserverSchedules { get; set; }
+        public int ScheduleId { get; set; }
+        public Schedule Schedules { get; set; }
+        public ReserveStatus Status { get; set; }
     }
 }

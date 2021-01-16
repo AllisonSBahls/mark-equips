@@ -9,7 +9,7 @@ namespace MarkEquipsAPI.Data.DTOs
         public string HourInitial { get; set; }
         public string HourFinal { get; set; }
         public int Period { get; set; }
-        public ReserverScheduleDto Status { get; }
+        public int Status { get; set; }
 
 
     }
