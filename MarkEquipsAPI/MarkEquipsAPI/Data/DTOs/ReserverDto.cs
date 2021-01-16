@@ -6,9 +6,6 @@ namespace MarkEquipsAPI.Data.DTOs
 {
     public class ReserverDto
     {
-
-        CollaboratorDto cd = new CollaboratorDto();
-
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int CollaboratorId { get; set; }

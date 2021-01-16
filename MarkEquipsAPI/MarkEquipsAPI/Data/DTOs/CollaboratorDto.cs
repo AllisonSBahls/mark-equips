@@ -9,6 +9,5 @@ namespace MarkEquipsAPI.Data.DTOs
         public string User { get; set; }
         public string Password { get; set; }
         public int Permission { get; set; }
-        public List<ReserverDto> Reservations { get; set; }
     }
 }

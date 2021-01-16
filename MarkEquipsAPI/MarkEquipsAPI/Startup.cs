@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MarkEquipsAPI.Repository.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
 
 namespace MarkEquipsAPI
 {
@@ -35,6 +37,12 @@ namespace MarkEquipsAPI
 
             services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(connection));
 
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            }).AddXmlSerializerFormatters();
 
             services.AddApiVersioning();
             services.AddAutoMapper(typeof(Startup));
@@ -58,6 +66,7 @@ namespace MarkEquipsAPI
                 app.UseDeveloperExceptionPage();
                 seedingReservations.Seed();
             }
+
 
             app.UseHttpsRedirection();
 

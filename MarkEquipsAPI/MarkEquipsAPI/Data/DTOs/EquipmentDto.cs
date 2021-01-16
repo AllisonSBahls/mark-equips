@@ -9,7 +9,6 @@ namespace MarkEquipsAPI.Data.DTOs
         public string Description { get; set; }
         public int Number { get; set; }
         public string ImageURL { get; set; }
-        public List<ReserverDto> Reservations { get; set; }
 
     }
 }
