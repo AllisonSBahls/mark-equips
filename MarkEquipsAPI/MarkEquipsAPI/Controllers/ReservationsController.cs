@@ -49,7 +49,7 @@ namespace MarkEquipsAPI.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("Error in Update Controller Reserver" + e.Message);
+                throw new Exception("Error in Update Controller Reservations" + e.Message);
             }
         }
 

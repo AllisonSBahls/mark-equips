@@ -19,11 +19,13 @@ namespace MarkEquipsAPI.Data.AutoMapper
 
             CreateMap<Schedule, ScheduleDto>().ReverseMap();
 
-            CreateMap<Reserver, ReserverDto>().ReverseMap();
-         
-            
+            CreateMap<Reserver, ReserverDto>()
+                .ForMember(dest => dest.Collaborator, opt=> opt.MapFrom(src => src.Collaborator.Name))
+                .ForMember(dest => dest.Equipment, opt => opt.MapFrom(src => src.Equipment.Name))
+                .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => src.Schedule))
+                .ForMember(dest => dest.NumberEquipment, opt => opt.MapFrom(src => src.Equipment.Number));
 
- 
+            CreateMap<ReserverDto, Reserver>();
 
         }
     }

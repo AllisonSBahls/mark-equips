@@ -23,7 +23,7 @@ namespace MarkEquipsAPI.Repository
             var result = await _context.Reservations
                 .Include(c => c.Collaborator)
                 .Include(e => e.Equipment)
-                .Include(s => s.Schedules).AsNoTracking().ToListAsync();
+                .Include(s => s.Schedule).AsNoTracking().OrderBy(x=>x.Id).ToListAsync();
 
             return result;
         }
@@ -33,7 +33,7 @@ namespace MarkEquipsAPI.Repository
             var result = await _context.Reservations
                 .Include(c => c.Collaborator)
                 .Include(e => e.Equipment)
-                .Include(s => s.Schedules).AsNoTracking()
+                .Include(s => s.Schedule).AsNoTracking()
                    .SingleOrDefaultAsync(p => p.Id.Equals(id));
             return result;
         }
@@ -48,7 +48,7 @@ namespace MarkEquipsAPI.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error in Insert Reserver " + e.Message);
+                throw new Exception("Error in Insert Reservations " + e.Message);
             }
         }
 
@@ -61,7 +61,7 @@ namespace MarkEquipsAPI.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error in Update Reserver" + e.Message);
+                throw new Exception("Error in Update Reservations" + e.Message);
             }
         }
 

@@ -12,7 +12,7 @@ namespace MarkEquipsAPI.Models
         public int EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
         public int ScheduleId { get; set; }
-        public Schedule Schedules { get; set; }
+        public Schedule Schedule { get; set; }
         public ReserveStatus Status { get; set; }
     }
 }

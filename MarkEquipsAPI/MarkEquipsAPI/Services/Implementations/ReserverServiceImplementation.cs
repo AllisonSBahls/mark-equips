@@ -37,12 +37,14 @@ namespace MarkEquipsAPI.Services.Implementations
         {
 
             var result = _mapper.Map<Reserver>(reserver);
-            Console.WriteLine(result.EquipmentId+ " " + result.ScheduleId + " " + result.Date);
             bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ScheduleId, result.Date, ReserveStatus.RESERVED);
+            Console.WriteLine(isValidate);
             if (isValidate)
             {
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
+            result.Status = ReserveStatus.RESERVED;
+            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.CollaboratorId) ;
             await _repository.AddReserverAsync(result);
         }
 
@@ -55,7 +57,7 @@ namespace MarkEquipsAPI.Services.Implementations
             }
             catch (Exception e)
             {
-                throw new Exception("Error in Update Reserver" + e.Message);
+                throw new Exception("Error in Update Reservations" + e.Message);
             }
         }
 

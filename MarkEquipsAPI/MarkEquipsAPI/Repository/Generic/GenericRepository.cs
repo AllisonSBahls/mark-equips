@@ -21,7 +21,8 @@ namespace MarkEquipsAPI.Repository.Generic
 
         public async Task<List<T>> FindAllAsync()
         {
-            return await dataset.ToListAsync();
+            return await dataset.Include("Reservations").
+                ToListAsync();
         }
 
         public async Task<T> FindByIDAsync(int id)

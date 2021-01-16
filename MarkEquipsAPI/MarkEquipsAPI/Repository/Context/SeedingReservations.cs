@@ -40,7 +40,7 @@ namespace MarkEquipsAPI.Repository.Context
             Collaborator c3 = new Collaborator() { Id = 3, Name = "Elizangela Martins", User = "elizangela", Password = "asdd", Permission = LevelPermission.STANDARD };
             Collaborator c4 = new Collaborator() { Id = 4, Name = "Eline Alburquerque", User = "eline", Password = "qewg", Permission = LevelPermission.STANDARD };
             Collaborator c5 = new Collaborator() { Id = 5, Name = "Priscila Fonseca", User = "priscila", Password = "fghf", Permission = LevelPermission.ADMINISTRATOR };
-
+            /*
             Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = "08:00:00", HourFinal = "09:00:00" };
             Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = "09:00:00", HourFinal = "10:00:00" };
             Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = "10:00:00", HourFinal = "11:00:00" };
@@ -50,21 +50,32 @@ namespace MarkEquipsAPI.Repository.Context
             Schedule n1 = new Schedule() { Id = 7, Period = PeriodDay.NIGHT, HourInitial = "19:00:00", HourFinal = "20:00:00" };
             Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = "20:00:00", HourFinal = "21:00:00" };
             Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = "21:00:00", HourFinal = "22:00:00" };
+            */
 
-            Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), Collaborator = c1, Equipment = e1, Schedules = m1 };
-            Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), Collaborator = c2, Equipment = e9, Schedules = n2 };
-            Reserver r3 = new Reserver() { Id = 3, Date = new DateTime(2021, 1, 20), Collaborator = c2, Equipment = e2, Schedules = n3 };
-            Reserver r4 = new Reserver() { Id = 4, Date = new DateTime(2021, 3, 15), Collaborator = c4, Equipment = e4, Schedules = t1 };
-            Reserver r5 = new Reserver() { Id = 5, Date = new DateTime(2021, 4, 12), Collaborator = c5, Equipment = e7, Schedules = t2 };
-            Reserver r6 = new Reserver() { Id = 6, Date = new DateTime(2021, 1, 17),  Collaborator = c2, Equipment = e10, Schedules = t3 };
-            Reserver r7 = new Reserver() { Id = 7, Date = new DateTime(2021, 1, 17), Collaborator = c3, Equipment = e10, Schedules = t2 };
-            Reserver r8 = new Reserver() { Id = 8, Date = new DateTime(2021, 1, 10), Collaborator = c4, Equipment = e3, Schedules = m3 };
-            Reserver r9 = new Reserver() { Id = 9, Date = new DateTime(2021, 1, 16),  Collaborator = c1, Equipment = e4, Schedules = n2 };
-            Reserver r10 = new Reserver() { Id =10, Date = new DateTime(2021, 1, 18),  Collaborator = c3, Equipment = e5, Schedules = m1 };
-            Reserver r11 = new Reserver() { Id = 11, Date = new DateTime(2021, 1, 30), Collaborator = c2, Equipment = e6, Schedules = m2 };
-            Reserver r12 = new Reserver() { Id = 12, Date = new DateTime(2021, 1, 28), Collaborator = c3, Equipment = e7, Schedules = n2 };
-            Reserver r13 = new Reserver() { Id = 13, Date = new DateTime(2021, 1, 21),  Collaborator = c4, Equipment = e8, Schedules = n2 };
-            Reserver r14 = new Reserver() { Id = 14, Date = new DateTime(2021, 1, 21),  Collaborator = c5, Equipment = e9, Schedules = t2 };
+            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(8, 0, 0), HourFinal = new TimeSpan(9, 0, 0) };
+            Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(9, 0, 0), HourFinal = new TimeSpan(10, 0, 0) };
+            Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(10, 0, 0), HourFinal = new TimeSpan(11, 0, 0) };
+            Schedule t1 = new Schedule() { Id = 4, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(14, 0, 0), HourFinal = new TimeSpan(15, 0, 0) };
+            Schedule t2 = new Schedule() { Id = 5, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(15, 0, 0), HourFinal = new TimeSpan(16, 0, 0) };
+            Schedule t3 = new Schedule() { Id = 6, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(16, 0, 0), HourFinal = new TimeSpan(17, 0, 0) };
+            Schedule n1 = new Schedule() { Id = 7, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(18, 0, 0), HourFinal = new TimeSpan(19, 0, 0) };
+            Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(19, 0, 0), HourFinal = new TimeSpan(20, 0, 0) };
+            Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(20, 0, 0), HourFinal = new TimeSpan(21, 0, 0) };
+
+            Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), Collaborator = c1, Equipment = e1, Schedule = m1, Status = ReserveStatus.RESERVED };
+            Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), Collaborator = c2, Equipment = e9, Schedule = n2, Status = ReserveStatus.RESERVED };
+            Reserver r3 = new Reserver() { Id = 3, Date = new DateTime(2021, 1, 20), Collaborator = c2, Equipment = e2, Schedule = n3, Status = ReserveStatus.RESERVED };
+            Reserver r4 = new Reserver() { Id = 4, Date = new DateTime(2021, 3, 15), Collaborator = c4, Equipment = e4, Schedule = t1, Status = ReserveStatus.RESERVED };
+            Reserver r5 = new Reserver() { Id = 5, Date = new DateTime(2021, 4, 12), Collaborator = c5, Equipment = e7, Schedule = t2, Status = ReserveStatus.RESERVED };
+            Reserver r6 = new Reserver() { Id = 6, Date = new DateTime(2021, 1, 17),  Collaborator = c2, Equipment = e10, Schedule = t3, Status = ReserveStatus.RESERVED };
+            Reserver r7 = new Reserver() { Id = 7, Date = new DateTime(2021, 1, 17), Collaborator = c3, Equipment = e10, Schedule = t2, Status = ReserveStatus.RESERVED };
+            Reserver r8 = new Reserver() { Id = 8, Date = new DateTime(2021, 1, 10), Collaborator = c4, Equipment = e3, Schedule = m3, Status = ReserveStatus.RESERVED };
+            Reserver r9 = new Reserver() { Id = 9, Date = new DateTime(2021, 1, 16),  Collaborator = c1, Equipment = e4, Schedule = n2, Status = ReserveStatus.RESERVED };
+            Reserver r10 = new Reserver() { Id =10, Date = new DateTime(2021, 1, 18),  Collaborator = c3, Equipment = e5, Schedule = m1, Status = ReserveStatus.RESERVED };
+            Reserver r11 = new Reserver() { Id = 11, Date = new DateTime(2021, 1, 30), Collaborator = c2, Equipment = e6, Schedule = m2, Status = ReserveStatus.RESERVED };
+            Reserver r12 = new Reserver() { Id = 12, Date = new DateTime(2021, 1, 28), Collaborator = c3, Equipment = e7, Schedule = n2, Status = ReserveStatus.RESERVED };
+            Reserver r13 = new Reserver() { Id = 13, Date = new DateTime(2021, 1, 21),  Collaborator = c4, Equipment = e8, Schedule = n2, Status = ReserveStatus.RESERVED };
+            Reserver r14 = new Reserver() { Id = 14, Date = new DateTime(2021, 1, 21),  Collaborator = c5, Equipment = e9, Schedule = t2, Status = ReserveStatus.RESERVED };
 
            
 
