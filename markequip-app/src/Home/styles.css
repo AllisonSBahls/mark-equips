@@ -1,7 +1,162 @@
-.home-container{
-    width: 90%;
-    margin-top: 30px;
+.container{
     margin-left: 5%;
+    width: 90%;
+}
+
+.btn-status-reservations,
+.reservations-container,
+.text-reserver{
+    margin-top: 30px;
+}
+
+.btn-status-reservations a{
+    padding-right: 30px;
+    margin-right: 10px;
+    padding-bottom: 0.6em;
+    padding-top: 0.6em;
+    padding-left: 30px;
+    color: var(--ligh-color);
+    font-size: 15px;
+    border: 1px solid var(--ligh-color);
+    border-radius: 20px;
+    background: var(--primary-color);
+}
+
+.text-reserver{
+    font-size: 8px;
+    color: var(--dark-color);
+
+}
+
+.btn-status-reservations a:hover{
+    background: var(--secondary-color);
+}
+
+
+.table {
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.table{
+    border-top: #9e9e9e solid 1px;
+    border-bottom: #9e9e9e solid 1px;
+    width: 100%;
+    margin-bottom: 20px;
+    background: var(--ligh-color);
+}
+
+.table th,
+.table td{
+    border-right: #9e9e9e solid 1px;
+    font-size: 13px;
+    padding: 8px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.title-table-reservations{
+    background: var(--ligh-color);
+    text-align: center;
+    width: 99.8%;
+    font-size: 16px;
+    border-top: 1px solid #9e9e9e;
+    border-left: 1px solid #9e9e9e;
+    border-right: 1px solid #9e9e9e;
+}
+
+.table td:last-child{
+    border-radius: 0;
+}
+
+.table thead th,
+ thead th {
+    font-weight: normal;
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-size: 15px;
+}
+
+
+.table tr:hover
+ tr:hover
+{
+    background-color: #b7e0d6;
+}
+
+.home-container{
+    padding-top: 20px;
+
+    border-top: 1px solid rgb(184, 182, 182);
     display: flex;
+
+}
+
+.collaborators-content h1,
+.equipments-content h1{
+    color: var(--dark-color);
+    width: 99.5%;
+
+    font-size: 15px;
+    background: var(--ligh-color);
+    margin-bottom: 0px;
+    font-weight: normal;
+    text-align: center;
+    border-top: 1px solid #9e9e9e;
+    border-left: 1px solid #9e9e9e;
+    border-right: 1px solid #9e9e9e;
+}
+
+.collaborators-content{
+    margin-right: 3%;
+    width: 60%;
+}
+
+.equipments-content{
+    width: 40%;
+}
+
+
+
+@media (max-width: 767px){
+    .table-responsive, -responsive, .table-equipments-responsive{
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+    
+    .table-responsive thead,
+    .table-responsive tbody,
+    .table-responsive th,
+    .table-responsive td,
+    .table-responsive tr{
+        display: block;
+    }
+
+    .table-responsive td,
+    .table-responsive th{
+        height: 35px;
+    }
+    .table-responsive thead{
+        float: left;
+    }
+
+    .table-responsive tbody{
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    .table-responsive tbody tr{
+        display: inline-block;
+    }
+
+    table td:last-child{
+        border-right: #999999 solid 1px;
+    }
 }
 

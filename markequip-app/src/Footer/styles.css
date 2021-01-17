@@ -1,0 +1,31 @@
+.footer{
+    display: flex;  
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background: var(--primary-color);
+    color: var(--ligh-color);
+}
+.footer h1{
+    font-size: 15px;
+}
+
+.icon-footer{
+    font-size: 2em;
+    margin-left: 10px;
+    color: white;
+}
+
+.github:hover{
+    color: #292828;
+}
+
+.instagram:hover{
+    color: #cd486b;
+}
+
+.linkdin:hover{
+    color: #5252f3;
+}
