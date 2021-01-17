@@ -118,7 +118,32 @@
     width: 40%;
 }
 
+.btn-action-delivered{
+    background: #e69b39;
+    color: var(--ligh-color);
+    padding: 5px;
+    border-radius: 10px;
+}
 
+.btn-action-edit{
+    background: #5439f1;
+    color: var(--ligh-color);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.btn-action-cancel{
+    background: #e93333;
+    color: var(--ligh-color);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+.btn-action{
+    display: flex;
+    justify-content: space-between;
+}
 
 @media (max-width: 767px){
     .table-responsive, -responsive, .table-equipments-responsive{

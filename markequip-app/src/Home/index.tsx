@@ -1,4 +1,8 @@
 import "./styles.css";
+import {BsFillBookmarksFill} from "react-icons/bs";
+import {AiTwotoneEdit} from "react-icons/ai";
+import {MdCancel} from "react-icons/md";
+
 
 export default function Home() {
   return (
@@ -33,7 +37,8 @@ export default function Home() {
                 <th>Data da Reserva</th>
                 <th>Hora de Retirada</th>
                 <th>Hora de Devolução</th>
-                <th>Ação</th>
+                <th></th>
+
               </tr>
             </thead>
             <tbody>
@@ -43,7 +48,17 @@ export default function Home() {
                 <td>15/01/2021</td>
                 <td>08:00 </td>
                 <td>09:00 </td>
-                <td>Guardar</td>
+                <td className="btn-action">
+                  <a className="btn-action-delivered" href="/#">
+                    <BsFillBookmarksFill /> Entregar
+                  </a>
+                  <a className="btn-action-edit" href="/#">
+                    <AiTwotoneEdit /> Editar
+                  </a>  
+                  <a className="btn-action-cancel" href="/#">
+                   <MdCancel className="icon-cancel"/> Cancelar
+                  </a>  
+                </td>
               </tr>
               <tr>
                 <td>Allison Sousa Bahls</td>
@@ -52,16 +67,34 @@ export default function Home() {
                 <td>08:00 </td>
                 <td>09:00 </td>
 
-                <td>Finalizar</td>
-              </tr>
+                <td className="btn-action">
+                  <a className="btn-action-delivered" href="/#">
+                    <BsFillBookmarksFill /> Entregar
+                  </a>
+                  <a className="btn-action-edit" href="/#">
+                    <AiTwotoneEdit /> Editar
+                  </a>  
+                  <a className="btn-action-cancel" href="/#">
+                    <MdCancel /> Cancelar
+                  </a>  
+                </td>              </tr>
               <tr>
                 <td>Allison Sousa Bahls</td>
                 <td>Laboratorio de Informática</td>
                 <td>15/01/2021</td>
                 <td>08:00 </td>
                 <td>09:00 </td>
-                <td>Finalizar</td>
-              </tr>
+                <td className="btn-action">
+                  <a className="btn-action-delivered" href="/#">
+                    <BsFillBookmarksFill /> Entregar
+                  </a>
+                  <a className="btn-action-edit" href="/#">
+                    <AiTwotoneEdit /> Editar
+                  </a>  
+                  <a className="btn-action-cancel" href="/#">
+                    <MdCancel /> Cancelar
+                  </a>  
+                </td>              </tr>
             </tbody>
           </table>
         </div>
