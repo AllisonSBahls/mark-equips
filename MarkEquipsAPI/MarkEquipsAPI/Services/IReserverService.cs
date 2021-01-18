@@ -11,5 +11,6 @@ namespace MarkEquipsAPI.Services
         Task AddReserverAsync(ReserverDto reserver);
         Task<ReserverDto> FindByIdAsync(int id);
         Task DeleteAsync(int id);
+        Task<int> CountEquipmentReserver(int id);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
-using MarkEquipsAPI.Models;
+using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +20,28 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get()
         {
             return  Ok(await _entityService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _entityService.FindByIdAsync(id));
         }
 
+        [HttpGet("count/{idEquip}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> GetCount(int idEquip)
+        {
+            return Ok(await _entityService.CountEquipmentReserver(idEquip));
+        }
+
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(ReserverDto reserver)
         {
             if (reserver == null) return this.StatusCode(StatusCodes.Status404NotFound);
@@ -41,6 +51,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut("cancel/{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Put(int id)
         {
             try { 
@@ -54,6 +65,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Delete(int id)
         {
             await _entityService.DeleteAsync(id);

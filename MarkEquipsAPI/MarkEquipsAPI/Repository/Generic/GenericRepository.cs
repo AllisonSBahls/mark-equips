@@ -41,7 +41,7 @@ namespace MarkEquipsAPI.Repository.Generic
             {
                 throw new Exception("Error in: " + e.Message);
             }
-            
+
             return entity;
         }
 
@@ -51,7 +51,6 @@ namespace MarkEquipsAPI.Repository.Generic
             {
                 _context.Entry(item).CurrentValues.SetValues(entity);
                 await _context.SaveChangesAsync();
-
             }
             catch (Exception e)
             {
@@ -61,18 +60,17 @@ namespace MarkEquipsAPI.Repository.Generic
 
         public async Task DeleteAsync(T item)
         {
-
-                try
-                {
-                   dataset.Remove(item);
-                   await  _context.SaveChangesAsync();
-                }
-                catch (Exception e)
-                {
+            try
+            {
+                dataset.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
                 throw new Exception("Error in: " + e.Message);
                 ;
             }
-            
+
         }
 
         public async Task<bool> ExistsAsync(int id)

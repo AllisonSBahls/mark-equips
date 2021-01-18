@@ -77,7 +77,10 @@ namespace MarkEquipsAPI.Services.Implementations
             }
         }
 
-
+        public async Task<int> CountEquipmentReserver(int id)
+        {
+            return await _repository.CountEquipmentReserverAsync(id);
+        }
     }
 }
 

@@ -56,7 +56,6 @@ namespace MarkEquipsAPI.Controllers
             if (equipment == null) return null;
             await _entityService.UpdateAsync(equipment);
             return this.StatusCode(StatusCodes.Status200OK);
-
         }
 
         [HttpDelete("{id}")]

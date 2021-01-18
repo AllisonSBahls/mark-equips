@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Hypermedia.Enricher;
+using Microsoft.OpenApi.Models;
+using System;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace MarkEquipsAPI
 {
@@ -31,6 +34,13 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            })
+            ); ;
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -48,9 +58,27 @@ namespace MarkEquipsAPI
 
             var filterOptions = new HyperMediaFilterOptions();
             filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new ReserverEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Mark Equips - API",
+                        Version = "v1",
+                        Description = "API RESTFul developer Mark Equips - API",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Allison Sousa Bahls",
+                            Url = new Uri("https://github.com/allisonsbahls")
+                        }
+                    });
+            });
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<SeedingReservations>();
@@ -77,6 +105,18 @@ namespace MarkEquipsAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mark Equips API - v1");
+            });
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
+
 
             app.UseAuthorization();
 

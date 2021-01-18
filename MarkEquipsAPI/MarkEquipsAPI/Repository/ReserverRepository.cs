@@ -65,7 +65,6 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-
         public async Task DeleteAsync(Reserver reserver)
         {
             _context.Reservations.Remove(reserver);
@@ -84,6 +83,12 @@ namespace MarkEquipsAPI.Repository
                             && s.Date.Equals(date));
                         
             return await validate.AnyAsync();
+        }
+
+        public async Task<int> CountEquipmentReserverAsync(int equipId)
+        {
+            var count = await _context.Reservations.CountAsync(c => c.EquipmentId.Equals(equipId));
+            return count;
         }
     }
 }
