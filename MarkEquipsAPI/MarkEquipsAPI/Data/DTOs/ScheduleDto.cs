@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace MarkEquipsAPI.Data.DTOs

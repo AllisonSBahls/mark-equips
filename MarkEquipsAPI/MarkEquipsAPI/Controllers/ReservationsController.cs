@@ -50,9 +50,9 @@ namespace MarkEquipsAPI.Controllers
             return this.StatusCode(StatusCodes.Status200OK);
         }
 
-        [HttpPut("cancel/{id}")]
+        [HttpPatch("cancel/{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> Put(int id)
+        public async Task<IActionResult> Patch(int id)
         {
             try { 
             await _entityService.RevokeAsync(id);

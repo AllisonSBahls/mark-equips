@@ -31,10 +31,10 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
             });
             content.Links.Add(new HyperMediaLink()
             {
-                Action = HttpActionVerb.PUT,
-                Href = _link,
-                Rel = RelationType.put,
-                Type = ResponseTypeFormat.DefaultPut
+                Rel = "cancel-reserver",
+                Action = HttpActionVerb.PATCH,
+                Href = urlHelper.Link("DefaultApi", new { controller = $"{path}/cancel", id = content.Id}),
+                Type = ResponseTypeFormat.DefaultPatch
             });
             content.Links.Add(new HyperMediaLink()
             {
@@ -54,6 +54,5 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
                 return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
             }
         }
-
     }
 }
