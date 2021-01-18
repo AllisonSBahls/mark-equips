@@ -12,6 +12,8 @@ using MarkEquipsAPI.Repository.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
+using MarkEquipsAPI.Hypermedia.Filters;
+using MarkEquipsAPI.Hypermedia.Enricher;
 
 namespace MarkEquipsAPI
 {
@@ -43,6 +45,10 @@ namespace MarkEquipsAPI
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
             }).AddXmlSerializerFormatters();
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
+            services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();
             services.AddAutoMapper(typeof(Startup));
@@ -77,6 +83,7 @@ namespace MarkEquipsAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
 
