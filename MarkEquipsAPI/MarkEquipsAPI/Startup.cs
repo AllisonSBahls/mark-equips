@@ -40,8 +40,8 @@ namespace MarkEquipsAPI
             services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = true;
-                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
             }).AddXmlSerializerFormatters();
 
             services.AddApiVersioning();
