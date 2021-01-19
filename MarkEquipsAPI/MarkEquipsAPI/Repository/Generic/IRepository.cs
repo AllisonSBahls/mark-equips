@@ -12,9 +12,7 @@ namespace MarkEquipsAPI.Repository
         Task UpdateAsync(T item, T entity);
         Task DeleteAsync(T entity);
         Task<bool> ExistsAsync(int id);
-
         Task<List<T>> FindWithPagedSearch(string query);
-
         int GetCount(string query);
 
     }

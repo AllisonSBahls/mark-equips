@@ -59,6 +59,8 @@ namespace MarkEquipsAPI
             var filterOptions = new HyperMediaFilterOptions();
             filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ReserverEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new ScheduleEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new CollaboratorEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();

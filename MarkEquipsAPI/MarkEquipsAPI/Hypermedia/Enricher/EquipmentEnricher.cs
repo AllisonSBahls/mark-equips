@@ -54,7 +54,7 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
         {
             lock (_lock)
             {
-                var url = new { path, id };
+                var url = new { controller = path, id = id };
                 return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
             }
         }

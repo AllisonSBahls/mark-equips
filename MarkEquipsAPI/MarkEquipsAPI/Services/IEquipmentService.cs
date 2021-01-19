@@ -9,7 +9,6 @@ namespace MarkEquipsAPI.Services
     {
         Task<EquipmentDto> CreateAsync(EquipmentDto equipment);
         Task<EquipmentDto> FindByIDAsync(int id);
-        Task<List<EquipmentDto>> FindAllAsync();
         Task<PagedSearchDTO<EquipmentDto>> FindWithPageSearch(string name, string sortDirection, int pageSize, int page);
         Task UpdateAsync(EquipmentDto equipment);
         Task DeleteAsync(int id);

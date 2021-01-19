@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
+using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,14 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get()
         {
             return Ok(await _entityService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get(int id)
         {
             var result = await _entityService.FindByIDAsync(id);
@@ -32,6 +35,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(CollaboratorDto collaborator)
         {
             if (collaborator == null) return null;
@@ -41,6 +45,8 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
+
         public async Task<IActionResult> Put(CollaboratorDto collaborator)
         {
             if (collaborator == null) return null;
@@ -50,6 +56,8 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+
         public async Task<IActionResult> Delete(int id)
         {
             await _entityService.DeleteAsync(id);
