@@ -28,6 +28,8 @@ namespace MarkEquipsAPI.Data.AutoMapper
                 
             CreateMap<ReserverDto, Reserver>();
 
+
+
         }
     }
 }

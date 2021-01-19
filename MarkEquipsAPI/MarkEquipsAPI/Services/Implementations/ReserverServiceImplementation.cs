@@ -12,10 +12,10 @@ namespace MarkEquipsAPI.Services.Implementations
 {
     public class ReserverServiceImplementation : IReserverService
     {
-        private readonly ReserverRepository _repository;
+        private readonly IReserverRepository _repository;
         private readonly IMapper _mapper;
 
-        public ReserverServiceImplementation(ReserverRepository repository, IMapper mapper)
+        public ReserverServiceImplementation(IReserverRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

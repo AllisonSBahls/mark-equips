@@ -13,7 +13,7 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
         protected override Task EnrichModel(ReserverDto content, IUrlHelper urlHelper)
         {
             var path = "api/v1/reservations";
-            string _link = getLink(content.Id, urlHelper, path);
+            string _link = GetLink(content.Id, urlHelper, path);
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,
@@ -46,11 +46,12 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
             return null;
         }
 
-        private string getLink(int id, IUrlHelper urlHelper, string path)
+
+        private string GetLink(int id, IUrlHelper urlHelper, string path)
         {
             lock (_lock)
             {
-                var url = new { controller = path, id = id };
+                var url = new { path, id };
                 return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
             }
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Repository
 {
-    public class ReserverRepository
+    public class ReserverRepository : IReserverRepository
     {
         private readonly MarkEquipsContext _context;
 
