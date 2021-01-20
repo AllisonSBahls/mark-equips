@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
+using MarkEquipsAPI.Hypermedia.Utils;
 using MarkEquipsAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace MarkEquipsAPI.Services
     {
         Task<CollaboratorDto> CreateAsync(CollaboratorDto collaborator);
         Task<CollaboratorDto> FindByIDAsync(int id);
-        Task<List<CollaboratorDto>> FindAllAsync();
+        Task<PagedSearchDTO<CollaboratorDto>> FindWithPageSearch(string name, string sortDirection, int pageSize, int page);
         Task UpdateAsync(CollaboratorDto collaborator);
         Task DeleteAsync(int id);
 

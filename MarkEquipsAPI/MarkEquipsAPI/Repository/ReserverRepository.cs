@@ -90,5 +90,37 @@ namespace MarkEquipsAPI.Repository
             var count = await _context.Reservations.CountAsync(c => c.EquipmentId.Equals(equipId));
             return count;
         }
+
+        public async Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset )
+        {
+            IQueryable<Reserver> result = _context.Reservations
+                .Include(c => c.Collaborator)
+                .Include(e => e.Equipment)
+                .Include(s => s.Schedule);
+
+            if (!string.IsNullOrWhiteSpace(nameCollaborator) && !string.IsNullOrWhiteSpace(nameEquipment))
+            {
+                result = result.Where(x => x.Collaborator.Name.Contains(nameCollaborator) && x.Equipment.Name.Contains(nameEquipment));
+            }
+            else if (!string.IsNullOrWhiteSpace(nameCollaborator) && string.IsNullOrWhiteSpace(nameEquipment))
+            {
+                result = result.Where(x => x.Collaborator.Name.Contains(nameCollaborator));
+            }
+            else if (string.IsNullOrWhiteSpace(nameCollaborator) && !string.IsNullOrWhiteSpace(nameEquipment))
+            {
+                result = result.Where(x => x.Equipment.Name.Contains(nameEquipment));
+            }
+            result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
+
+            return await result.ToListAsync();
+        }
+
+        public int GetCount(string nameCollaborator, string nameEquipment)
+        {
+           var result = _context.Reservations.Where(x => x.Collaborator.Name.Contains(nameCollaborator) ||
+           x.Equipment.Name.Contains(nameEquipment)).Count();
+
+            return result;
+        }
     }
 }

@@ -1,0 +1,7 @@
+﻿[*.{cs,vb}]
+
+# IDE0037: Use inferred member name
+dotnet_diagnostic.IDE0037.severity = none
+
+# IDE0063: Use simple 'using' statement
+dotnet_diagnostic.IDE0063.severity = none

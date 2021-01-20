@@ -33,8 +33,8 @@ namespace MarkEquipsAPI.Services.Implementations
 
             string countQuery = @"select count(*) from equipments e  where 1 = 1 ";
             if (!string.IsNullOrWhiteSpace(name)) countQuery += $"and e.name like '%{name}%'";
-
-            var equipments = await _repository.FindWithPagedSearch(query);
+          
+           var equipments = await _repository.FindWithPagedSearch(query);
             int totalResult = _repository.GetCount(countQuery);
             var result = _mapper.Map<List<EquipmentDto>>(equipments);
 
