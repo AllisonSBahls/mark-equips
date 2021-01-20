@@ -91,6 +91,7 @@ namespace MarkEquipsAPI
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IReserverRepository), typeof(ReserverRepository));
+            services.AddScoped(typeof(IEquipmentRepository), typeof(EquipmentRepository));
 
         }
 

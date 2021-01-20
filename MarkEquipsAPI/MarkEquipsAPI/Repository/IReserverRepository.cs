@@ -13,12 +13,8 @@ namespace MarkEquipsAPI.Repository
         Task AddReserverAsync(Reserver reserver);
         Task RevokeReserverAsync(Reserver reserver);
         Task DeleteAsync(Reserver reserver);
-
         Task<bool> IsValidationAsync(int equipId, int schedId, DateTime date, ReserveStatus status);
-        Task<int> CountEquipmentReserverAsync(int equipId);
-#nullable enable
-        Task<List<Reserver>> FindWithPagedSearch(string? nameCollaborator, string? nameEquipment, int size, int offset);
-
+        Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset);
         int GetCount(string nameCollaborator, string nameEquipment);
     }
 }

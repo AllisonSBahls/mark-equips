@@ -96,11 +96,6 @@ namespace MarkEquipsAPI.Services.Implementations
                 throw new Exception("Error: " + e.Message);
             }
         }
-
-        public async Task<int> CountEquipmentReserver(int id)
-        {
-            return await _repository.CountEquipmentReserverAsync(id);
-        }
     }
 }
 

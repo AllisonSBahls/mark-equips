@@ -10,7 +10,7 @@ namespace MarkEquipsAPI.Repository.Generic
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly MarkEquipsContext _context;
+        protected readonly MarkEquipsContext _context;
         private readonly DbSet<T> dataset;
 
         public GenericRepository(MarkEquipsContext context)
@@ -21,8 +21,7 @@ namespace MarkEquipsAPI.Repository.Generic
 
         public async Task<List<T>> FindAllAsync()
         {
-            return await dataset.Include("Reservations").
-                ToListAsync();
+            return await dataset.Include("Reservations").ToListAsync();
         }
 
         public async Task<T> FindByIDAsync(int id)
@@ -82,6 +81,7 @@ namespace MarkEquipsAPI.Repository.Generic
         {
             return await dataset.FromSqlRaw<T>(query).ToListAsync();
         }
+
 
         public int GetCount(string query)
         {

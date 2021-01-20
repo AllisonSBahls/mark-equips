@@ -1,5 +1,6 @@
 ﻿using MarkEquipsAPI.Hypermedia;
 using MarkEquipsAPI.Hypermedia.Abstract;
+using System;
 using System.Collections.Generic;
 
 namespace MarkEquipsAPI.Data.DTOs
@@ -11,6 +12,8 @@ namespace MarkEquipsAPI.Data.DTOs
         public string Description { get; set; }
         public int Number { get; set; }
         public string ImageURL { get; set; }
+        //public int DateLastReservation { get; set; }
+        public int QtyReserservation { get; set; }
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
     }

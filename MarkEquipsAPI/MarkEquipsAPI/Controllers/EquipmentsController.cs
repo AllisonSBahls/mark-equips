@@ -30,6 +30,13 @@ namespace MarkEquipsAPI.Controllers
             return Ok(await _entityService.FindWithPageSearch(name, sortDirection, pageSize, page));
         }
 
+        [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _entityService.FindAllAsync());
+        }
+
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get(int id)

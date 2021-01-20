@@ -11,11 +11,11 @@ namespace MarkEquipsAPI.Services.Implementations
 {
     public class EquipmentServiceImplementation : IEquipmentService
     {
-        private readonly IRepository<Equipment> _repository;
+        private readonly IEquipmentRepository _repository;
         private readonly IMapper _mapper;
 
 
-        public EquipmentServiceImplementation(IRepository<Equipment> repository, IMapper mapper)
+        public EquipmentServiceImplementation(IEquipmentRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -33,8 +33,8 @@ namespace MarkEquipsAPI.Services.Implementations
 
             string countQuery = @"select count(*) from equipments e  where 1 = 1 ";
             if (!string.IsNullOrWhiteSpace(name)) countQuery += $"and e.name like '%{name}%'";
-          
-           var equipments = await _repository.FindWithPagedSearch(query);
+
+            var equipments = await _repository.FindWithPagedSearch(query);
             int totalResult = _repository.GetCount(countQuery);
             var result = _mapper.Map<List<EquipmentDto>>(equipments);
 
@@ -49,6 +49,18 @@ namespace MarkEquipsAPI.Services.Implementations
 
             return searchPage;
         }
+
+        public async Task<List<EquipmentDto>> FindAllAsync()
+        {
+            var equipments = await _repository.FindAllAsync();
+            var result = _mapper.Map<List<EquipmentDto>>(equipments);
+            foreach (var item in result)
+            {
+                item.QtyReserservation = _repository.GetCountEquipReserves(item.Id);
+            }
+            return result;
+        }
+
         public async Task<EquipmentDto> FindByIDAsync(int id)
         {
             var equipment = await _repository.FindByIDAsync(id);
@@ -81,6 +93,5 @@ namespace MarkEquipsAPI.Services.Implementations
             }
         }
 
-       
     }
 }

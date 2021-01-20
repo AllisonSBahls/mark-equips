@@ -14,6 +14,5 @@ namespace MarkEquipsAPI.Repository
         Task<bool> ExistsAsync(int id);
         Task<List<T>> FindWithPagedSearch(string query);
         int GetCount(string query);
-
     }
 }

@@ -85,12 +85,6 @@ namespace MarkEquipsAPI.Repository
             return await validate.AnyAsync();
         }
 
-        public async Task<int> CountEquipmentReserverAsync(int equipId)
-        {
-            var count = await _context.Reservations.CountAsync(c => c.EquipmentId.Equals(equipId));
-            return count;
-        }
-
         public async Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset )
         {
             IQueryable<Reserver> result = _context.Reservations

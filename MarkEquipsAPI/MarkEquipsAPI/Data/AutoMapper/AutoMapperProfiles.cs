@@ -13,7 +13,9 @@ namespace MarkEquipsAPI.Data.AutoMapper
         public AutoMapperProfiles()
         {
 
-            CreateMap<Equipment, EquipmentDto>().ReverseMap();
+            CreateMap<Equipment, EquipmentDto>()
+                //.ForMember(dest => dest.DateLastReservation, opt => opt.MapFrom(src => src.Reservations.Select(x => x.Date)))
+                .ReverseMap();
 
             CreateMap<Collaborator, CollaboratorDto>().ReverseMap();
 

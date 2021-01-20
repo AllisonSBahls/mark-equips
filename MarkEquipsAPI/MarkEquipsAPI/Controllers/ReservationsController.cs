@@ -41,13 +41,6 @@ namespace MarkEquipsAPI.Controllers
             return Ok(await _entityService.FindByIdAsync(id));
         }
 
-        [HttpGet("count/{idEquip}")]
-        [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> GetCount(int idEquip)
-        {
-            return Ok(await _entityService.CountEquipmentReserver(idEquip));
-        }
-
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(ReserverDto reserver)
