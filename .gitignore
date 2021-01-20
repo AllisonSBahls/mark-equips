@@ -416,3 +416,7 @@ MarkEquipsAPI/.vs
 FodyWeavers.xsd
 
 MarkEquipsAPI/MarkEquipsAPI/Migrations/
+
+.editorconfig
+
+/MarkEquipsAPI/.editorconfig
