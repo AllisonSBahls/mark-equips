@@ -25,9 +25,9 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
 
             content.Links.Add(new HyperMediaLink()
             {
+                Rel = "Get All",
                 Action = HttpActionVerb.GET,
                 Href = _linkDefault,
-                Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultGet
             });
 

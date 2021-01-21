@@ -1,6 +1,7 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace MarkEquipsAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SchedulesController : ControllerBase
     {

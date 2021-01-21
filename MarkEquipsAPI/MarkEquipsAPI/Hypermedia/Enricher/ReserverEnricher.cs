@@ -1,5 +1,6 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Hypermedia.Constants;
+using MarkEquipsAPI.Hypermedia.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Text;
@@ -25,7 +26,7 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,
-                Href = urlHelper.Link("DefaultApi", new { controller = path }),
+                Href = urlHelper.Link("DefaultApi", new { controller = $"{ path }/asc/10/1" }),
                 Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultGet
             });

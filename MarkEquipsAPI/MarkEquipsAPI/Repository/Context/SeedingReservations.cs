@@ -34,12 +34,12 @@ namespace MarkEquipsAPI.Repository.Context
             Equipment e8 = new Equipment() { Id = 8, Name = "Notebook LG", Description = "Projetor com entrada HDMI", Number = 6765, ImageURL = "img8.png" };
             Equipment e9 = new Equipment() { Id = 9, Name = "Caixa de Som Retry", Description = "Entrada P2 e USB", Number = 5675, ImageURL = "img9.png" };
             Equipment e10 = new Equipment() { Id = 10, Name = "Projetor Dell 2V", Description = "Projetor com entrada VGA", Number = 4554, ImageURL = "img10.png" };
-
-            Collaborator c1 = new Collaborator() { Id = 1, Name = "Allison Sousa Bahls", User = "allison", Password = "asdald123", Permission = LevelPermission.ADMINISTRATOR };
-            Collaborator c2 = new Collaborator() { Id = 2, Name = "Amanda Souza", User = "amanda", Password = "1231", Permission = LevelPermission.STANDARD };
-            Collaborator c3 = new Collaborator() { Id = 3, Name = "Elizangela Martins", User = "elizangela", Password = "asdd", Permission = LevelPermission.STANDARD };
-            Collaborator c4 = new Collaborator() { Id = 4, Name = "Eline Alburquerque", User = "eline", Password = "qewg", Permission = LevelPermission.STANDARD };
-            Collaborator c5 = new Collaborator() { Id = 5, Name = "Priscila Fonseca", User = "priscila", Password = "fghf", Permission = LevelPermission.ADMINISTRATOR };
+            
+            Collaborator c1 = new Collaborator() { Id = 1, Name = "Allison Sousa Bahls", User = "allison", Password = "24-0B-E5-18-FA-BD-27-24-DD-B6-F0-4E-EB-1D-A5-96-74-48-D7-E8-31-C0-8C-8F-A8-22-80-9F-74-C7-20-A9", Permission = LevelPermission.ADMINISTRATOR };
+            Collaborator c2 = new Collaborator() { Id = 2, Name = "Amanda Souza", User = "amanda", Password = "24-0B-E5-18-FA-BD-27-24-DD-B6-F0-4E-EB-1D-A5-96-74-48-D7-E8-31-C0-8C-8F-A8-22-80-9F-74-C7-20-A9", Permission = LevelPermission.STANDARD };
+            Collaborator c3 = new Collaborator() { Id = 3, Name = "Elizangela Martins", User = "elizangela", Password = "24-0B-E5-18-FA-BD-27-24-DD-B6-F0-4E-EB-1D-A5-96-74-48-D7-E8-31-C0-8C-8F-A8-22-80-9F-74-C7-20-A9", Permission = LevelPermission.STANDARD };
+            Collaborator c4 = new Collaborator() { Id = 4, Name = "Eline Alburquerque", User = "eline", Password = "24-0B-E5-18-FA-BD-27-24-DD-B6-F0-4E-EB-1D-A5-96-74-48-D7-E8-31-C0-8C-8F-A8-22-80-9F-74-C7-20-A9", Permission = LevelPermission.STANDARD };
+            Collaborator c5 = new Collaborator() { Id = 5, Name = "Priscila Fonseca", User = "priscila", Password = "24-0B-E5-18-FA-BD-27-24-DD-B6-F0-4E-EB-1D-A5-96-74-48-D7-E8-31-C0-8C-8F-A8-22-80-9F-74-C7-20-A9", Permission = LevelPermission.ADMINISTRATOR };
             /*
             Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = "08:00:00", HourFinal = "09:00:00" };
             Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = "09:00:00", HourFinal = "10:00:00" };

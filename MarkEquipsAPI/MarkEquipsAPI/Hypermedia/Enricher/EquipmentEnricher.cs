@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Hypermedia.Enricher
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,
-                Href = _linkDefault,
+                Href = urlHelper.Link("DefaultApi", new { controller = $"{ path }/asc/10/1" }),
                 Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultGet
             });
