@@ -53,13 +53,11 @@ namespace MarkEquipsAPI.Repository
             _context.SaveChanges();
             return true;
         }
-        private static string ComputeHash(string input, SHA256CryptoServiceProvider algorithm)
+        public string ComputeHash(string input, SHA256CryptoServiceProvider algorithm)
         {
             Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
             Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
             return BitConverter.ToString(hashedBytes);
         }
-
-     
     }
 }

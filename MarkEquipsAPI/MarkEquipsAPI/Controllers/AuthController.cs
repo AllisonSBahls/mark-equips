@@ -14,7 +14,7 @@ namespace MarkEquipsAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private ILoginService _loginService;
+        private readonly ILoginService _loginService;
 
         public AuthController(ILoginService loginService)
         {
@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Controllers
         public IActionResult Signin([FromBody] CollaboratorDto user)
         {
             if (user == null) return BadRequest("Invalid client request");
-            var token = _loginService.ValidateCredentials(user);
+            var token = _loginService.RefreshCredentials(user);
             if (token == null) return Unauthorized();
             return Ok(token);
         }
@@ -36,7 +36,7 @@ namespace MarkEquipsAPI.Controllers
         public IActionResult Refresh([FromBody] TokenDto tokenDto)
         {
             if (tokenDto is null) return BadRequest("Invalid client request");
-            var token = _loginService.ValidateCredentials(tokenDto);
+            var token = _loginService.RefreshCredentials(tokenDto);
             if (token == null) return BadRequest("Invalid request");
             return Ok(token);
         }

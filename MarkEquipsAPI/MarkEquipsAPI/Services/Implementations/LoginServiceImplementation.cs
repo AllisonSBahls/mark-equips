@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Services.Implementations
             _tokenService = tokenService;
         }
 
-        public TokenDto ValidateCredentials(CollaboratorDto collaborator)
+        public TokenDto RefreshCredentials(CollaboratorDto collaborator)
         {
             var user = _repository.ValidateCredentials(collaborator);
             if (user == null) return null;
@@ -40,11 +40,11 @@ namespace MarkEquipsAPI.Services.Implementations
             var refreshToken = _tokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpityTime = DateTime.Now.AddDays(_configuration.DaysToExpiry);
-            var refreshUser = RefreshUser(user, accessToken, refreshToken);
+            var refreshUser = CreatedToken(user, accessToken, refreshToken);
             return refreshUser;
         }
 
-        public TokenDto ValidateCredentials(TokenDto token)
+        public TokenDto RefreshCredentials(TokenDto token)
         {
              
             var accessToken = token.AccessToken;
@@ -62,11 +62,11 @@ namespace MarkEquipsAPI.Services.Implementations
 
             user.RefreshToken = refreshToken;
 
-            var refreshUser = RefreshUser(user, accessToken, refreshToken);
+            var refreshUser = CreatedToken(user, accessToken, refreshToken);
             return refreshUser;
         }
 
-        public TokenDto RefreshUser(Collaborator user, string accessToken, string refreshToken)
+        public TokenDto CreatedToken(Collaborator user, string accessToken, string refreshToken)
         {
             _repository.RefreshUserInfo(user);
 

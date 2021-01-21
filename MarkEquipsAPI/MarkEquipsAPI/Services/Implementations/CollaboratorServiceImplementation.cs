@@ -6,16 +6,17 @@ using MarkEquipsAPI.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Services.Implementations
 {
     public class CollaboratorServiceImplementation : ICollaboratorService
     {
-        private readonly IRepository<Collaborator> _repository;
+        private readonly ICollaboratorRepository _repository;
         private readonly IMapper _mapper;
 
-        public CollaboratorServiceImplementation(IRepository<Collaborator> repository, IMapper mapper)
+        public CollaboratorServiceImplementation(ICollaboratorRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -62,6 +63,7 @@ namespace MarkEquipsAPI.Services.Implementations
         public async Task<CollaboratorDto> CreateAsync(CollaboratorDto collaborator)
         {
             var result = _mapper.Map<Collaborator>(collaborator);
+            result.Password = _repository.ComputeHash(result.Password, new SHA256CryptoServiceProvider());
             result = await _repository.CreateAsync(result);
             return _mapper.Map<CollaboratorDto>(result);
         }
@@ -72,6 +74,7 @@ namespace MarkEquipsAPI.Services.Implementations
             var find = await _repository.FindByIDAsync(result.Id);
             if (result != null)
             {
+                result.Password = _repository.ComputeHash(result.Password, new SHA256CryptoServiceProvider());
                 await _repository.UpdateAsync(find, result);
             }
         }

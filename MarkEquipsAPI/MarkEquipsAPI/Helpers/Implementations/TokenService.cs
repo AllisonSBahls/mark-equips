@@ -11,7 +11,7 @@ namespace MarkEquipsAPI.Helpers.Implementations
 {
     public class TokenService : ITokenService
     {
-        private TokenConfiguration _configurations;
+        private readonly TokenConfiguration _configurations;
 
         public TokenService(TokenConfiguration configurations)
         {

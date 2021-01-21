@@ -4,8 +4,8 @@ namespace MarkEquipsAPI.Services
 {
     public interface ILoginService
     {
-        TokenDto ValidateCredentials(CollaboratorDto collaborator);
-        TokenDto ValidateCredentials(TokenDto token);
+        TokenDto RefreshCredentials(CollaboratorDto collaborator);
+        TokenDto RefreshCredentials(TokenDto token);
         bool RevokeToken(string user);
     }
 }
