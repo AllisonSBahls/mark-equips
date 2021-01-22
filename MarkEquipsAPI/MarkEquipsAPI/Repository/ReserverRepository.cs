@@ -38,7 +38,7 @@ namespace MarkEquipsAPI.Repository
             return result;
         }
 
-        public async Task AddReserverAsync(Reserver reserver)
+        public async Task CreateAsync(Reserver reserver)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-        public async Task RevokeReserverAsync(Reserver reserver)
+        public async Task RevokeAsync(Reserver reserver)
         {
             try { 
             _context.Reservations.Attach(reserver);

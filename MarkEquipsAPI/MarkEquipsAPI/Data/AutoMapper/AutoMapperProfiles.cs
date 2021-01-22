@@ -24,12 +24,10 @@ namespace MarkEquipsAPI.Data.AutoMapper
                 .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => src.Schedule))
                 .ForMember(dest => dest.Equipment, opt => opt.MapFrom(src => src.Equipment.Name))
                 .ForMember(dest => dest.NumberEquip, opt => opt.MapFrom(src => src.Equipment.Number));
-       
-                
             CreateMap<ReserverDto, Reserver>();
 
-
-
+            CreateMap<User, UserDto>().ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserRoles.Select(x => x.Role.Name)));
+            CreateMap<UserDto, User>();
         }
     }
 }

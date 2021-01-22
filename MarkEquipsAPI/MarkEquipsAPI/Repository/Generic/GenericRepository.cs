@@ -89,10 +89,9 @@ namespace MarkEquipsAPI.Repository.Generic
             using (var connection = _context.Database.GetDbConnection())
             {
                 connection.Open();
-                using(var command = connection.CreateCommand()){
+                using var command = connection.CreateCommand();
                     command.CommandText = query;
                     result = command.ExecuteScalar().ToString();
-                }
             }
             return int.Parse(result);
         }

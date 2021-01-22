@@ -65,7 +65,7 @@ namespace MarkEquipsAPI.Services.Implementations
             }
             result.Status = ReserveStatus.RESERVED;
             Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.UserId) ;
-            await _repository.AddReserverAsync(result);
+            await _repository.CreateAsync(result);
         }
 
         public async Task RevokeAsync(int id)
@@ -73,7 +73,7 @@ namespace MarkEquipsAPI.Services.Implementations
             try
             {
                 var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
-                await _repository.RevokeReserverAsync(statusUpdate);
+                await _repository.RevokeAsync(statusUpdate);
             }
             catch (Exception e)
             {

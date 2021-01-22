@@ -16,6 +16,13 @@ using MarkEquipsAPI.Hypermedia.Enricher;
 using Microsoft.OpenApi.Models;
 using System;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Identity;
+using MarkEquipsAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace MarkEquipsAPI
 {
@@ -33,6 +40,42 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityBuilder builder = services.AddIdentityCore<User>(options =>
+           {
+               options.Password.RequireDigit = false;
+               options.Password.RequireNonAlphanumeric = false;
+               options.Password.RequireLowercase = false;
+               options.Password.RequireUppercase = false;
+           });
+
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<MarkEquipsContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                        .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
+
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
+                
+
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
                 builder.AllowAnyOrigin()
@@ -85,6 +128,7 @@ namespace MarkEquipsAPI
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
             services.AddScoped<IScheduleService, ScheduleServiceImplementation>();
             services.AddScoped<IReserverService, ReserverServiceImplementation>();
+            services.AddScoped<IUserService, UserServiceImplementation>();
 
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
