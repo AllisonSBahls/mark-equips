@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Data.AutoMapper
                 .ForMember(dest => dest.NumberEquip, opt => opt.MapFrom(src => src.Equipment.Number));
             CreateMap<ReserverDto, Reserver>();
 
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>().ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(x=> x.Role.Name)));
             CreateMap<UserDto, User>();
             CreateMap<User, LoginDto>();
 

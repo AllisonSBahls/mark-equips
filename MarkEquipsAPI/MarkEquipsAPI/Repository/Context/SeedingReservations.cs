@@ -67,9 +67,11 @@ namespace MarkEquipsAPI.Repository.Context
             }
             if (_userManager.FindByNameAsync("elizangela").Result == null)
             {
-                User user = new User();
-                user.UserName = "elizangela";
-                user.FullName = "Elizangela Martins";
+                User user = new User()
+                {
+                    UserName = "elizangela",
+                    FullName = "Elizangela Martins"
+                };
                 IdentityResult result = _userManager.CreateAsync
                 (user, "pqzmal123").Result;
 

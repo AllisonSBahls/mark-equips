@@ -1,14 +1,9 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Hypermedia.Filters;
-using MarkEquipsAPI.Models;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Controllers
@@ -43,7 +38,6 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Collaborator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get(int id)
         {
@@ -53,6 +47,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(EquipmentDto equipment)
         {
@@ -63,6 +58,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Put(EquipmentDto equipment)
         {
@@ -72,6 +68,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await _entityService.DeleteAsync(id);

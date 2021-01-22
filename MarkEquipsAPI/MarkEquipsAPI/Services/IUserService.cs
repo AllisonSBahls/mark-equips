@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
+using MarkEquipsAPI.Hypermedia.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace MarkEquipsAPI.Services
     public interface IUserService
     {
         Task<UserDto> FindByIdAsync(int id);
-        Task<UserDto> UpdateAsync(int id);
+        Task<UserDto> UpdateAsync(UserDto user);
         Task<UserDto> CreateAsync(UserDto user);
         Task<LoginDto> LoginAsync(LoginDto user);
-        Task<UserDto> FindWithPagedSearch(string nameCollaborator, int size, int offset);
+        Task DeleteAsync(int id);
+        Task<PagedSearchDTO<UserDto>> FindWithPageSearch(string fullname, string sortDirection, int pageSize, int page);
     }
 }

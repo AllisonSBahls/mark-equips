@@ -29,7 +29,8 @@ namespace MarkEquipsAPI.Controllers
             try
             {
                 var user = await _service.LoginAsync(userDto);
-                return Created("User", user);
+                if(user != null) return Created("User", user);
+                return StatusCode(StatusCodes.Status401Unauthorized);
             }
             catch (Exception ex)
             {

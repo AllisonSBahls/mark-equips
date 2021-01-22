@@ -55,7 +55,6 @@ namespace MarkEquipsAPI.Services.Implementations
 
         public async Task AddReserverAsync(ReserverDto reserver)
         {
-
             var result = _mapper.Map<Reserver>(reserver);
             bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ScheduleId, result.Date, ReserveStatus.RESERVED);
             Console.WriteLine(isValidate);

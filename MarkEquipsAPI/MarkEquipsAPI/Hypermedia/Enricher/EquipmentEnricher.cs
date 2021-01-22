@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Hypermedia.Enricher
 {
-    public class UserEnricher : ContentResponseEnricher<EquipmentDto>
+    public class EquipmentEnricher : ContentResponseEnricher<EquipmentDto>
     {
         private readonly object _lock = new object();
         protected override Task EnrichModel(EquipmentDto content, IUrlHelper urlHelper)
