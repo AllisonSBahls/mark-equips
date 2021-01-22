@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI
 {
@@ -48,6 +49,7 @@ namespace MarkEquipsAPI
                options.Password.RequireUppercase = false;
            });
 
+
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
             builder.AddEntityFrameworkStores<MarkEquipsContext>();
             builder.AddRoleValidator<RoleValidator<Role>>();
@@ -61,7 +63,7 @@ namespace MarkEquipsAPI
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                        .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                         ValidateIssuer = false,
                         ValidateAudience = false,
                     };
@@ -102,6 +104,7 @@ namespace MarkEquipsAPI
             filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ReserverEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ScheduleEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new UserEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();
@@ -143,9 +146,11 @@ namespace MarkEquipsAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                seedingReservations.Seed();
+                seedingReservations.SeedRoles();
+                seedingReservations.SeedUsers();
+                seedingReservations.SeedOther();
             }
-
+            
 
             app.UseHttpsRedirection();
 
@@ -162,7 +167,7 @@ namespace MarkEquipsAPI
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -170,6 +175,7 @@ namespace MarkEquipsAPI
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
         }
 
     }

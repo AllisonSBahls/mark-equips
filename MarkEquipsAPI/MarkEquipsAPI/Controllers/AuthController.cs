@@ -22,13 +22,13 @@ namespace MarkEquipsAPI.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(UserLoginDto userDto)
+        public async Task<IActionResult> Login(LoginDto userDto)
         {
             try
             {
-                var user = await _service.CreateAsync(userDto);
+                var user = await _service.LoginAsync(userDto);
                 return Created("User", user);
             }
             catch (Exception ex)
