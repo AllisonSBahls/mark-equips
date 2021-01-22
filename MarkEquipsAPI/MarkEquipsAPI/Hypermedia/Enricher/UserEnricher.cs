@@ -1,20 +1,19 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Hypermedia.Constants;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Hypermedia.Enricher
 {
-    public class CollaboratorEnricher : ContentResponseEnricher<CollaboratorDto>
+    public class UserEnricher : ContentResponseEnricher<UserDto>
     {
         private readonly object _lock = new object();
-        protected override Task EnrichModel(CollaboratorDto content, IUrlHelper urlHelper)
+        protected override Task EnrichModel(UserDto content, IUrlHelper urlHelper)
         {
-            var path = "api/v1/collaborators";
+            var path = "api/v1/users";
             string _linkId = GetLink(content.Id, urlHelper, path);
-            string _linkDefault = GetLinkDefault(urlHelper, path);
+            string _linkDefault= GetLinkDefault(urlHelper, path);
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,

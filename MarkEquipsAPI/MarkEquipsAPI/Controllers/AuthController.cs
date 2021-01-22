@@ -1,6 +1,7 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,46 +11,31 @@ using System.Threading.Tasks;
 namespace MarkEquipsAPI.Controllers
 {
     [ApiVersion("1")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly ILoginService _loginService;
+        private readonly IUserService _service;
 
-        public AuthController(ILoginService loginService)
+        public AuthController(IUserService service)
         {
-            _loginService = loginService;
+            _service = service;
         }
 
-        [HttpPost]
-        [Route("signin")]
-        public IActionResult Signin([FromBody] CollaboratorDto user)
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginDto userDto)
         {
-            if (user == null) return BadRequest("Invalid client request");
-            var token = _loginService.RefreshCredentials(user);
-            if (token == null) return Unauthorized();
-            return Ok(token);
-        }
-
-        [HttpPost]
-        [Route("refresh")]
-        public IActionResult Refresh([FromBody] TokenDto tokenDto)
-        {
-            if (tokenDto is null) return BadRequest("Invalid client request");
-            var token = _loginService.RefreshCredentials(tokenDto);
-            if (token == null) return BadRequest("Invalid request");
-            return Ok(token);
-        }
-
-        [HttpGet]
-        [Route("revoke")]
-        [Authorize("Bearer")]
-        public IActionResult Revoke()
-        {
-            var user = User.Identity.Name;
-            var result = _loginService.RevokeToken(user);
-            if (!result) return BadRequest("Invalid request");
-            return NoContent();
+            try
+            {
+                var user = await _service.LoginAsync(userDto);
+                if(user != null) return Created("User", user);
+                return StatusCode(StatusCodes.Status401Unauthorized);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"error {ex.Message}");
+            }
         }
     }
 }

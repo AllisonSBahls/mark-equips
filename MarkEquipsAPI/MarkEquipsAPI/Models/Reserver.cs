@@ -7,8 +7,8 @@ namespace MarkEquipsAPI.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public int CollaboratorId { get; set; }
-        public Collaborator Collaborator { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
         public int ScheduleId { get; set; }

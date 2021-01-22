@@ -10,21 +10,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MarkEquipsAPI.Repository.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Hypermedia.Enricher;
 using Microsoft.OpenApi.Models;
 using System;
 using Microsoft.AspNetCore.Rewrite;
-using MarkEquipsAPI.Helpers;
-using MarkEquipsAPI.Helpers.Implementations;
-using MarkEquipsAPI.Configurations;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using MarkEquipsAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace MarkEquipsAPI
 {
@@ -42,35 +41,42 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var tokenConfigurations = new TokenConfiguration();
+            IdentityBuilder builder = services.AddIdentityCore<User>(options =>
+           {
+               options.Password.RequireDigit = false;
+               options.Password.RequireNonAlphanumeric = false;
+               options.Password.RequireLowercase = false;
+               options.Password.RequireUppercase = false;
+           });
 
-            new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations"))
-                .Configure(tokenConfigurations);
 
-            services.AddSingleton(tokenConfigurations);
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<MarkEquipsContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = tokenConfigurations.Issuer,
-                    ValidAudience = tokenConfigurations.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
-                };
-            });
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
 
-            services.AddAuthorization(auth =>
+            services.AddMvc(options =>
             {
-               auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder().AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build());
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
             });
+                
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
@@ -98,7 +104,7 @@ namespace MarkEquipsAPI
             filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ReserverEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ScheduleEnricher());
-            filterOptions.ContentResponseEnricherList.Add(new CollaboratorEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new UserEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();
@@ -123,17 +129,15 @@ namespace MarkEquipsAPI
 
             services.AddScoped<SeedingReservations>();
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
-            services.AddScoped<ICollaboratorService, CollaboratorServiceImplementation>();
             services.AddScoped<IScheduleService, ScheduleServiceImplementation>();
             services.AddScoped<IReserverService, ReserverServiceImplementation>();
-            services.AddScoped<ILoginService, LoginServiceImplementation>();
+            services.AddScoped<IUserService, UserServiceImplementation>();
 
-            services.AddTransient<ITokenService, TokenService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IReserverRepository), typeof(ReserverRepository));
             services.AddScoped(typeof(IEquipmentRepository), typeof(EquipmentRepository));
-            services.AddScoped(typeof(ICollaboratorRepository), typeof(CollaboratorRepository));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
         }
 
@@ -143,9 +147,11 @@ namespace MarkEquipsAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                seedingReservations.Seed();
+                seedingReservations.SeedRoles();
+                seedingReservations.SeedUsers();
+                seedingReservations.SeedOther();
             }
-
+            
 
             app.UseHttpsRedirection();
 
@@ -162,7 +168,7 @@ namespace MarkEquipsAPI
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -170,6 +176,7 @@ namespace MarkEquipsAPI
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
         }
 
     }

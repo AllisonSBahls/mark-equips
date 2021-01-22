@@ -55,7 +55,6 @@ namespace MarkEquipsAPI.Services.Implementations
 
         public async Task AddReserverAsync(ReserverDto reserver)
         {
-
             var result = _mapper.Map<Reserver>(reserver);
             bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ScheduleId, result.Date, ReserveStatus.RESERVED);
             Console.WriteLine(isValidate);
@@ -64,8 +63,8 @@ namespace MarkEquipsAPI.Services.Implementations
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
             result.Status = ReserveStatus.RESERVED;
-            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.CollaboratorId) ;
-            await _repository.AddReserverAsync(result);
+            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.UserId) ;
+            await _repository.CreateAsync(result);
         }
 
         public async Task RevokeAsync(int id)
@@ -73,7 +72,7 @@ namespace MarkEquipsAPI.Services.Implementations
             try
             {
                 var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
-                await _repository.RevokeReserverAsync(statusUpdate);
+                await _repository.RevokeAsync(statusUpdate);
             }
             catch (Exception e)
             {

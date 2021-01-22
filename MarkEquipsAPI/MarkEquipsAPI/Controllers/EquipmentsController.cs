@@ -4,14 +4,12 @@ using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace MarkEquipsAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
-    [Authorize("Bearer")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class EquipmentsController : ControllerBase
     {
@@ -49,6 +47,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(EquipmentDto equipment)
         {
@@ -59,6 +58,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Put(EquipmentDto equipment)
         {
@@ -68,11 +68,13 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await _entityService.DeleteAsync(id);
             return NoContent();
         }
     }
+   
 }
 
