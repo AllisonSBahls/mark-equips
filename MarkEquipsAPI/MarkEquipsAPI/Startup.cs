@@ -10,21 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MarkEquipsAPI.Repository.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Hypermedia.Enricher;
 using Microsoft.OpenApi.Models;
 using System;
 using Microsoft.AspNetCore.Rewrite;
-using MarkEquipsAPI.Helpers;
-using MarkEquipsAPI.Helpers.Implementations;
-using MarkEquipsAPI.Configurations;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MarkEquipsAPI
 {
@@ -42,36 +33,6 @@ namespace MarkEquipsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var tokenConfigurations = new TokenConfiguration();
-
-            new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations"))
-                .Configure(tokenConfigurations);
-
-            services.AddSingleton(tokenConfigurations);
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = tokenConfigurations.Issuer,
-                    ValidAudience = tokenConfigurations.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
-                };
-            });
-
-            services.AddAuthorization(auth =>
-            {
-               auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder().AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build());
-            });
-
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
                 builder.AllowAnyOrigin()
@@ -98,7 +59,6 @@ namespace MarkEquipsAPI
             filterOptions.ContentResponseEnricherList.Add(new EquipmentEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ReserverEnricher());
             filterOptions.ContentResponseEnricherList.Add(new ScheduleEnricher());
-            filterOptions.ContentResponseEnricherList.Add(new CollaboratorEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning();
@@ -123,17 +83,13 @@ namespace MarkEquipsAPI
 
             services.AddScoped<SeedingReservations>();
             services.AddScoped<IEquipmentService, EquipmentServiceImplementation>();
-            services.AddScoped<ICollaboratorService, CollaboratorServiceImplementation>();
             services.AddScoped<IScheduleService, ScheduleServiceImplementation>();
             services.AddScoped<IReserverService, ReserverServiceImplementation>();
-            services.AddScoped<ILoginService, LoginServiceImplementation>();
 
-            services.AddTransient<ITokenService, TokenService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IReserverRepository), typeof(ReserverRepository));
             services.AddScoped(typeof(IEquipmentRepository), typeof(EquipmentRepository));
-            services.AddScoped(typeof(ICollaboratorRepository), typeof(CollaboratorRepository));
 
         }
 

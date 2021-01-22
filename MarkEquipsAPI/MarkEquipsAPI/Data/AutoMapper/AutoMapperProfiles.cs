@@ -17,12 +17,10 @@ namespace MarkEquipsAPI.Data.AutoMapper
                 //.ForMember(dest => dest.DateLastReservation, opt => opt.MapFrom(src => src.Reservations.Select(x => x.Date)))
                 .ReverseMap();
 
-            CreateMap<Collaborator, CollaboratorDto>().ReverseMap();
-
             CreateMap<Schedule, ScheduleDto>().ReverseMap();
 
             CreateMap<Reserver, ReserverDto>()
-                .ForMember(dest => dest.Collaborator, opt => opt.MapFrom(src => src.Collaborator.Name))
+                //.ForMember(dest => dest.Collaborator, opt => opt.MapFrom(src => src.uSER.Name))
                 .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => src.Schedule))
                 .ForMember(dest => dest.Equipment, opt => opt.MapFrom(src => src.Equipment.Name))
                 .ForMember(dest => dest.NumberEquip, opt => opt.MapFrom(src => src.Equipment.Number));

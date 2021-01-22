@@ -64,7 +64,7 @@ namespace MarkEquipsAPI.Services.Implementations
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
             result.Status = ReserveStatus.RESERVED;
-            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.CollaboratorId) ;
+            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.UserId) ;
             await _repository.AddReserverAsync(result);
         }
 

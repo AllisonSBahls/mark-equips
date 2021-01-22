@@ -21,7 +21,7 @@ namespace MarkEquipsAPI.Repository
         public async Task<List<Reserver>> FindAllAsync()
         {
             var result = await _context.Reservations
-                .Include(c => c.Collaborator)
+                .Include(c => c.User)
                 .Include(e => e.Equipment)
                 .Include(s => s.Schedule).AsNoTracking().OrderBy(x=>x.Id).ToListAsync();
 
@@ -31,7 +31,7 @@ namespace MarkEquipsAPI.Repository
         public async Task<Reserver> FindByIdAsync(int id)
         {
             var result = await _context.Reservations
-                .Include(c => c.Collaborator)
+                .Include(c => c.User)
                 .Include(e => e.Equipment)
                 .Include(s => s.Schedule).AsNoTracking()
                    .SingleOrDefaultAsync(p => p.Id.Equals(id));
@@ -85,34 +85,34 @@ namespace MarkEquipsAPI.Repository
             return await validate.AnyAsync();
         }
 
-        public async Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset )
+        public async Task<List<Reserver>> FindWithPagedSearch(string FullNameUser, string FullNameEquipment, int size, int offset )
         {
             IQueryable<Reserver> result = _context.Reservations
-                .Include(c => c.Collaborator)
+                .Include(c => c.User)
                 .Include(e => e.Equipment)
                 .Include(s => s.Schedule);
 
-            if (!string.IsNullOrWhiteSpace(nameCollaborator) && !string.IsNullOrWhiteSpace(nameEquipment))
+            if (!string.IsNullOrWhiteSpace(FullNameUser) && !string.IsNullOrWhiteSpace(FullNameEquipment))
             {
-                result = result.Where(x => x.Collaborator.Name.Contains(nameCollaborator) && x.Equipment.Name.Contains(nameEquipment));
+                result = result.Where(x => x.User.FullName.Contains(FullNameUser) && x.Equipment.Name.Contains(FullNameEquipment));
             }
-            else if (!string.IsNullOrWhiteSpace(nameCollaborator) && string.IsNullOrWhiteSpace(nameEquipment))
+            else if (!string.IsNullOrWhiteSpace(FullNameUser) && string.IsNullOrWhiteSpace(FullNameEquipment))
             {
-                result = result.Where(x => x.Collaborator.Name.Contains(nameCollaborator));
+                result = result.Where(x => x.User.FullName.Contains(FullNameUser));
             }
-            else if (string.IsNullOrWhiteSpace(nameCollaborator) && !string.IsNullOrWhiteSpace(nameEquipment))
+            else if (string.IsNullOrWhiteSpace(FullNameUser) && !string.IsNullOrWhiteSpace(FullNameEquipment))
             {
-                result = result.Where(x => x.Equipment.Name.Contains(nameEquipment));
+                result = result.Where(x => x.Equipment.Name.Contains(FullNameEquipment));
             }
             result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
 
             return await result.ToListAsync();
         }
 
-        public int GetCount(string nameCollaborator, string nameEquipment)
+        public int GetCount(string FullNameUser, string FullNameEquipment)
         {
-           var result = _context.Reservations.Where(x => x.Collaborator.Name.Contains(nameCollaborator) ||
-           x.Equipment.Name.Contains(nameEquipment)).Count();
+           var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser) ||
+           x.Equipment.Name.Contains(FullNameEquipment)).Count();
 
             return result;
         }
