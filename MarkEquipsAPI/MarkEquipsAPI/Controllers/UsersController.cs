@@ -1,4 +1,5 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
+using MarkEquipsAPI.Helpers;
 using MarkEquipsAPI.Hypermedia.Filters;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,6 @@ namespace MarkEquipsAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _service;
-
         public UsersController(IUserService service)
         {
             _service = service;
@@ -33,21 +33,6 @@ namespace MarkEquipsAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status404NotFound, $"error {ex.Message}");
-            }
-        }
-
-        [HttpPost]
-        [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> Post(UserDto userDto)
-        {
-            try
-            {
-                var user = await _service.CreateAsync(userDto);
-                return Created("User", user);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"error {ex.Message}");
             }
         }
 

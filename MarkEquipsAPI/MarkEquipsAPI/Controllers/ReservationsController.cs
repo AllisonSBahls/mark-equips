@@ -11,7 +11,6 @@ namespace MarkEquipsAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
-    [Authorize("Bearer")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ReservationsController : ControllerBase
     {
@@ -22,6 +21,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get()
         {
@@ -30,11 +30,20 @@ namespace MarkEquipsAPI.Controllers
 
         #nullable enable
         [HttpGet("{sortDirection}/{pageSize}/{page}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get([FromQuery] string? name, string? equipment, string sortDirection, int pageSize, int page)
         {
             return Ok(await _entityService.FindWithPageSearch(name, equipment, sortDirection, pageSize, page));
         }
+        [HttpGet("user/{sortDirection}/{pageSize}/{page}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> Get([FromQuery]string? equipment, string sortDirection, int pageSize, int page)
+        {
+            return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page));
+        }
+
+
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
@@ -68,6 +77,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Delete(int id)
         {

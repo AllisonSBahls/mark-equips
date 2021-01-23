@@ -9,6 +9,7 @@ namespace MarkEquipsAPI.Services
     {
         Task<List<ReserverDto>> FindAllAsync();
         Task<PagedSearchDTO<ReserverDto>> FindWithPageSearch(string nameCollaborator, string nameEquipment, string sortDirection, int pageSize, int page);
+        Task<PagedSearchDTO<ReserverDto>> FindWithPageSearchForUser(string equipment, string sortDirection, int pageSize, int page);
         Task RevokeAsync(int id);
         Task AddReserverAsync(ReserverDto reserver);
         Task<ReserverDto> FindByIdAsync(int id);

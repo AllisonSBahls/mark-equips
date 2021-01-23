@@ -10,7 +10,6 @@ namespace MarkEquipsAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
-    [Authorize("Bearer")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SchedulesController : ControllerBase
     {
@@ -21,6 +20,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, Collaborator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get()
         {
@@ -28,6 +28,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get(int id)
         {
@@ -37,6 +38,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Post(ScheduleDto schedule)
         {
@@ -47,6 +49,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Put(ScheduleDto schedule)
         {
@@ -55,7 +58,7 @@ namespace MarkEquipsAPI.Controllers
             return this.StatusCode(StatusCodes.Status200OK);
 
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Delete(int id)

@@ -10,8 +10,8 @@ namespace MarkEquipsAPI.Data.DTOs
     {
         public int Id { get; set; }
         public string Date { get; set; }
-        public int CollaboratorId { get; set; }
-        public string Collaborator { get; set; }
+        public int UserId { get; set; }
+        public string User { get; set; }
         public int EquipmentId { get; set; }
         public string Equipment { get; set; }
         public int NumberEquip { get; set; }

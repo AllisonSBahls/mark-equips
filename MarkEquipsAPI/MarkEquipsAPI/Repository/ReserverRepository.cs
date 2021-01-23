@@ -109,11 +109,34 @@ namespace MarkEquipsAPI.Repository
             return await result.ToListAsync();
         }
 
+
         public int GetCount(string FullNameUser, string FullNameEquipment)
         {
            var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser) ||
            x.Equipment.Name.Contains(FullNameEquipment)).Count();
 
+            return result;
+        }
+
+        public async Task<List<Reserver>> FindWithPagedSearchForUser(int id, string equipment, int size, int offset)
+        {
+            IQueryable<Reserver> result = _context.Reservations
+               .Include(c => c.User)
+               .Include(e => e.Equipment)
+               .Include(s => s.Schedule).Where(x => x.User.Id.Equals(id));
+
+            if (!string.IsNullOrWhiteSpace(equipment))
+            {
+                result = result.Where(x => x.UserId.Equals(id) && x.Equipment.Name.Contains(equipment));
+            }
+            result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
+
+            return await result.ToListAsync();
+        }
+        public int GetCountResUser(int id, string FullNameEquipment)
+        {
+            var result = _context.Reservations.Where(x => x.UserId.Equals(id) &&
+                     x.Equipment.Name.Contains(FullNameEquipment)).Count();
             return result;
         }
     }

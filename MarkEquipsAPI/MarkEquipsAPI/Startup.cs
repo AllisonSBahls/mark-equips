@@ -24,6 +24,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using MarkEquipsAPI.Helpers;
 
 namespace MarkEquipsAPI
 {
@@ -138,6 +140,8 @@ namespace MarkEquipsAPI
             services.AddScoped(typeof(IReserverRepository), typeof(ReserverRepository));
             services.AddScoped(typeof(IEquipmentRepository), typeof(EquipmentRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<AuthenticatedUser>();
 
         }
 

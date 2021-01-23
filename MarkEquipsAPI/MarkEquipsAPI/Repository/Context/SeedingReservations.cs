@@ -23,14 +23,17 @@ namespace MarkEquipsAPI.Repository.Context
         {
             if (!_roleManager.RoleExistsAsync("Administrator").Result)
             {
-                Role role = new Role();
-                role.Name = "Administrator";
+                Role role = new Role() {
+                   Name = "Administrator"
+                 };
                 IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
             }
             if (!_roleManager.RoleExistsAsync("Collaborator").Result)
             {
-                Role role = new Role();
-                role.Name = "Collaborator";
+                Role role = new Role()
+                {
+                    Name = "Collaborator"
+                };
                 IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
             }
 
@@ -41,9 +44,11 @@ namespace MarkEquipsAPI.Repository.Context
         {
             if (_userManager.FindByNameAsync("allison").Result == null)
             {
-                User user = new User();
-                user.UserName = "allison";
-                user.FullName = "Allison Sousa Bahls";
+                User user = new User()
+                {
+                    UserName = "allison",
+                    FullName = "Allison Sousa Bahls"
+                };
                 IdentityResult result = _userManager.CreateAsync
                 (user, "pqzmal123").Result;
 
@@ -54,9 +59,11 @@ namespace MarkEquipsAPI.Repository.Context
             }
             if (_userManager.FindByNameAsync("amanda").Result == null)
             {
-                User user = new User();
-                user.UserName = "amanda";
-                user.FullName = "Amanda Souza";
+                User user = new User() 
+                { 
+                    UserName = "amanda",
+                    FullName = "Amanda Souza"
+                    };
                 IdentityResult result = _userManager.CreateAsync
                 (user, "admin123").Result;
 
@@ -82,9 +89,11 @@ namespace MarkEquipsAPI.Repository.Context
             }
             if (_userManager.FindByNameAsync("eline").Result == null)
             {
-                User user = new User();
-                user.UserName = "eline";
-                user.FullName = "Eline Alburquerque";
+                User user = new User()
+                {
+                    UserName = "eline",
+                    FullName = "Eline Alburquerque"
+                };
                 IdentityResult result = _userManager.CreateAsync
                 (user, "admin").Result;
 
@@ -95,9 +104,11 @@ namespace MarkEquipsAPI.Repository.Context
             }
             if (_userManager.FindByNameAsync("priscila").Result == null)
             {
-                User user = new User();
-                user.UserName = "priscila";
-                user.FullName = "Priscila Fonseca";
+                User user = new User()
+                {
+                    UserName = "priscila",
+                    FullName = "Priscila Fonseca"
+                };
                 IdentityResult result = _userManager.CreateAsync
                 (user, "pqzmal123").Result;
 
