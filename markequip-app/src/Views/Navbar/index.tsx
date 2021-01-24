@@ -2,8 +2,7 @@ import './styles.css'
 import { FiEdit } from 'react-icons/fi';
 import { FaUserAlt } from 'react-icons/fa';
 
-
-import {ReactComponent as Logo} from './Logo.svg';
+//import {ReactComponent as Logo} from './Logo.svg';
 export default function Navbar() {
     return (
         <>
@@ -41,7 +40,7 @@ export default function Navbar() {
                 </div>
             </nav>
             <div className="description-container">
-                <Logo />
+                {/* <Logo /> */}
                 <h1>Mark Equips -  Reservar de Equipamentos e Laboratórios</h1>
                 <a className="btn-make-reserver" href="/#">
                         <FiEdit className="icon-btn-reserver"/>Fazer uma reserva</a>
