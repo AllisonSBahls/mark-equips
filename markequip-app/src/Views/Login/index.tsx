@@ -1,10 +1,8 @@
 import "./styles.css";
-import {
-  AiFillGithub,
-  AiFillLinkedin,
-  AiOutlineUser,
-  AiFillLock,
-} from "react-icons/ai";
+import { Link } from "react-router-dom";
+
+import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
+
 export default function Login() {
   return (
     <div className="container">
@@ -45,7 +43,9 @@ export default function Login() {
               <AiFillLock />
               <input type="password" placeholder="Senha" />
             </label>
-            <button className="btn btn-second">Acessar</button>
+            <Link to="#" className="btn btn-second">
+              Acessar
+            </Link>
           </form>
         </div>
       </div>
