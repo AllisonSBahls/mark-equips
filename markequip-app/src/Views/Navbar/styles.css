@@ -4,7 +4,7 @@
 }
 
 .main-navbar{
-    background-color:var(--primary-color);
+    background:var(--primary-color);
     height: 1.8em;
     padding-left: 40px;
     color: var(--ligh-color);

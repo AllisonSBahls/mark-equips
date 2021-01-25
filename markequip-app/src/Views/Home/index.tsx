@@ -7,7 +7,7 @@ import {MdCancel} from "react-icons/md";
 export default function Home() {
   return (
     <>
-      <div className="container">
+      <div className="container-">
         <div className="text-reserver">
           <h1>
             Escolha o status da reserva para ser exibida na tabela abaixo.

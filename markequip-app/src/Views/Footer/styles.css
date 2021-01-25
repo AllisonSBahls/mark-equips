@@ -1,4 +1,13 @@
+.container-footer{
+    height:42.52vh;
+    position:relative;
+
+}
 .footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+
     display: flex;  
     text-align: center;
     justify-content: center;

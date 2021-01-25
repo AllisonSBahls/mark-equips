@@ -3,7 +3,7 @@ import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 
 export default function Footer() {
   return (
-    <div>
+    <div className="container-footer">
       <div className="footer">
         <h1>Desenvolvido por Allison Sousa Bahls</h1>
         <a href="https://github.com/allisonsbahls">
