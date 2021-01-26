@@ -1,6 +1,8 @@
 .container-footer{
-    height:42.52vh;
+    height: 20vw;
     position:relative;
+    z-index: 11;
+
 
 }
 .footer{

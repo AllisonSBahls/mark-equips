@@ -20,10 +20,8 @@ export default function Navbar() {
                 </div>
             </nav>
             <div className="description-container">
-                <Logo />
+                <Logo className="icon-logo"/>
                 <h1>Mark Equips -  Reservar de Equipamentos e Laboratórios</h1>
-                <a className="btn-make-reserver" href="/#">
-                        <FiEdit className="icon-btn-reserver"/>Fazer uma reserva</a>
             </div>
         </>
     )

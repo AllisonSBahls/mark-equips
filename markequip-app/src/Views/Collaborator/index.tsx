@@ -6,12 +6,14 @@ import "./styles.css";
 import { AiFillEdit, AiFillDelete, AiOutlineUserAdd, AiFillSave } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import Register from "./register";
+import Sidebar from "../Sidebar";
 
 export default function Collaborator() {
 
   return (
     <>
       <Navbar />
+      <Sidebar/>
       <div className="container-collaborators">
         <div className="action-collaborators">
           <div className="field-search">
@@ -23,6 +25,10 @@ export default function Collaborator() {
             <a href="/#" className="btn-insert">
               <AiOutlineUserAdd className="icon"/>
               Novo Colaborador
+
+            </a>
+            <a href="/#" className="btn-insert btn-responsive">
+              <AiOutlineUserAdd />
             </a>
           </div>
         </div>
@@ -86,7 +92,7 @@ export default function Collaborator() {
           </table>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

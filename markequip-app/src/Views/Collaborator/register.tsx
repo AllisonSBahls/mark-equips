@@ -1,12 +1,15 @@
 import "./styles.css";
-import Modal from 'react-modal';
 import Footer from "../Footer";
 import Navbar from "../Navbar";
+import Sidebar from "../Sidebar";
 
 export default function Register(){
     return(
         <>
         <Navbar />
+        <Sidebar/>
+        <div className="background-effect">
+        </div>
         <div className="register-container">
         <div className="register">
           <h3 className="subtitle">Registrar Colaborador</h3>

@@ -1,7 +1,6 @@
 .container-collaborators{
-    position: relative;
-    width: 80vw;
-    margin: auto;
+    max-width: 80vw;
+    margin-left: 215px;
     margin-top: 20px
 }            
 
@@ -126,6 +125,8 @@
 .btn-edit:hover{
     background-color: #007bff;
     border: 1px solid #3796fc;
+    color: white;
+
 
 }
 
@@ -136,6 +137,9 @@
 
 .btn-delete:hover{
     background-color:  #dc3545;
+    border: 1px solid #dc3545; 
+    color: white;
+
 }
 
 .icon{
@@ -150,14 +154,28 @@
     margin-top: 20px;
 }
 
+.background-effect{
+    position: absolute;
+    background: linear-gradient(0deg, #4f9c8a 0%, #48b39a 100%);
+    margin-left: 230px;
+    height: 120px;
+    width: 80vw;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+
+}
+
 .register{
     background:#f5f1f1;
     width: 60%;
+    margin-left: 215px;
     min-width: 300px;
     box-sizing: border-box;
     padding: 40px;
     position:relative;
     background-color: white;
+    border-radius: 20px;
 
 }
 
@@ -180,6 +198,10 @@
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 2px solid #4f7d9c;
+}
+
+.btn-responsive{
+    display: none;
 }
 
 .input-field{
@@ -286,10 +308,25 @@
     }
 }
 
-@media(max-width: 1058px){
+
+@media(max-width: 1090px){
+    .container-collaborators{
+        margin-right: 10px;
+    }     
+.btn-insert{
+    padding: 5px 13px;
+}
+
+.action-collaborators{
+
+    padding: 15px;
+}
+}
+
+@media(max-width: 1080px){
     .table-colaborators th,
     .table-colaborators td{
-        padding:5px 20px;
+        padding:5px 15px;
         text-align: center;
     }
 }
@@ -299,12 +336,18 @@
     .table-colaborators td{
         padding:5px 10px;
     }
+    .field-search input{
+        width: 300px;
+    }
 }
 
-@media (max-width: 812px){
+
+@media (max-width: 875px){
     .container-collaborators{
         display: block;
-        width: 95%;
+        max-width: 100vw;
+        margin-left: 90px;
+        margin-right: 0;
     }
     
     .table-responsive, -responsive, .table-equipments-responsive{
@@ -323,7 +366,7 @@
 
     .table-responsive td,
     .table-responsive th{
-        height: 35px;
+        height: 33px;
         border-collapse: collapse;
     }
     .table-responsive td{
@@ -357,4 +400,38 @@
         padding-bottom: 35px;
     }
 }
+@media(max-width: 700px){
+    .action-collaborators{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .btn-insert-field{
+        margin-top: 20px;
+        margin-left: 40px;
+    }
 
+}
+
+@media(max-width: 411px){
+    .field-search, .btn-insert-field{
+        margin-left: 5px;
+    }
+    .field-search input{
+        width: 180px;
+    }
+}
+
+@media(max-width: 280px){
+    .field-search, .btn-insert-field{
+        margin-left: 5px;
+    }
+    .field-search input{
+        width: 120px;
+    }
+    .btn-insert-field{
+        font-size: 12px;
+    }
+
+
+}
