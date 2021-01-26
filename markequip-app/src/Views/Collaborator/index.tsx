@@ -14,17 +14,17 @@ export default function Collaborator() {
       <Navbar />
       <div className="container-collaborators">
         <div className="action-collaborators">
-        <div className="btn-insert-field">
+          <div className="field-search">
+            <FaSearch className="icon icon-search"/>
+            <input type="text" placeholder="Procurar pelo nome"></input>
+          </div>
+
+          <div className="btn-insert-field">
             <a href="/#" className="btn-insert">
               <AiOutlineUserAdd className="icon"/>
               Novo Colaborador
             </a>
           </div>
-
-          <div className="title-page-collaborator">
-            <label>Lista de Colaboradores</label>
-          </div>
-
         </div>
         <div className="collaborators-content">
           <table className="table-colaborators table-responsive">
@@ -86,7 +86,7 @@ export default function Collaborator() {
           </table>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -20,6 +20,7 @@
     align-items: center;
     border: 1px solid #4f7d9c;
     padding-left: 10px;
+    margin-left: 40px;
     height: 45px;
     border-radius: 5px;
     -webkit-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
@@ -28,7 +29,7 @@
 }
 
 .field-search input{
-    min-width: 250px;
+    width: 400px;
     height: 30px;
     border-radius: 5px;
     padding: 10px;
