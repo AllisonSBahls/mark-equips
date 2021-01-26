@@ -5,11 +5,11 @@ import { FaUserAlt } from 'react-icons/fa';
 //import {ReactComponent as Logo} from './Logo.svg';
 export default function Navbar() {
     return (
-        <>
-            <nav className="main-navbar">
-                <h1 className="text-main-navbar">Mark Equip</h1>
+
+            <div className="main-navbar">
+                {/* <h1 className="text-main-navbar">Mark Equip</h1> */}
                 <ul className="menu-main-navbar">
-                    <li>
+                    {/* <li>
                         <a href="/#">Ínicio</a>
                     </li>
                     <li>
@@ -26,25 +26,24 @@ export default function Navbar() {
                     </li>
                     <li>
                         <a href="/#">Relatórios</a>
-                    </li>
+                    </li> */}
 
                 </ul>
                 <div className="user-navbar">
-                <ul >
+                {/* <ul >
                     <li>
                         <FaUserAlt/><a href="/#">Allison Bahls</a>
 
                     </li>
 
-                </ul>
+                </ul> */}
                 </div>
-            </nav>
-            <div className="description-container">
-                {/* <Logo /> */}
-                <h1>Mark Equips -  Reservar de Equipamentos e Laboratórios</h1>
-                <a className="btn-make-reserver" href="/#">
-                        <FiEdit className="icon-btn-reserver"/>Fazer uma reserva</a>
             </div>
-        </>
-    )
+            // <div className="description-container">
+                // {/* <Logo /> */}
+                // {/* <h1>Mark Equips -  Reservar de Equipamentos e Laboratórios</h1>
+                // <a className="btn-make-reserver" href="/#">
+                        // <FiEdit className="icon-btn-reserver"/>Fazer uma reserva</a> */}
+            // </div>
+    );
 }
