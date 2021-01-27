@@ -1,9 +1,33 @@
 import "./styles.css";
-import { Link } from "react-router-dom";
+import {useState} from 'react';
+import { useHistory } from "react-router-dom";
+import {api} from '../../Services/Api';
 
 import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
 
 export default function Login() {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  async function login(e: React.FormEvent){
+    e.preventDefault();
+    const data = {
+      userName,
+      password,
+    };
+    
+    try{
+      const  response = await api.post('api/v1/auth/login', data);
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('Token', response.data.token);
+        history.push('/colaboradores');
+
+    }catch(error){
+      alert('Erro ao logar, tente novamente')
+    }
+}
+
   return (
     <div className="container">
       <div className="content first-content">
@@ -34,18 +58,29 @@ export default function Login() {
           <p className="description description-second">
             Acesse com seu usuário e senha
           </p>
-          <form action="" className="form">
+          <form onSubmit={login} className="form">
+           
             <label className="label-input">
               <AiOutlineUser className="icon-modify" />
-              <input type="text" placeholder="Usuário" />
+              <input 
+                type="text" 
+                placeholder="Usuário" 
+                value={userName}
+                onChange={e => setUserName(e.target.value)}/>
             </label>
+           
             <label className="label-input">
               <AiFillLock />
-              <input type="password" placeholder="Senha" />
+              <input 
+                type="password" 
+                placeholder="Senha" 
+                value={password}
+                onChange={e => setPassword(e.target.value)}/>
             </label>
-            <Link to="#" className="btn btn-second">
+           
+            <button type="submit" className="btn btn-second">
               Acessar
-            </Link>
+            </button>
           </form>
         </div>
       </div>

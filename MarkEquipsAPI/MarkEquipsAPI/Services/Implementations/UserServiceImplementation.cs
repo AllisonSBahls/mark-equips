@@ -50,10 +50,7 @@ namespace MarkEquipsAPI.Services.Implementations
                     return userToReturn;
                 }
             }
-            return new UserDto
-            {
-                UserName = "User already exist"
-            };
+            return null;
         }
 
         public async Task<UserDto> FindByIdAsync(int id)
@@ -98,11 +95,7 @@ namespace MarkEquipsAPI.Services.Implementations
                     UserName = userToReturn.UserName,
                 };
             }
-            return new LoginDto
-            {
-                UserName = "Invalid User",
-                Password = "Invalid Password"
-            };
+            return null;
         }
 
         private async Task<string> GenerateJWToken(User user)

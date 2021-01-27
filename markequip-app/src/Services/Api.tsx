@@ -1,7 +1,10 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:";
+export const api = axios.create({
+    baseURL: 'https://localhost:44396',
+})
 
-export default function fetchReservations(){
-    return axios(`${API_URL}/reservations/asc/10/1`);
+export function auth(login: any){
+   return api.post('api/v1/auth/login', login);
 }
+
