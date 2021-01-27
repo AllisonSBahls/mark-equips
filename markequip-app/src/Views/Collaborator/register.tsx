@@ -8,6 +8,7 @@ export default function Register(){
         <>
         <Navbar />
         <Sidebar/>
+        
         <div className="background-effect">
         </div>
         <div className="register-container">

@@ -1,7 +1,7 @@
 .sidebar{
     position: absolute;
     width: 200px;
-    min-height: 90%;
+    min-height: 85%;
     background: white;
     transition: all -5s ease;
     z-index: 11;
@@ -122,3 +122,12 @@ label #cancel{
     }
 }
 
+@media(max-width: 360px){
+
+    .sidebar a i{
+        font-size: 20px;
+    }
+    .sidebar a span{
+        font-size: 14sawpx;
+    }
+}

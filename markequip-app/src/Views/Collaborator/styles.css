@@ -157,20 +157,17 @@
 .background-effect{
     position: absolute;
     background: linear-gradient(0deg, #4f9c8a 0%, #48b39a 100%);
-    margin-left: 230px;
     height: 120px;
-    width: 80vw;
+    margin-left: 260px;
+    width: 75%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-
-
 }
 
 .register{
     background:#f5f1f1;
-    width: 60%;
+    width: 50%;
     margin-left: 215px;
-    min-width: 300px;
     box-sizing: border-box;
     padding: 40px;
     position:relative;
@@ -329,6 +326,9 @@
         padding:5px 15px;
         text-align: center;
     }
+    .background-effect{
+        width: 70%;
+    }
 }
 
 @media(max-width: 940px){
@@ -339,7 +339,11 @@
     .field-search input{
         width: 300px;
     }
+    .background-effect{
+        width: 60%;
+    }
 }
+
 
 
 @media (max-width: 875px){
@@ -400,6 +404,16 @@
         padding-bottom: 35px;
     }
 }
+
+@media(max-width: 860px){
+    .register{
+        margin-left: 0;
+    }
+    .background-effect{
+       width: 70%;
+       margin-left: 120px;
+    }
+}
 @media(max-width: 700px){
     .action-collaborators{
         display: flex;
@@ -411,6 +425,9 @@
         margin-left: 40px;
     }
 
+    .background-effect{
+        margin-left: 108px;
+     }
 }
 
 @media(max-width: 411px){
@@ -432,6 +449,104 @@
     .btn-insert-field{
         font-size: 12px;
     }
+}
 
+@media(max-width: 700px){
+    .user{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .input-field{
+        width: 100%;
+    }
+    .input-field input{
 
+        width: 100%;
+    }
+}
+@media(max-width: 600px){
+    .background-effect{
+    display: none;
+}
+    .register-container{
+        width: 80%;
+        margin-left: 80px;
+    }
+
+    .background-effect{
+       display: none;
+
+    }
+
+    .register{
+        padding: 10px;
+        width: 100%;
+    }
+
+    .subtitle{
+        font-size: 20px;
+    }
+    .input-field{
+        width: 100%;
+    }
+    .input-field input{
+        font-size: 12px;
+        height: 30px;
+        width: 100%;
+    }
+    .input-field label{
+        font-size: 15px;
+
+    }
+
+    .user{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .user input{
+        width:100%
+    }
+ 
+}
+
+@media(max-width: 360px){
+    .register-container{
+        width: 75%;
+        margin-left: 80px;
+    }
+
+    .background-effect{
+       display: none;
+
+    }
+
+    .register{
+        padding: 10px;
+        width: 100%;
+    }
+
+    .subtitle{
+        font-size: 12px;
+    }
+    .input-field{
+        width: 100%;
+    }
+    .input-field input{
+        font-size: 10px;
+        height: 30px;
+        width: 100%;
+    }
+    .input-field label{
+        font-size: 10px;
+
+    }
+
+    .user{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .user input{
+        width:100%
+    }
+ 
 }
