@@ -14,6 +14,7 @@ export default function Collaborator() {
     <>
       <Navbar />
       <Sidebar/>
+    
       <div className="container-collaborators">
         <div className="action-collaborators">
           <div className="field-search">

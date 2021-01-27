@@ -25,7 +25,7 @@
     color: #4f9c8a;
     line-height: 60px;
     padding-left: 15px;
-    font-size: 15px;
+    font-size: 14px;
     box-sizing: border-box;
 
     transition: all .5s ease;
@@ -42,7 +42,7 @@ a.active, a:hover{
 }
 
 .sidebar a span{
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1px;
 }
 
 #check{

@@ -4,6 +4,8 @@
     max-width: 100vw;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(0deg, #75b6be 0%, #478b7c 100%);
+
 }
 
 .content{
@@ -139,6 +141,7 @@
 .link-social-media:hover .item-social-media{
     background-color:  #ffffff;
     color:  #4f9c8a;
+
     transition: .3s;
 }
 
