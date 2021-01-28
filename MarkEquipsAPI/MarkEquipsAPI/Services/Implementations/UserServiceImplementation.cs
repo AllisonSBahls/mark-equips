@@ -39,8 +39,6 @@ namespace MarkEquipsAPI.Services.Implementations
         {
             var user = _mapper.Map<User>(userDto);
             var applicationRole = await _roleManager.FindByNameAsync(userDto.Role);
-            Console.Write("Userrrr " + user);
-
             if (applicationRole != null)
             {
                 var result = await _userManager.CreateAsync(user, userDto.Password);

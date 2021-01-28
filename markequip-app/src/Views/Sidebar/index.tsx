@@ -5,6 +5,8 @@ import { BsPeopleFill } from "react-icons/bs";
 import { RiProjector2Fill } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 
+
+
 export default function Sidebar() {
   return (
     <>
@@ -50,6 +52,7 @@ export default function Sidebar() {
           </i>
           <span>Horários</span>
         </a>
+
       </div>
     </>
   );

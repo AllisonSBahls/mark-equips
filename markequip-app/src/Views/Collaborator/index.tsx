@@ -4,10 +4,10 @@ import Footer from "../Footer";
 import Navbar from "../Navbar";
 import "./styles.css";
 
-import { fetchCollaborator } from "../../Services/collaborator";
+import { fetchCollaborator, removeCollaborator } from "../../Services/collaborator";
 
 import { AiFillEdit, AiFillDelete, AiOutlineUserAdd } from "react-icons/ai";
-import { FaSearch, FaTasks } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import Sidebar from "../Sidebar";
 import { IUsers } from "./types";
 
@@ -28,6 +28,29 @@ export default function Collaborator() {
     });
   }, [token]);
 
+  async function deleteCollaborator(id: number){
+    try{
+      await removeCollaborator(id, { 
+        headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setCollaborators(collaborators.filter(collaborator => collaborator.id !== id));
+
+    } catch (err){
+      alert("Erro ao deletar")
+    }
+  }
+
+  async function editCollaborator(id: number){
+    try{
+      history.push(`colaborador/form/${id}`)
+
+    } catch (err){
+      alert("Erro ao Editar o colaborador")
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -41,10 +64,10 @@ export default function Collaborator() {
           </div>
 
           <div className="btn-insert-field">
-            <a href="/#" className="btn-insert">
+            <Link to="colaborador/form/0" className="btn-insert">
               <AiOutlineUserAdd className="icon" />
               Novo Colaborador
-            </a>
+            </Link>
             <a href="/#" className="btn-insert btn-responsive">
               <AiOutlineUserAdd />
             </a>
@@ -69,12 +92,14 @@ export default function Collaborator() {
                   <td>{collaborator.userName}</td>
                   <td>{collaborator.roles}</td>
                   <td>
-                    <a className="btn-action btn-edit" href="/#">
+                    <button onClick={() => editCollaborator(collaborator.id)} className="btn-action btn-edit">
                       <AiFillEdit className="icon" /> Editar
-                    </a>
-                    <a className="btn-action btn-delete" href="/#">
+                    </button>
+                    <button 
+                      className="btn-action btn-delete"
+                      onClick={() => deleteCollaborator(collaborator.id)}>
                       <AiFillDelete className="icon" /> Excluir
-                    </a>
+                    </button>
                   </td>
                 </tr>
               ))}

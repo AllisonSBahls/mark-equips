@@ -13,7 +13,7 @@ export default function Routes(){
                 <Route path="/colaboradores" exact>
                     <Collaborator />
                 </Route>
-                <Route path="/colaboradores/register" exact>
+                <Route path="/colaborador/form/:collaboratorId" exact>
                     <Register />
                 </Route>
                 <Route path="/sidebar" exact>
