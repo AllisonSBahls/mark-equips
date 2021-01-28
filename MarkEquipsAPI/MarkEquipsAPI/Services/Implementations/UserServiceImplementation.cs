@@ -39,12 +39,16 @@ namespace MarkEquipsAPI.Services.Implementations
         {
             var user = _mapper.Map<User>(userDto);
             var applicationRole = await _roleManager.FindByNameAsync(userDto.Role);
+            Console.Write("Userrrr " + user);
+
             if (applicationRole != null)
             {
                 var result = await _userManager.CreateAsync(user, userDto.Password);
+
                 await _userManager.AddToRoleAsync(user, applicationRole.Name);
                 var userToReturn = _mapper.Map<UserDto>(user);
                 userToReturn.Role = userDto.Role;
+
                 if (result.Succeeded)
                 {
                     return userToReturn;
@@ -95,6 +99,7 @@ namespace MarkEquipsAPI.Services.Implementations
                     UserName = userToReturn.UserName,
                 };
             }
+
             return null;
         }
 

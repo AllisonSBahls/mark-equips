@@ -57,6 +57,21 @@ namespace MarkEquipsAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> Post(UserDto userDto)
+        {
+            if (userDto == null) return this.StatusCode(StatusCodes.Status400BadRequest);
+            var result = await _service.CreateAsync(userDto);
+            Console.WriteLine(result);
+            if(result == null)
+            {
+                return this.StatusCode(StatusCodes.Status406NotAcceptable);   
+            }
+            return this.StatusCode(StatusCodes.Status200OK);
+
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
