@@ -1,8 +1,7 @@
 import './styles.css'
-import { FiEdit } from 'react-icons/fi';
 import { FaUserAlt } from 'react-icons/fa';
+const userName = localStorage.getItem('userName');
 
-import {ReactComponent as Logo} from './Logo.svg';
 export default function Navbar() {
     return (
         <>
@@ -12,15 +11,13 @@ export default function Navbar() {
                 <div className="user-navbar">
                 <ul >
                     <li>
-                        <FaUserAlt/><a href="/#">Allison Bahls</a>
-
+                        <FaUserAlt/><a href="/#">{userName?.toUpperCase()}</a>
                     </li>
 
                 </ul>
                 </div>
             </nav>
             <div className="description-container">
-                <Logo className="icon-logo"/>
                 <h1>Mark Equips -  Reservar de Equipamentos e Laboratórios</h1>
             </div>
         </>

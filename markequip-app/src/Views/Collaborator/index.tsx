@@ -1,32 +1,49 @@
+import { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import "./styles.css";
 
+import { fetchCollaborator } from "../../Services/collaborator";
 
-import { AiFillEdit, AiFillDelete, AiOutlineUserAdd, AiFillSave } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
-import Register from "./register";
+import { AiFillEdit, AiFillDelete, AiOutlineUserAdd } from "react-icons/ai";
+import { FaSearch, FaTasks } from "react-icons/fa";
 import Sidebar from "../Sidebar";
+import { IUsers } from "./types";
 
 export default function Collaborator() {
+  const [collaborators, setCollaborators] = useState<IUsers[]>([]);
+
+  const token = localStorage.getItem("Token");
+
+  const history = useHistory();
+
+  useEffect(() => {
+    fetchCollaborator({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      setCollaborators(response.data.list);
+    });
+  }, [token]);
 
   return (
     <>
       <Navbar />
-      <Sidebar/>
-    
+      <Sidebar />
+
       <div className="container-collaborators">
         <div className="action-collaborators">
           <div className="field-search">
-            <FaSearch className="icon icon-search"/>
+            <FaSearch className="icon icon-search" />
             <input type="text" placeholder="Procurar pelo nome"></input>
           </div>
 
           <div className="btn-insert-field">
             <a href="/#" className="btn-insert">
-              <AiOutlineUserAdd className="icon"/>
+              <AiOutlineUserAdd className="icon" />
               Novo Colaborador
-
             </a>
             <a href="/#" className="btn-insert btn-responsive">
               <AiOutlineUserAdd />
@@ -45,50 +62,22 @@ export default function Collaborator() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Allison Sousa Bahls</td>
-                <td>alison</td>
-                <td>Administrador</td>
-                <td>
-                  <a className="btn-action btn-edit" href="/#">
-                    <AiFillEdit className="icon" /> Editar
-                  </a>
-                  <a className="btn-action btn-delete" href="/#">
-                    <AiFillDelete className="icon" /> Excluir
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Allison Sousa Bahls</td>
-                <td>alison</td>
-                <td>Administrador</td>
-                <td>
-                  <label htmlFor="">
-                  <a className="btn-action btn-edit" href="/#">
-                    <AiFillEdit className="icon" /> Editar
-                  </a>
-                  </label>
-                  <a className="btn-action btn-delete" href="/#">
-                    <AiFillDelete className="icon" /> Excluir
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Allison Sousa Bahls</td>
-                <td>alison</td>
-                <td>Administrador</td>
-                <td>
-                  <a className="btn-action btn-edit" href="/#">
-                    <AiFillEdit className="icon" /> Editar
-                  </a>
-                  <a className="btn-action btn-delete" href="/#">
-                    <AiFillDelete className="icon" /> Excluir
-                  </a>
-                </td>
-              </tr>
+              {collaborators.map((collaborator) => (
+                <tr key={collaborator.id}>
+                  <td>{collaborator.id}</td>
+                  <td>{collaborator.fullName}</td>
+                  <td>{collaborator.userName}</td>
+                  <td>{collaborator.roles}</td>
+                  <td>
+                    <a className="btn-action btn-edit" href="/#">
+                      <AiFillEdit className="icon" /> Editar
+                    </a>
+                    <a className="btn-action btn-delete" href="/#">
+                      <AiFillDelete className="icon" /> Excluir
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

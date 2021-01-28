@@ -1,7 +1,7 @@
 import "./styles.css";
 import {useState} from 'react';
 import { useHistory } from "react-router-dom";
-import {api} from '../../Services/Api';
+import {auth} from '../../Services/api';
 
 import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
 
@@ -18,7 +18,7 @@ export default function Login() {
     };
     
     try{
-      const  response = await api.post('api/v1/auth/login', data);
+      const  response = await auth(data);
         localStorage.setItem('userName', userName);
         localStorage.setItem('Token', response.data.token);
         history.push('/colaboradores');

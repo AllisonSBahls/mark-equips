@@ -1,9 +1,48 @@
+import {useState} from 'react';
+import {useHistory} from 'react-router-dom';
+
 import "./styles.css";
+
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
+import {register} from "../../Services/collaborator"
+
 export default function Register(){
+
+  const[fullName, setFullName] = useState('');
+  const[userName, setUserName] = useState('');
+  const[password, setPassword] = useState('');
+  const[role, setRole] = useState('');
+
+  const history = useHistory();
+
+  async function createNewCollaborator(e:any){
+    e.preventDefault();
+
+    const data ={
+      fullName,
+      userName,
+      password,
+      role,
+    }
+    const token = localStorage.getItem('Token');
+
+    try{
+      await register(data, {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
+      history.push('/colaboradores');
+    }
+    catch (err){
+      alert("Usuário já existe")
+    }
+
+  }
+
     return(
         <>
         <Navbar />
@@ -14,11 +53,13 @@ export default function Register(){
         <div className="register-container">
         <div className="register">
           <h3 className="subtitle">Registrar Colaborador</h3>
-          <form className="form-collaborator">
+          <form onSubmit={createNewCollaborator} className="form-collaborator">
             <div className="collaborator">
               <div className="input-field input-name">
                 <label>Nome: </label>
                 <input
+                  value={fullName}
+                  onChange={e => setFullName(e.target.value)}
                   type="text"
                   className="input"
                   placeholder="Insira o nome completo"
@@ -28,6 +69,8 @@ export default function Register(){
               <div className="input-field input-user">
                 <label>Usuário: </label>
                 <input
+                  value={userName}
+                  onChange={e => setUserName(e.target.value)}
                   type="text"
                   className="input"
                   placeholder="Insira o usuário"
@@ -36,7 +79,9 @@ export default function Register(){
               <div className="input-field input-password">
                 <label>Senha: </label>
                 <input
-                  type="text"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
                   className="input"
                   placeholder="Insira a senha"
                 ></input>
@@ -52,6 +97,7 @@ export default function Register(){
                   id="collaborator"
                   name="role"
                   value="collaborator"
+                  onChange={e => setRole('collaborator')}
                 />
                 <label>Administrador</label>
                 <input
@@ -59,6 +105,7 @@ export default function Register(){
                   id="administrator"
                   name="role"
                   value="administrator"
+                  onChange={e => setRole('administrator')}
                 />
               </div>
             </div>
