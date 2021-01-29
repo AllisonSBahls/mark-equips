@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Footer from "../Footer";
+import { toast } from 'react-toastify';
+import { IUsers } from "./types";
 import Navbar from "../Navbar";
+import Footer from "../Footer";
+import Sidebar from "../Sidebar";
+
 import "./styles.css";
-
 import { fetchCollaborator, removeCollaborator } from "../../Services/collaborator";
-
 import { AiFillEdit, AiFillDelete, AiOutlineUserAdd } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
-import Sidebar from "../Sidebar";
-import { IUsers } from "./types";
 
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
@@ -32,28 +32,31 @@ export default function Collaborator() {
   }, [token]);
 
   async function fetchMoreCollaborators() {
+    try{
       const response = await fetchCollaborator(page, authorization);
       setTotalResult(response.data.totalResults);
       setCollaborators([...collaborators, ...response.data.list]);
       setPage(page + 1);
-  }
-
+    }catch(err){
+      toast.error("Erro ao listar os Colaboradores")
+    } 
+}
   async function deleteCollaborator(id: number){
     try{
       await removeCollaborator(id, authorization);
     setCollaborators(collaborators.filter(collaborator => collaborator.id !== id));
+    toast.success("Colaborador deletado com Sucesso")
 
     } catch (err){
-      alert("Erro ao deletar")
+      toast.error("Erro ao Deletar o Colaborador")
     }
   }
 
   async function editCollaborator(id: number){
     try{
       history.push(`colaborador/form/${id}`)
-
     } catch (err){
-      alert("Erro ao Editar o colaborador")
+      toast.error("Erro ao editar o Colaborador")
     }
   }
   return (
@@ -102,7 +105,10 @@ export default function Collaborator() {
                     </button>
                     <button 
                       className="btn-action btn-delete"
-                      onClick={() => deleteCollaborator(collaborator.id)}>
+                      onClick= {() => {
+                        if(window.confirm(`Você tem certeza que deseja remover o Colaborador: ${collaborator.fullName}`))
+                            {deleteCollaborator(collaborator.id)}
+                        }}>
                       <AiFillDelete className="icon" /> Excluir
                     </button>
                   </td>
@@ -110,7 +116,10 @@ export default function Collaborator() {
               ))}
             </tbody>
           </table>
-          <button className="btn-action btn-delete" onClick={fetchMoreCollaborators} type="button">{totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}</button>
+          <button 
+          className="btn-action btn-delete" 
+          onClick={fetchMoreCollaborators} 
+          type="button">{totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}</button>
         </div>
       </div>
       <Footer />

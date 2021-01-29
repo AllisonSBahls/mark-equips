@@ -2,6 +2,7 @@ import "./styles.css";
 import {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import {auth} from '../../Services/api';
+import { toast } from 'react-toastify';
 
 import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
 
@@ -24,9 +25,9 @@ export default function Login() {
         history.push('/colaboradores');
 
     }catch(error){
-      alert('Erro ao logar, tente novamente')
+      toast.error('Usuário ou Senha Inválidos, tente novamente')
     }
-}
+} 
 
   return (
     <div className="container">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import "./styles.css";
 
@@ -29,7 +30,7 @@ export default function Register() {
     if (collaboratorId === '0') return;
     else loadCollaborator();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, collaboratorId);
+  }, [collaboratorId]);
 
   async function loadCollaborator() {
     try {
@@ -51,24 +52,32 @@ export default function Register() {
   async function saveCollaborator(e: any) {
     e.preventDefault();
 
-    const data = {
-      fullName,
-      userName,
-      password,
-      role,
-      id
-    };
 
     try {
       if(collaboratorId === '0'){
+        const data = {
+          fullName,
+          userName,
+          password,
+          role,
+        };
+    
         await register(data, authorization);
+        toast.success("Colaborador cadastrado com sucesso")
       }else{
-        data.id = id;
+        const data = {
+          fullName,
+          userName,
+          password,
+          role,
+          id: id
+        };
         await updateCollaborator(data, authorization)
+        toast.success("Colaborador alterado com sucesso")
       }
       history.push("/colaboradores");
     } catch (err) {
-      alert("Usuário já existe");
+      toast.error("Erro ao salvar o colaborador");
     }
   }
 
@@ -116,6 +125,28 @@ export default function Register() {
     )
   }
 
+  function Role() {
+      return (
+        <>
+          <label>Colaborador</label>
+          <input
+            type="radio"
+            id="collaborator"
+            name="role"
+            value="collaborator"
+            onChange={(e) => setRole("collaborator")}
+          />
+          <label>Administrador</label>
+          <input
+            type="radio"
+            id="administrator"
+            name="role"
+            value="administrator"
+            onChange={(e) => setRole("administrator")}
+          />
+        </>
+      );
+  };
   return (
     <>
       <Navbar />
@@ -163,7 +194,7 @@ export default function Register() {
             <div className="roles">
               <h4>Função</h4>
               <div className="radio">
-                <RoleCheck />
+                    {collaboratorId === '0' ? <Role/> : <RoleCheck/>}
               </div>
             </div>
             <div className="form-button">
