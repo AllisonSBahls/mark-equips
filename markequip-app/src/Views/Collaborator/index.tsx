@@ -13,28 +13,34 @@ import { IUsers } from "./types";
 
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
+  const [totalResult, setTotalResult] = useState();
+  const [page, setPage] = useState(1);
 
   const token = localStorage.getItem("Token");
+
+  const authorization={
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
 
   const history = useHistory();
 
   useEffect(() => {
-    fetchCollaborator({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      setCollaborators(response.data.list);
-    });
+    fetchMoreCollaborators();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  async function fetchMoreCollaborators() {
+      const response = await fetchCollaborator(page, authorization);
+      setTotalResult(response.data.totalResults);
+      setCollaborators([...collaborators, ...response.data.list]);
+      setPage(page + 1);
+  }
 
   async function deleteCollaborator(id: number){
     try{
-      await removeCollaborator(id, { 
-        headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      await removeCollaborator(id, authorization);
     setCollaborators(collaborators.filter(collaborator => collaborator.id !== id));
 
     } catch (err){
@@ -50,7 +56,6 @@ export default function Collaborator() {
       alert("Erro ao Editar o colaborador")
     }
   }
-
   return (
     <>
       <Navbar />
@@ -105,6 +110,7 @@ export default function Collaborator() {
               ))}
             </tbody>
           </table>
+          <button className="btn-action btn-delete" onClick={fetchMoreCollaborators} type="button">{totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}</button>
         </div>
       </div>
       <Footer />

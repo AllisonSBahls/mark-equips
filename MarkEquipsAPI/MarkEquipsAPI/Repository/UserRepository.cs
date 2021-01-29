@@ -45,9 +45,25 @@ namespace MarkEquipsAPI.Repository
 
         public int GetCount(string FullNameUser)
         {
-            var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser)).Count();
+            int result;
+
+            if (string.IsNullOrWhiteSpace(FullNameUser))
+            {
+                result = _context.Users.Include(x => x.UserRoles).ThenInclude(u => u.Role).Count();
+            }
+            else
+            {
+                result = _context.Users
+                    .Include(x => x.UserRoles)
+                    .ThenInclude(u => u.Role)
+                    .Where(x => x.FullName
+                    .Contains(FullNameUser)).Count();
+            }
 
             return result;
+            ///var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser)).Count();
+
+            //return result;
         }
 
         public async Task UpdateAsync(User item, User entity)
