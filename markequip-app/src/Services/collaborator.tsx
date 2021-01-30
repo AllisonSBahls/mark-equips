@@ -4,8 +4,8 @@ export const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
 })
 
-export function fetchCollaborator(page: any, token:any){
-    return api.get(`api/v1/users/asc/10/${page}`, token);
+export function fetchCollaborator(page: any, token:any, name:any){
+    return api.get(`api/v1/users/asc/1/${page}/?name=${name}`, token);
 }
 
 export function findById(id: number, token: any){

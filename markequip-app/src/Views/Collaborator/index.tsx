@@ -5,6 +5,7 @@ import { IUsers } from "./types";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import Sidebar from "../Sidebar";
+import SearchInput from "../../Helpers/SearchInput";
 
 import "./styles.css";
 import { fetchCollaborator, removeCollaborator } from "../../Services/collaborator";
@@ -14,7 +15,9 @@ import { FaSearch } from "react-icons/fa";
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
   const [totalResult, setTotalResult] = useState();
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
+  const [pageB, setPageB] = useState(2);
+  const [name, setName] = useState('');
 
   const token = localStorage.getItem("Token");
 
@@ -27,16 +30,27 @@ export default function Collaborator() {
   const history = useHistory();
 
   useEffect(() => {
-    fetchMoreCollaborators();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+      fetchCollaborators();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, name]);
+
+  
+  async function fetchCollaborators() {
+    try{
+      const response = await fetchCollaborator(page, authorization, name)
+      setCollaborators(response.data.list);
+      setPageB(page+1);
+    }catch(err){
+      toast.error("Erro ao listar os Colaboradores")
+    } 
+  }
 
   async function fetchMoreCollaborators() {
     try{
-      const response = await fetchCollaborator(page, authorization);
+      const response = await fetchCollaborator(pageB, authorization, name)
       setTotalResult(response.data.totalResults);
       setCollaborators([...collaborators, ...response.data.list]);
-      setPage(page + 1);
+      setPageB(pageB+1);
     }catch(err){
       toast.error("Erro ao listar os Colaboradores")
     } 
@@ -59,6 +73,8 @@ export default function Collaborator() {
       toast.error("Erro ao editar o Colaborador")
     }
   }
+
+
   return (
     <>
       <Navbar />
@@ -68,7 +84,7 @@ export default function Collaborator() {
         <div className="action-collaborators">
           <div className="field-search">
             <FaSearch className="icon icon-search" />
-            <input type="text" placeholder="Procurar pelo nome"></input>
+            <SearchInput value ={name} onChange={(search:any) => {setName(search)}}/>
           </div>
 
           <div className="btn-insert-field">
@@ -118,8 +134,10 @@ export default function Collaborator() {
           </table>
           <button 
           className="btn-action btn-delete" 
-          onClick={fetchMoreCollaborators} 
-          type="button">{totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}</button>
+          type="button"
+          onClick={fetchMoreCollaborators}>
+            {totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}
+          </button>
         </div>
       </div>
       <Footer />

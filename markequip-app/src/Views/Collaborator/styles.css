@@ -165,8 +165,9 @@
     height: 120px;
     width: 100%;
     z-index: -1;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
+    box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
 }
 
 .register{
@@ -331,9 +332,6 @@
         padding:5px 15px;
         text-align: center;
     }
-    .background-effect{
-        width: 70%;
-    }
 }
 
 @media(max-width: 940px){
@@ -343,9 +341,6 @@
     }
     .field-search input{
         width: 300px;
-    }
-    .background-effect{
-        width: 60%;
     }
 }
 
@@ -414,10 +409,6 @@
     .register{
         margin-left: 0;
     }
-    .background-effect{
-       width: 70%;
-       margin-left: 120px;
-    }
 }
 @media(max-width: 700px){
     .action-collaborators{
@@ -430,9 +421,6 @@
         margin-left: 40px;
     }
 
-    .background-effect{
-        margin-left: 108px;
-     }
 }
 
 @media(max-width: 411px){
@@ -470,17 +458,9 @@
     }
 }
 @media(max-width: 600px){
-    .background-effect{
-    display: none;
-}
     .register-container{
         width: 80%;
         margin-left: 80px;
-    }
-
-    .background-effect{
-       display: none;
-
     }
 
     .register{
@@ -518,11 +498,6 @@
     .register-container{
         width: 75%;
         margin-left: 80px;
-    }
-
-    .background-effect{
-       display: none;
-
     }
 
     .register{
