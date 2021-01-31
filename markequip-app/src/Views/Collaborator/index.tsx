@@ -79,7 +79,6 @@ export default function Collaborator() {
     <>
       <Navbar />
       <Sidebar />
-
       <div className="container-collaborators">
         <div className="action-collaborators">
           <div className="field-search">
@@ -92,13 +91,11 @@ export default function Collaborator() {
               <AiOutlineUserAdd className="icon" />
               Novo Colaborador
             </Link>
-            <a href="/#" className="btn-insert btn-responsive">
-              <AiOutlineUserAdd />
-            </a>
+
           </div>
         </div>
         <div className="collaborators-content">
-          <table className="table-colaborators table-responsive">
+          <table className="table table-responsive">
             <thead>
               <tr>
                 <th>ID</th>

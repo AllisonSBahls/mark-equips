@@ -36,6 +36,7 @@ namespace MarkEquipsAPI.Controllers
         {
             return Ok(await _entityService.FindWithPageSearch(name, equipment, sortDirection, pageSize, page));
         }
+
         [HttpGet("user/{sortDirection}/{pageSize}/{page}")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get([FromQuery]string? equipment, string sortDirection, int pageSize, int page)

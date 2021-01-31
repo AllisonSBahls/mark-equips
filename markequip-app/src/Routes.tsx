@@ -3,6 +3,7 @@ import Login from "./Views/Login";
 import Collaborator from "./Views/Collaborator";
 import Register from "./Views/Collaborator/register";
 import Sidebar from "./Views/Sidebar";
+import Schedule from "./Views/Schedule";
 
 export default function Routes(){
     return (
@@ -18,6 +19,9 @@ export default function Routes(){
                 </Route>
                 <Route path="/sidebar" exact>
                     <Sidebar />
+                </Route>           
+                <Route path="/horarios" exact>
+                    <Schedule />
                 </Route>           
             </Switch>
         </BrowserRouter>

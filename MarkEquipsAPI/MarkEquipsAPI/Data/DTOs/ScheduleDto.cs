@@ -9,7 +9,7 @@ namespace MarkEquipsAPI.Data.DTOs
         public int Id { get; set; }
         public string HourInitial { get; set; }
         public string HourFinal { get; set; }
-        public int Period { get; set; }
+        public string Period { get; set; }
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 

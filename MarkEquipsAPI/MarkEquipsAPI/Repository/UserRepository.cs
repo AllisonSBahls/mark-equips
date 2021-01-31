@@ -61,9 +61,6 @@ namespace MarkEquipsAPI.Repository
             }
 
             return result;
-            ///var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser)).Count();
-
-            //return result;
         }
 
         public async Task UpdateAsync(User item, User entity)

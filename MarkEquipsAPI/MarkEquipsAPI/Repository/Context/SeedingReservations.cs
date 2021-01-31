@@ -139,15 +139,15 @@ namespace MarkEquipsAPI.Repository.Context
             Equipment e9 = new Equipment() { Name = "Caixa de Som Retry", Description = "Entrada P2 e USB", Number = 5675, ImageURL = "img9.png" };
             Equipment e10 = new Equipment() { Name = "Projetor Dell 2V", Description = "Projetor com entrada VGA", Number = 4554, ImageURL = "img10.png" };
 
-            Schedule m1 = new Schedule() { Id = 1, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(8, 0, 0), HourFinal = new TimeSpan(9, 0, 0) };
-            Schedule m2 = new Schedule() { Id = 2, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(9, 0, 0), HourFinal = new TimeSpan(10, 0, 0) };
-            Schedule m3 = new Schedule() { Id = 3, Period = PeriodDay.MORNING, HourInitial = new TimeSpan(10, 0, 0), HourFinal = new TimeSpan(11, 0, 0) };
-            Schedule t1 = new Schedule() { Id = 4, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(14, 0, 0), HourFinal = new TimeSpan(15, 0, 0) };
-            Schedule t2 = new Schedule() { Id = 5, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(15, 0, 0), HourFinal = new TimeSpan(16, 0, 0) };
-            Schedule t3 = new Schedule() { Id = 6, Period = PeriodDay.EVERNING, HourInitial = new TimeSpan(16, 0, 0), HourFinal = new TimeSpan(17, 0, 0) };
-            Schedule n1 = new Schedule() { Id = 7, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(18, 0, 0), HourFinal = new TimeSpan(19, 0, 0) };
-            Schedule n2 = new Schedule() { Id = 8, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(19, 0, 0), HourFinal = new TimeSpan(20, 0, 0) };
-            Schedule n3 = new Schedule() { Id = 9, Period = PeriodDay.NIGHT, HourInitial = new TimeSpan(20, 0, 0), HourFinal = new TimeSpan(21, 0, 0) };
+            Schedule m1 = new Schedule() { Id = 1, Period = "Manhã", HourInitial = new TimeSpan(8, 0, 0), HourFinal = new TimeSpan(9, 0, 0) };
+            Schedule m2 = new Schedule() { Id = 2, Period = "Manhã", HourInitial = new TimeSpan(9, 0, 0), HourFinal = new TimeSpan(10, 0, 0) };
+            Schedule m3 = new Schedule() { Id = 3, Period = "Manhã", HourInitial = new TimeSpan(10, 0, 0), HourFinal = new TimeSpan(11, 0, 0) };
+            Schedule t1 = new Schedule() { Id = 4, Period = "Tarde", HourInitial = new TimeSpan(14, 0, 0), HourFinal = new TimeSpan(15, 0, 0) };
+            Schedule t2 = new Schedule() { Id = 5, Period = "Tarde", HourInitial = new TimeSpan(15, 0, 0), HourFinal = new TimeSpan(16, 0, 0) };
+            Schedule t3 = new Schedule() { Id = 6, Period = "Tarde", HourInitial = new TimeSpan(16, 0, 0), HourFinal = new TimeSpan(17, 0, 0) };
+            Schedule n1 = new Schedule() { Id = 7, Period = "Noite", HourInitial = new TimeSpan(18, 0, 0), HourFinal = new TimeSpan(19, 0, 0) };
+            Schedule n2 = new Schedule() { Id = 8, Period = "Noite", HourInitial = new TimeSpan(19, 0, 0), HourFinal = new TimeSpan(20, 0, 0) };
+            Schedule n3 = new Schedule() { Id = 9, Period = "Noite", HourInitial = new TimeSpan(20, 0, 0), HourFinal = new TimeSpan(21, 0, 0) };
 
             Reserver r1 = new Reserver() { Id = 1, Date = new DateTime(2021, 1, 10), UserId = 1, Equipment = e1, Schedule = m1, Status = ReserveStatus.RESERVED };
             Reserver r2 = new Reserver() { Id = 2, Date = new DateTime(2021, 2, 12), UserId = 2, Equipment = e9, Schedule = n2, Status = ReserveStatus.RESERVED };

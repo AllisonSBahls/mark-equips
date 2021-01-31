@@ -10,7 +10,7 @@ namespace MarkEquipsAPI.Models
 
         public TimeSpan HourInitial { get; set; }
         public TimeSpan HourFinal { get; set; }
-        public PeriodDay Period { get; set; }
+        public string Period { get; set; }
         public List<Reserver> Reservations { get; set; }
 
     }
