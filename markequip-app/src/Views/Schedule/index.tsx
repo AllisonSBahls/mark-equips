@@ -82,8 +82,7 @@ export default function Schedule() {
 
       <ModalSchedule 
         isOpen={Boolean(scheduleId) || openModal } 
-        onClickClose={() => setOpenModal(false)}
-        onClose={() => setScheduleId(null)}
+        onClickClose={() => [setScheduleId(null), setOpenModal(false)]}
         >
         <h1>Texto modal</h1>
       </ModalSchedule>
