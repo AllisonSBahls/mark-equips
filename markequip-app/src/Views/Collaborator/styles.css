@@ -110,8 +110,7 @@
 }
 
 .register-container{
-    display: flex;
-    justify-content: center;
+
     margin-top: 20px;
 }
 
@@ -128,8 +127,6 @@
 
 .register{
     background:#f5f1f1;
-    width: 50%;
-    margin-left: 215px;
     box-sizing: border-box;
     padding: 40px;
     position:relative;
