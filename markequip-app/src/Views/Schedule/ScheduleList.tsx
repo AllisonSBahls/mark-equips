@@ -1,13 +1,13 @@
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiAddToQueue } from "react-icons/bi";
 
-export default function ScheduleList({morning, afternoon, night, onClickInfo} : any){
+export default function ScheduleList({morning, afternoon, night, onClickInfo, onClickOpenModal} : any){
     return(
         <div className="content-schedule">
         <div className="table-content">
           <h3>
             Horários: Manha
-            <button className="btn-schedule btn-insert-schedule">
+            <button className="btn-schedule btn-insert-schedule" onClick={() => onClickOpenModal(true)}>
               <BiAddToQueue className="icon" />
             </button>
           </h3>
@@ -43,7 +43,7 @@ export default function ScheduleList({morning, afternoon, night, onClickInfo} : 
         <div className="table-content">
           <h3>
             Horários: Tarde
-            <button className="btn-schedule btn-insert-schedule">
+            <button className="btn-schedule btn-insert-schedule" onClick={() => onClickOpenModal(true)}>
               <BiAddToQueue className="icon" />
             </button>
           </h3>
@@ -76,7 +76,7 @@ export default function ScheduleList({morning, afternoon, night, onClickInfo} : 
         <div className="table-content">
           <h3>
             Horário: Noite
-            <button className="btn-schedule btn-insert-schedule">
+            <button className="btn-schedule btn-insert-schedule" onClick={() => onClickOpenModal(true)} >
               <BiAddToQueue className="icon" />
             </button>
           </h3>

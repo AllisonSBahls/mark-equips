@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './modal.css'
 const portalRoot = document.getElementById('portal-root')!;
 
-const ModalSchedule = ({children, isOpen, onClickClose} : any) => {
+function Modal({children, isOpen, onClickClose} : any){
     if(!isOpen){
         return null;
     }
@@ -20,4 +20,4 @@ const ModalSchedule = ({children, isOpen, onClickClose} : any) => {
     );
 };
 
-export default ModalSchedule;
+export default Modal;

@@ -8,11 +8,11 @@ import Sidebar from "../Sidebar";
 import { ISchedule } from "./types";
 
 import "./styles.css";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiAddToQueue } from "react-icons/bi";
 import { fetchSchedule } from "../../Services/schedule";
-import ModalSchedule from "../../Helpers/Modal/ModalSchedule";
+import Modal from "../../Helpers/Modal/Modal";
 import ScheduleList from "./ScheduleList";
+import ModalSchedule from "./ModalSchedule";
 
 export default function Schedule() {
   const [schedulesMorning, setschedulesMorning] = useState<ISchedule[]>([]);
@@ -77,15 +77,16 @@ export default function Schedule() {
           morning={schedulesMorning}
           afternoon={schedulesAfternoon}
           night={schedulesNight}
-          onClickInfo={setScheduleId}/>
+          onClickInfo={setScheduleId}
+          onClickOpenModal={setOpenModal}/>
       </div>
 
-      <ModalSchedule 
+      <Modal 
         isOpen={Boolean(scheduleId) || openModal } 
         onClickClose={() => [setScheduleId(null), setOpenModal(false)]}
         >
-        <h1>Texto modal</h1>
-      </ModalSchedule>
+        <ModalSchedule/>
+      </Modal>
 
     </>
   );
