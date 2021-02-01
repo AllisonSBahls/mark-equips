@@ -11,12 +11,16 @@ import "./styles.css";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiAddToQueue } from "react-icons/bi";
 import { fetchSchedule } from "../../Services/schedule";
+import ModalSchedule from "../../Helpers/Modal/ModalSchedule";
+import {ScheduleListMorning, ScheduleListAfternoon, ScheduleListNight} from "./ScheduleList";
 
 export default function Schedule() {
   const [schedulesMorning, setschedulesMorning] = useState<ISchedule[]>([]);
   const [schedulesAfternoon, setschedulesAfternoon] = useState<ISchedule[]>([]);
   const [schedulesNight, setschedulesNight] = useState<ISchedule[]>([]);
+  const [scheduleId, setScheduleId] = useState(null);
   
+
   let morning = new Array();
   let afternoon = new Array();
   let night = new Array();
@@ -62,117 +66,88 @@ export default function Schedule() {
       <div className="container-schedule">
         <div className="conenet-schedule">
           <div className="btn-insert-field">
-            <Link to="Horário form/0" className="btn-insert">
+
+            {/* <Link to="Horário form/0" className="btn-insert">
               <BiAddToQueue className="icon" />
               Inserir Horario
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="content-schedule">
-          <div className="table-content">
-            <h3>
-              Horários: Manha
-              <button className="btn-schedule btn-insert-schedule">
-                <BiAddToQueue className="icon" />
-              </button>
-            </h3>
-            <table className="table-schedule table-schedule-responsive">
-              <thead>
-                <tr >
-                  <th>Inicio</th>
-                  <th>Final</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              
-              <tbody>
-              {schedulesMorning.map((schedule) => (
-                <tr key={schedule.id}>
-                  <td>{schedule.hourInitial}</td>
-                  <td>{schedule.hourFinal}</td>
-                  <td>
-                    <button className="btn-schedule btn-edit">
-                      <AiFillEdit className="icon" />
-                    </button>
-                    <button className="btn-schedule btn-delete">
-                      <AiFillDelete className="icon" />
-                    </button>
-                  </td>
-                </tr>
-                ))}
-              </tbody>
-              </table>
-          </div>
+        <div className="table-content">
+          <h3>
+            Horários: Manha
+            <button className="btn-schedule btn-insert-schedule">
+              <BiAddToQueue className="icon" />
+            </button>
+          </h3>
+          <table className="table-schedule table-schedule-responsive">
+            <thead>
+              <tr >
+                <th>Inicio</th>
+                <th>Final</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+            {schedulesMorning.map((schedule) => (
+            <ScheduleListMorning morning={schedule} onClickInfo={schedule.id}/>
+            ))}
 
-       
-          <div className="table-content">
-            <h3>
-              Horários: Tarde
-              <button className="btn-schedule btn-insert-schedule">
-                <BiAddToQueue className="icon" />
-              </button>
-            </h3>
-            <table className="table-schedule table-schedule-responsive">
-              <thead>
-                <tr>
-                  <th>Inicial</th>
-                  <th>Final</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-              {schedulesAfternoon.map((schedule) => (
-                <tr key={schedule.id}>
-                  <td>{schedule.hourInitial}</td>
-                  <td>{schedule.hourFinal}</td>
-                  <td>
-                    <button className="btn-schedule btn-edit">
-                      <AiFillEdit className="icon" />
-                    </button>
-                    <button className="btn-schedule btn-delete">
-                      <AiFillDelete className="icon" />
-                    </button>
-                  </td>
-                </tr>
-                ))}
-              </tbody>
+            </tbody>
             </table>
-          </div>
-          <div className="table-content">
-            <h3>
-              Horário: Noite
-              <button className="btn-schedule btn-insert-schedule">
-                <BiAddToQueue className="icon" />
-              </button>
-            </h3>
-            <table className="table-schedule table-schedule-responsive">
-              <thead>
-                <tr>
-                  <th>Inicial</th>
-                  <th>Final</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-              {schedulesNight.map((schedule) => (
-                <tr key={schedule.id}>
-                  <td>{schedule.hourInitial}</td>
-                  <td>{schedule.hourFinal}</td>
-                  <td>
-                    <button className="btn-schedule btn-edit">
-                      <AiFillEdit className="icon" />
-                    </button>
-                    <button className="btn-schedule btn-delete">
-                      <AiFillDelete className="icon" />
-                    </button>
-                  </td>
-                </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        </div>
+        <div className="table-content">
+          <h3>
+            Horários: Tarde
+            <button className="btn-schedule btn-insert-schedule">
+              <BiAddToQueue className="icon" />
+            </button>
+          </h3>
+          <table className="table-schedule table-schedule-responsive">
+            <thead>
+              <tr>
+                <th>Inicial</th>
+                <th>Final</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+            {schedulesAfternoon.map((schedule) => (
+                <ScheduleListAfternoon afternoon={schedule} onClickInfo={schedule.id}/>
+             ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="table-content">
+          <h3>
+            Horário: Noite
+            <button className="btn-schedule btn-insert-schedule">
+              <BiAddToQueue className="icon" />
+            </button>
+          </h3>
+          <table className="table-schedule table-schedule-responsive">
+            <thead>
+              <tr>
+                <th>Inicial</th>
+                <th>Final</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+            {schedulesNight.map((schedule) => (
+                <ScheduleListNight night={schedule} 
+                onClickInfo={schedule.id}/>
+             ))}
+            </tbody>
+          </table>
         </div>
       </div>
+      </div>
+
+      <ModalSchedule isOpen={Boolean(scheduleId)}>
+        <h1>Texto modal</h1>
+      </ModalSchedule>
     </>
   );
 }
