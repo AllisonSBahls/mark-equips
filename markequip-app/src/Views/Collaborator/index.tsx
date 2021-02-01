@@ -96,7 +96,7 @@ export default function Collaborator() {
         />
 
         <button 
-        className="btn-action btn-delete" 
+        className="btn-action btn-more-list" 
         type="button"
         onClick={fetchMoreCollaborators}>
           {totalResult === collaborators.length ? 'Fim da Página' : 'Carregar mais'}

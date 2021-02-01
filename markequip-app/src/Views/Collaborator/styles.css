@@ -47,6 +47,7 @@
 }
 
 .btn-insert{
+    cursor: pointer;
     display: flex;
     background-color: #4da060;
     padding: 7px 15px;
@@ -88,6 +89,19 @@
     border: 1px solid #3796fc;
     color: white;
 
+
+}
+
+
+.btn-more-list{
+    background-color: #0dcaf0;
+    border: 1px solid #0dcaf0; 
+}
+
+.btn-more-list:hover{
+    background-color:  #0e94af;
+    border: 1px solid #1299b4; 
+    color: white;
 
 }
 

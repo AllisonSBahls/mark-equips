@@ -11,8 +11,8 @@ function Modal({children, isOpen, onClickClose} : any){
     return ReactDOM.createPortal(
         <div className="modal-overlay">
             <div className="modal">
-           <button type="button" className="modal_close-button"  onClick={onClickClose}>X</button>
-            {children}
+                <button type="button" className="modal_close-button"  onClick={onClickClose}>X</button>
+                {children}
             </div>
         </div>,
         

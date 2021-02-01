@@ -13,13 +13,31 @@
     border-radius: 4px;
     max-width: 600px;
     margin: 80px auto 0 auto;
-    padding: 15px
+    padding: 15px;
+    animation: modal .4s;
 
+}
+
+@keyframes modal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .modal_close-button{
     float: right;
-    background: unset;
-    border: unset;
+    width: 20px;
+    height: 23px;
+    border-radius: 50px;
+    border: 2px solid rgb(41, 141, 86);
+    background-color:  rgb(41, 141, 86);
+    font-weight: bold;
+    cursor: pointer;
+    color:white;
 
 }
