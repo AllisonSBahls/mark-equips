@@ -1,9 +1,9 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Login from "./Views/Login";
-import Collaborator from "./Views/Collaborator";
-import Sidebar from "./Views/Sidebar";
-import Schedule from "./Views/Schedule";
-import Equipment from "./Views/Equipments";
+import Login from "./Pages/Login";
+import Collaborator from "./Pages/Collaborator";
+import Sidebar from "./Pages/Sidebar";
+import Schedule from "./Pages/Schedule";
+import Equipment from "./Pages/Equipments";
 
 export default function Routes(){
     return (

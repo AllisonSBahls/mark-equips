@@ -33,7 +33,7 @@ export default function Collaborator() {
   useEffect(() => {
       fetchCollaborators();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, name, collaborators]);
+  }, [token, name]);
 
   
   async function fetchCollaborators() {

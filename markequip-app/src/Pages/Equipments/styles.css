@@ -13,12 +13,14 @@
 
 .equipment{
     margin: 10px 10px 10px 0;
-    width: 320px;
+    width: 250px;
     height: 150px;
-    color: white;
+    color: rgb(82, 82, 82);
+    background-color: white;
     padding: 10px;
+    border: 1px solid black;
     border-radius: 10px 15px;
-    background: linear-gradient(0deg, #66b8a4 0%, #53ac97 100%);
+    box-shadow: 3px 4px 4px rgb(126, 125, 125);
 }
 
 .equipment-title{
@@ -26,6 +28,7 @@
     border-bottom: 1px solid;
     border-radius: 5px;
     margin-bottom: 10px;
+    min-height: 40px;
     display: flex;
     text-align: center;
     justify-content: space-between;
@@ -34,14 +37,17 @@
 .equipment-tombo{
     border-left: 1px solid;
     padding-left: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
+    max-width: 30px;
 }
 
 .equipment-description{
     font-size: 12px;
     border-bottom: 1px solid;
     margin-bottom: 10px;
-    padding-bottom: 5px;
+    min-width: 100%;
+    min-height: 40px;
+    text-align: center;
 
 }
 
@@ -56,6 +62,41 @@
     margin-right: 5px;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.equipment-action-content{
+    background-color: white;
+    width: 94%;
+    height: 70px;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.equipment-search{
+    padding: 10px;
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    border: 1px solid #4f7d9c;
+}
+
+.equipment-btn-insert{
+    cursor: pointer;
+    display: flex;
+    background-color: #4da060;
+    padding: 7px 25px;
+    border-radius: 15px;
+    color: white;
+    border: 1px solid #4da060;
+}
+.equipment-btn-insert:hover{
+    background-color: #238d3c;
+    border: 1px solid #238d3c;
+    color: white;
 }
 
 .equipment-btn-reserver{
