@@ -3,6 +3,7 @@ import Login from "./Views/Login";
 import Collaborator from "./Views/Collaborator";
 import Sidebar from "./Views/Sidebar";
 import Schedule from "./Views/Schedule";
+import Equipment from "./Views/Equipments";
 
 export default function Routes(){
     return (
@@ -12,6 +13,9 @@ export default function Routes(){
                 </Route>
                 <Route path="/colaboradores" exact>
                     <Collaborator />
+                </Route>
+                <Route path="/equipamentos" exact>
+                    <Equipment />
                 </Route>
                 <Route path="/sidebar" exact>
                     <Sidebar />
