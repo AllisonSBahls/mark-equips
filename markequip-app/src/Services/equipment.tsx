@@ -21,6 +21,6 @@ export function removeEquipment(id: number, token:any){
 }
 
 export function updateEquipments(equipments: any, token: any){
-    return api.put('api/v1/users/', equipments, token);
+    return api.put('api/v1/equipments/', equipments, token);
 }
 

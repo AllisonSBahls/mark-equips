@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "./styles.css";
 
 import {register, findById, updateCollaborator} from "../../Services/collaborator";
-import Modal from "../../Helpers/Modal/Modal";
+import Modal from "../../Components/Modal/Modal";
 
 export default function CollaboratorModal({
   collaboratorId,

@@ -4,7 +4,7 @@ import { IUsers } from "./types";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import Sidebar from "../Sidebar";
-import SearchInput from "../../Helpers/SearchInput";
+import SearchInput from "../../Components/Debounced/SearchInput";
 
 import "./styles.css";
 import { fetchCollaborator, removeCollaborator } from "../../Services/collaborator";

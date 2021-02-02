@@ -4,11 +4,11 @@ import EquipmentCard from "./EquipmentCard";
 import "./styles.css";
 
 import { useEffect, useState } from "react";
-import { fetchEquipment } from "../../Services/equipment";
+import { fetchEquipment, removeEquipment } from "../../Services/equipment";
 import { IEquipment } from "./types";
 import {toast} from 'react-toastify'
 import { FaSearch } from "react-icons/fa";
-import SearchInput from "../../Helpers/SearchInput";
+import SearchInput from "../../Components/Debounced/SearchInput";
 import EquipmentModal from "./EquipmentModal";
 
 export default function Equipment() {
@@ -30,9 +30,9 @@ export default function Equipment() {
   }
   useEffect(() =>{
      fetchEquipmentsCard();
-     console.log(equipments)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, name])
+  }, [token, name, equipmentId, openModal])
+
 
   async function fetchEquipmentsCard(){
       try{
@@ -56,6 +56,17 @@ export default function Equipment() {
     } 
 }
 
+  async function deleteEquipment(id: number){
+    try{
+      await removeEquipment(id, authorization);
+      SetEquipments(equipments.filter(equipments => equipments.id !== id));
+      toast.success("Colaborador deletado com Sucesso")
+
+    } catch (err){
+      toast.error("Erro ao Deletar o Colaborador")
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -66,14 +77,15 @@ export default function Equipment() {
             <FaSearch className="icon icon-search" />
             <SearchInput value ={name} onChange={(search:any) => {setName(search)}}/>
           </div>
-            <button className="equipment-btn-insert">Novo</button>
+            <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Novo</button>
         </div>
         <div className="equipment-content">
         {equipments.map(equipment =>(
           <EquipmentCard 
             key={equipment.id}
             equipment={equipment}
-            onClickInfo={setEquipmentId}/>
+            onClickInfo={setEquipmentId}
+            deleteEquipment={deleteEquipment}/>
         ))}
       </div>
       <button 

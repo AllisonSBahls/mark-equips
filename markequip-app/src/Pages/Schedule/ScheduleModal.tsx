@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Modal from "../../Helpers/Modal/Modal";
+import Modal from "../../Components/Modal/Modal";
 import { findById, register, updateSchedule } from "../../Services/schedule";
 import { toast } from "react-toastify";
 

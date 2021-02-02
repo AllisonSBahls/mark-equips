@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-import Modal from "../../Helpers/Modal/Modal";
+import Modal from "../../Components/Modal/Modal";
 import { findById, register, updateEquipments } from "../../Services/equipment";
 import { toast } from 'react-toastify';
 
@@ -26,11 +26,11 @@ export default function EquipmentModal({
 
   useEffect(() => {
     if (openModal || equipmentId === null) openFormsRegister();
-    else loadCollaborator();
+    else loadEquipment();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [equipmentId]);
 
-  async function loadCollaborator() {
+  async function loadEquipment() {
     try {
       const response = await findById(equipmentId, authorization);
       setId(response.data.id);
@@ -53,7 +53,7 @@ export default function EquipmentModal({
     }
   }
 
-  async function saveCollaborator(e: any) {
+  async function saveEquipment(e: any) {
     e.preventDefault();
     try {
       if (equipmentId === null) {
@@ -84,60 +84,41 @@ export default function EquipmentModal({
     <>
       <Modal
         isOpen={Boolean(equipmentId) || openModal}
-        onClickClose={onClickClose}
-      >
-        <div className="register-container">
-          <div className="register">
-            <h3 className="subtitle">
+        onClickClose={onClickClose}>
+
+        <div className="modal-content">
+            <h3 className="modal-title">
               {equipmentId === null
-                ? "Registrar Colaborador"
-                : "Informações do Colaborador"}
+                ? "Novo Equipamento"
+                : "Informações do Equipamento"}
             </h3>
-            <form onSubmit={saveCollaborator} className="form-collaborator">
-              <div className="collaborator">
-                <div className="input-field input-name">
-                  <div className="user">
-                  <div className="input-field input-user">
-                    <label>Nome: </label>
-                    <input
-                      value={name}
-                      onChange={(e) => setDescription(e.target.value)}
-                      type="text"
-                      className="input"
-                      placeholder="Insira o usuário"
-                    ></input>
+            <form onSubmit={saveEquipment} className="modal-form">
+              <div className="modal-input">
+                <div className="modal-two-field">
+                  <div className="modal-primary-field">
+                    <label className="modal-label-field">Nome: </label>
+                    <input className="modal-input-field" value={name} onChange={(e) => setName(e.target.value)}></input>
                   </div>
-                  <div className="input-field input-password">
-                    <label>Tombo: </label>
-                    <input
-                      value={number}
-                      onChange={(e) => setNumber(e.target.value)}
-                      type="text"
-                      disabled={equipmentId === null ? false : true}
-                      className="input"
-                      placeholder="Insira a senha"
-                    ></input>
+                  <div  className="modal-secondary-field">
+                    <label className="modal-label-field">Tombo: </label>
+                    <input className="modal-input-field" value={number} onChange={(e) => setNumber(e.target.value)}></input>
                   </div>
                 </div>
-                <label>Descrição: </label>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="input"
-                    placeholder="Insira o nome completo"
-                  ></textarea>
+                <div className="modal-one-field">
+                    <label className="modal-label-field">Description: </label>
+                    <textarea className="modal-textarea-field modal-input-field" 
+                    value={description} 
+                    onChange={(e) => setDescription(e.target.value)}></textarea>
                 </div>
               </div>
-              <div className="form-button">
-                <input
-                  type="submit"
-                  className="button-save"
-                  value={equipmentId === null ? "Salvar" : "Atualizar"}
-                ></input>
-              </div>
+              <input
+                className="modal-btn-success"
+                type="submit"
+                value={equipmentId === null ? "Salvar" : "Atualizar"}>
+                </input>
             </form>
-          </div>
         </div>
+
       </Modal>
     </>
   );
