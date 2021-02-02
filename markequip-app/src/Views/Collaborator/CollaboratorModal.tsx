@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./styles.css";
 
-import {
-  register,
-  findById,
-  updateCollaborator,
-} from "../../Services/collaborator";
+import {register, findById, updateCollaborator} from "../../Services/collaborator";
 import Modal from "../../Helpers/Modal/Modal";
-import Schedule from "../Schedule";
 
 export default function CollaboratorModal({
   collaboratorId,
@@ -21,7 +16,6 @@ export default function CollaboratorModal({
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-  //const {collaboratorId} = useParams<any>();
   const token = localStorage.getItem("Token");
   const authorization = {
     headers: {
@@ -32,6 +26,7 @@ export default function CollaboratorModal({
   useEffect(() => {
     if (openModal || collaboratorId === null) openFormsRegister();
     else loadCollaborator();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collaboratorId]);
 
   async function loadCollaborator() {
@@ -95,8 +90,7 @@ export default function CollaboratorModal({
     <>
       <Modal
         isOpen={Boolean(collaboratorId) || openModal}
-        onClickClose={onClickClose}
-      >
+        onClickClose={onClickClose}>
         <div className="register-container">
           <div className="register">
             <h3 className="subtitle">

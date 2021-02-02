@@ -10,9 +10,8 @@ import { ISchedule } from "./types";
 import "./styles.css";
 import { BiAddToQueue } from "react-icons/bi";
 import { fetchSchedule } from "../../Services/schedule";
-import Modal from "../../Helpers/Modal/Modal";
 import ScheduleList from "./ScheduleList";
-import ModalSchedule from "./ModalSchedule";
+import ScheduleModal from "./ScheduleModal";
 
 export default function Schedule() {
   const [schedulesMorning, setschedulesMorning] = useState<ISchedule[]>([]);
@@ -81,12 +80,11 @@ export default function Schedule() {
           onClickOpenModal={setOpenModal}/>
       </div>
 
-      <Modal 
-        isOpen={Boolean(scheduleId) || openModal } 
-        onClickClose={() => [setScheduleId(null), setOpenModal(false)]}
-        >
-        <ModalSchedule/>
-      </Modal>
+        <ScheduleModal
+          scheduleId={scheduleId}
+          openModal={openModal}
+          onClickClose={() => [setScheduleId(null), setOpenModal(false)]}
+          />
 
     </>
   );
