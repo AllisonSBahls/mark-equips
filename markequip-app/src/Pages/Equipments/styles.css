@@ -127,3 +127,45 @@
     background-color:#103d81;
 }
 
+.equipment-reserver-schedule{
+    display: flex;
+}
+
+.equipment-schedule{
+    margin-right: 10px;
+    width: 30%;
+    color: rgb(2, 2, 2);
+    font-size: 12px;
+}
+
+.equipment-card{
+    display: flex;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid rgb(143, 143, 143);
+}
+
+.equipment-reserver-title{
+    border-top: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+
+.equipment-schedule-morning{
+    display: flex;
+}
+
+.equipment-schedule p{
+    margin-right: 5px;
+}
+
+.modal-primary-field{
+    width: 45% !important;
+}
+
+.modal-secondary-field{
+    width: 45% !important;
+}

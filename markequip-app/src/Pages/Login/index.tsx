@@ -22,6 +22,9 @@ export default function Login() {
       const  response = await auth(data);
         localStorage.setItem('userName', userName);
         localStorage.setItem('Token', response.data.token);
+        localStorage.setItem('fullName', response.data.fullName);
+        localStorage.setItem('id', response.data.id);
+        localStorage.setItem('role', response.data.role);
         history.push('/colaboradores');
 
     }catch(error){

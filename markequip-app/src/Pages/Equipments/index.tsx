@@ -10,6 +10,7 @@ import {toast} from 'react-toastify'
 import { FaSearch } from "react-icons/fa";
 import SearchInput from "../../Components/Debounced/SearchInput";
 import EquipmentModal from "./EquipmentModal";
+import EquipmentReserver from "./EquipmentReserver";
 
 export default function Equipment() {
 
@@ -20,6 +21,7 @@ export default function Equipment() {
   const [name, setName] = useState('');
   const [equipmentId, setEquipmentId] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [equipmentReserver, setEquipmentReserver] = useState(null);
 
   const token = localStorage.getItem('Token');
 
@@ -85,6 +87,7 @@ export default function Equipment() {
             key={equipment.id}
             equipment={equipment}
             onClickInfo={setEquipmentId}
+            onClickReserver={setEquipmentReserver}
             deleteEquipment={deleteEquipment}/>
         ))}
       </div>
@@ -99,6 +102,11 @@ export default function Equipment() {
       equipmentId={equipmentId}
       openModal ={openModal}
       onClickClose={() => [setEquipmentId(null), setOpenModal(false)]}/>
+
+    <EquipmentReserver
+        equipmentId={equipmentReserver}      
+        onClickClose={() => [setEquipmentReserver(null), setOpenModal(false)]}/>
     </>
+  
   );
 }

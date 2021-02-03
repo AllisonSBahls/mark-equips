@@ -88,6 +88,10 @@ a {
   width: 93%;
 }
 
+.modal-label-field{
+  font-size: 14px;
+}
+
 .modal-textarea-field{
   padding-top: 13px;
   width: 100%;
