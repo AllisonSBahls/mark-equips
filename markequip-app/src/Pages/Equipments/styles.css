@@ -142,8 +142,9 @@
     display: flex;
     padding: 5px;
     cursor: pointer;
+    margin-bottom: 3px;
     border-radius: 6px;
-    border: 1px solid rgb(143, 143, 143);
+    border: 2px solid rgb(143, 143, 143);
 }
 
 .equipment-reserver-title{
@@ -163,9 +164,22 @@
 }
 
 .modal-primary-field{
-    width: 45% !important;
+    width: 60% !important;
 }
 
 .modal-secondary-field{
-    width: 45% !important;
+    width: 29% !important;
+}
+
+.modal-input-field{
+    width: 100%!important;
+}
+
+.modal-one-field{
+    margin-bottom: 10px;
+}
+
+.equipment-card.selected{
+    border: 2px solid green;
+    color: green;
 }

@@ -1,6 +1,6 @@
 export interface ISchedule {
     id: number;
-    hourInitial:string;
-    hourFinal:string;
+    hourInitial:Date;
+    hourFinal:Date;
     period:string;
 }
