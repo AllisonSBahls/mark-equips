@@ -1,6 +1,14 @@
+import {IUsers} from "./types";
+
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-export default function CollaboratorList({collaborators, deleteCollaborator, onClickInfo}: any){
+type Props = {
+  collaborators: IUsers[];
+  deleteCollaborator: any;
+  onClickInfo: any;
+}
+
+export default function CollaboratorList({collaborators, deleteCollaborator, onClickInfo}: Props){
     
   return(
         <table className="table table-responsive">

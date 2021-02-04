@@ -1,7 +1,16 @@
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiAddToQueue } from "react-icons/bi";
+import { ISchedule } from "./types";
 
-export default function ScheduleList({morning, afternoon, night, onClickInfo, onClickOpenModal} : any){
+type Props = {
+  morning: ISchedule[];
+  afternoon: ISchedule[];
+  night: ISchedule[];
+  onClickInfo: any;
+  onClickOpenModal: any;
+}
+
+export default function ScheduleList({morning, afternoon, night, onClickInfo, onClickOpenModal} : Props){
     return(
         <div className="content-schedule">
         <div className="table-content">

@@ -77,7 +77,7 @@ export default function Equipment() {
         <div className="equipment-action-content">
         <div className="field-search">
             <FaSearch className="icon icon-search" />
-            <SearchInput value ={name} onChange={(search:any) => {setName(search)}}/>
+            <SearchInput value ={name} onChange={(search: string) => {setName(search)}}/>
           </div>
             <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Novo</button>
         </div>
