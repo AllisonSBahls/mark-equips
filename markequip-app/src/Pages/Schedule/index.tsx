@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-array-constructor */
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../Navbar";
-import Footer from "../Footer";
 import Sidebar from "../Sidebar";
 import { ISchedule } from "./types";
 
@@ -34,6 +32,7 @@ export default function Schedule() {
 
   useEffect(() => {
     findSchedules();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   async function findSchedules() {

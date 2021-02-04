@@ -3,158 +3,153 @@ import "./styles.css";
 
 import Modal from "../../Components/Modal/Modal";
 // import { findById, register, updateEquipments } from "../../Services/equipment";
-import { toast } from 'react-toastify';
-import { IUsers } from "../Collaborator/types";
+import { toast } from "react-toastify";
 import { findById } from "../../Services/equipment";
 import { fetchSchedule } from "../../Services/schedule";
 import { ISchedule } from "../Schedule/types";
 import { checkIsSelected } from "./helpers";
 import { ScheduleList } from "./SchedulesList";
+import { IEquipment } from "./types";
+import { reserver } from "../../Services/reserver";
 
- export default function EquipmentReserver({equipmentId, onClickClose}: any ){
+export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
-
+  const [equipmentReservations, setEquipmentReservations] = useState<IEquipment[]>([]);
   const [selectSchedules, setSelectSchedules] = useState<ISchedule[]>([]);
 
+  const [date, setDate] = useState("");
+  const [nameEquipment, setNameEquipment] = useState("");
+  const token = localStorage.getItem("Token");
+  const fullName = localStorage.getItem("fullName")!;
+  const userId = localStorage.getItem("id");
 
-  
-  const [collaborators, setColalborators] = useState<IUsers[]>([]);
-  const [equipment, setEquipment] = useState('');
-  const [user, setUser] = useState('');
-  const [date, setDate] = useState('');
-
-  const token = localStorage.getItem('Token')
-  const fullName = localStorage.getItem('fullName')!
-  const id = localStorage.getItem('id')
-
-  const authorization ={
-    headers : {
-      Authorization : `Bearer ${token}`
-    }
-  }
+  const authorization = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   useEffect(() => {
     loadEquipment();
     fetchScheduleEquipment();
-  }, [equipmentId])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [equipmentId]);
 
-  async function reserverEquipment() {
+  async function reserverEquipment(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      const response = selectSchedules.map(async (schedule) => {
+        const scheduleId = schedule.id;
+        const data = {
+          userId,
+          equipmentId,
+          date,
+          scheduleId,
+        };
+        await reserver(data, authorization);
+      });
+      await Promise.all(response);
+      toast.success("Reservar realizada");
+      setSelectSchedules([]);
+      onClickClose();
+    } catch (err) {
+      toast.error("Erro ao fazer a reserva");
+    }
   }
 
-  async function loadEquipment(){
-      try{
-        if(equipmentId != null){
-          const response = await findById(equipmentId, authorization)
-          setEquipment(response.data.name)
-        }  
-    } catch(err){
-        toast.error("Erro ao selecionar o equipamento")
-      
-    } 
+  async function loadEquipment() {
+    try {
+      if (equipmentId != null) {
+        const response = await findById(equipmentId, authorization);
+        setNameEquipment(response.data.name)
+        setEquipmentReservations(response.data.reservations);
+      }
+    } catch (err) {
+      toast.error("Erro ao selecionar o equipamento");
+    }
   }
 
   async function fetchScheduleEquipment() {
     try {
       const response = await fetchSchedule(authorization);
       setSchedules(response.data);
-
     } catch (error) {
       toast.error("Erro ao listar os horarios da manhã" + error);
     }
   }
 
-  const handleSelectSchedules = (schedule : ISchedule) => {
+  const handleSelectSchedules = (schedule: ISchedule) => {
     const isAlreadySelected = checkIsSelected(selectSchedules, schedule);
-    if (isAlreadySelected){
-      const selected = selectSchedules.filter(item => item.id !== schedule.id);
-      setSelectSchedules(selected)
-    } else{
-      setSelectSchedules(previous => [...previous, schedule]);
+    if (isAlreadySelected) {
+      const selected = selectSchedules.filter(
+        (item) => item.id !== schedule.id
+      );
+      setSelectSchedules(selected);
+    } else {
+      setSelectSchedules((previous) => [...previous, schedule]);
     }
-  }
-
+  };
 
   return (
     <>
-      <Modal
-        isOpen={Boolean(equipmentId)}
-        onClickClose={onClickClose}>
-
+      <Modal isOpen={Boolean(equipmentId)} onClickClose={onClickClose}>
         <div className="modal-content">
-            <h3 className="modal-title">
-              {equipmentId === null
-                ? "Novo Equipamento"
-                : "Informações do Equipamento"}
-            </h3>
-            <form onSubmit={reserverEquipment} className="modal-form">
-              <div className="modal-input">
+          <h3 className="modal-title">
+            {equipmentId === null
+              ? "Novo Equipamento"
+              : "Informações do Equipamento"}
+          </h3>
+          <form onSubmit={reserverEquipment} className="modal-form">
+            <div className="modal-input">
               <div className="modal-one-field">
-                    <label className="modal-label-field">Usuário: </label>
-                    <input className="modal-input-field" disabled defaultValue={fullName}></input>
+                <label className="modal-label-field">Usuário: </label>
+                <input
+                  className="modal-input-field"
+                  disabled
+                  value={fullName}
+                ></input>
+              </div>
+              <div className="modal-two-field">
+                <div className="modal-primary-field">
+                  <label className="modal-label-field">Equipamento: </label>
+                  <input
+                    className="modal-input-field"
+                    value={nameEquipment}
+                    onChange={(e) => setNameEquipment(e.target.value)}
+                  />
                 </div>
-                <div className="modal-two-field">
-                  <div className="modal-primary-field">
-                    <label className="modal-label-field">Equipamento: </label>
-                    <input className="modal-input-field"  defaultValue={equipment}/>
-                  </div>
-                  <div  className="modal-secondary-field">
-                    <label className="modal-label-field">Data da Reserva: </label>
-                    <input type="date" className="modal-input-field" defaultValue={date}></input>
-                  </div>
-                </div>
-                <h4 className="equipment-reserver-title">Selecione os horários que desejar e disponiveis para reservar.</h4>
-                <div className="equipment-reserver-schedule">
-
-                  <div className="equipment-schedule">
-                  {schedules.map((schedules =>  (
-                    schedules.period ==="Manhã" ?
-                    <ScheduleList
-                      key={schedules.id}
-                      isSelected={checkIsSelected(selectSchedules, schedules)}
-                      onSelectSchedules={handleSelectSchedules}
-                      schedule={schedules}
-                    />  
-                   : null
-                  )))}
-                  </div>
-
-                  <div className="equipment-schedule">
-                    {schedules.map((schedules =>  (
-                    schedules.period ==="Tarde" ?
-                    <ScheduleList
-                      key={schedules.id}
-                      isSelected={checkIsSelected(selectSchedules, schedules)}
-                      onSelectSchedules={handleSelectSchedules}
-                      schedule={schedules}
-                    />  
-                   : null
-                  )))} 
-                  </div>
-
-                  <div className="equipment-schedule">
-                    {schedules.map((schedules =>  (
-                    schedules.period ==="Noite" ?
-                    <ScheduleList
-                      key={schedules.id}
-                      isSelected={checkIsSelected(selectSchedules, schedules)}
-                      onSelectSchedules={handleSelectSchedules}
-                      schedule={schedules}
-                    />  
-                   : null
-                  )))} 
-                  </div>
-
+                <div className="modal-secondary-field">
+                  <label className="modal-label-field">Data da Reserva: </label>
+                  <input
+                    type="date"
+                    className="modal-input-field"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  ></input>
                 </div>
               </div>
-              <input
-                className="modal-btn-success"
-                type="submit"
-                value="Reservar">
-                </input>
-            </form>
+              <h4 className="equipment-reserver-title">
+                Selecione os horários que desejar e disponiveis para reservar.
+              </h4>
+              <div className="equipment-reserver-schedule">
+                
+                <ScheduleList
+                  schedules={schedules}
+                  isSelected={selectSchedules}
+                  onSelectSchedules={handleSelectSchedules}
+                  dateReservation={date}
+                  equipments={equipmentReservations}
+                />
+              </div>
+            </div>
+            <input
+              className="modal-btn-success"
+              type="submit"
+              value="Reservar"
+            ></input>
+          </form>
         </div>
-
       </Modal>
     </>
-   );
- }
+  );
+}

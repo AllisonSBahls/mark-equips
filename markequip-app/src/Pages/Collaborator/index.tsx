@@ -77,7 +77,7 @@ export default function Collaborator() {
         <div className="action-collaborators">
           <div className="field-search">
             <FaSearch className="icon icon-search" />
-            <SearchInput value ={name} onChange={(search:any) => {setName(search)}}/>
+            <SearchInput value ={name} onChange={(search:string) => {setName(search)}}/>
           </div>
 
           <div className="btn-insert-field">

@@ -18,6 +18,7 @@ export default function ScheduleModal({scheduleId, openModal,onClickClose}: any)
     useEffect(() => {
       if (openModal || scheduleId === null) openFormsRegister();
       else loadSchedule();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scheduleId]);
   
     async function loadSchedule() {
