@@ -38,6 +38,7 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpGet("user/{sortDirection}/{pageSize}/{page}")]
+        [Authorize]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get([FromQuery]string? equipment, string sortDirection, int pageSize, int page)
         {

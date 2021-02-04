@@ -62,13 +62,11 @@ namespace MarkEquipsAPI.Services.Implementations
         {
             var result = _mapper.Map<Reserver>(reserver);
             bool isValidate = await _repository.IsValidationAsync(result.EquipmentId, result.ScheduleId, result.Date, ReserveStatus.RESERVED);
-            Console.WriteLine(isValidate);
             if (isValidate)
             {
                 throw new Exception("Equipment already registered with that same time and date, please choose another time or equipment \n");
             }
             result.Status = ReserveStatus.RESERVED;
-            Console.WriteLine(result.EquipmentId + " " + result.ScheduleId + " " + result.Date + " " + result.UserId) ;
             await _repository.CreateAsync(result);
         }
 

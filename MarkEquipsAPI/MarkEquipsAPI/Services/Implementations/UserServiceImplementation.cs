@@ -88,6 +88,7 @@ namespace MarkEquipsAPI.Services.Implementations
             var user = await _userManager.FindByNameAsync(userDto.UserName);
             var result = await _signInManager.CheckPasswordSignInAsync(user, userDto.Password, false);
             var appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedUserName == userDto.UserName.ToUpper());
+            await _repository.FindByIdAsync(user.Id);
             var userToReturn = _mapper.Map<LoginDto>(appUser);
             if (result.Succeeded)
             {
@@ -95,6 +96,9 @@ namespace MarkEquipsAPI.Services.Implementations
                 {
                     Token = GenerateJWToken(appUser).Result,
                     UserName = userToReturn.UserName,
+                    FullName = userToReturn.FullName,
+                    Id = userToReturn.Id,
+                    Role = userToReturn.Role
                 };
             }
 
