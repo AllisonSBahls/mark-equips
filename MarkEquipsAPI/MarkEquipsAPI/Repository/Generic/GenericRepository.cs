@@ -26,7 +26,7 @@ namespace MarkEquipsAPI.Repository.Generic
 
         public async Task<T> FindByIDAsync(int id)
         {
-            return await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            return await dataset.Include("Reservations").SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
         public async Task<T> CreateAsync(T entity)

@@ -128,16 +128,16 @@ namespace MarkEquipsAPI.Repository.Context
                 return;
             }
 
-            Equipment e1 = new Equipment() { Name = "Projetor Dell", Description = "Projetor com entrada HDMI", Number = 3232, ImageURL = "img1.png" };
-            Equipment e2 = new Equipment() { Name = "Projetor LG", Description = "Projetor com entrada VGA", Number = 2321, ImageURL = "img2.png" };
-            Equipment e3 = new Equipment() { Name = "Laboratório de Informática", Description = "Lab com 30 computadores", Number = 5453, ImageURL = "img3.png" };
-            Equipment e4 = new Equipment() { Name = "Laboratório de Solos e Nutrição", Description = "Para curso de Zootecnia e Agronomia", Number = 8977, ImageURL = "img4.png" };
-            Equipment e5 = new Equipment() { Name = "Caixa de Som Samsumg", Description = "Entrada P2 e USB", Number = 3234, ImageURL = "img5.png" };
-            Equipment e6 = new Equipment() { Name = "Projetor Brother", Description = "Projetor com entrada HDMI", Number = 2376, ImageURL = "img6.png" };
-            Equipment e7 = new Equipment() { Name = "Notebook Dell", Description = "Notebook 2gb RAM entreda VGA e HDMI", Number = 6776, ImageURL = "img7.png" };
-            Equipment e8 = new Equipment() { Name = "Notebook LG", Description = "Projetor com entrada HDMI", Number = 6765, ImageURL = "img8.png" };
-            Equipment e9 = new Equipment() { Name = "Caixa de Som Retry", Description = "Entrada P2 e USB", Number = 5675, ImageURL = "img9.png" };
-            Equipment e10 = new Equipment() { Name = "Projetor Dell 2V", Description = "Projetor com entrada VGA", Number = 4554, ImageURL = "img10.png" };
+            Equipment e1 = new Equipment() { Name = "Projetor Dell", Description = "Projetor com entrada HDMI", Number = 3232 };
+            Equipment e2 = new Equipment() { Name = "Projetor LG", Description = "Projetor com entrada VGA", Number = 2321};
+            Equipment e3 = new Equipment() { Name = "Laboratório de Informática", Description = "Lab com 30 computadores", Number = 5453};
+            Equipment e4 = new Equipment() { Name = "Laboratório de Solos e Nutrição", Description = "Para curso de Zootecnia e Agronomia", Number = 8977 };
+            Equipment e5 = new Equipment() { Name = "Caixa de Som Samsumg", Description = "Entrada P2 e USB", Number = 3234};
+            Equipment e6 = new Equipment() { Name = "Projetor Brother", Description = "Projetor com entrada HDMI", Number = 2376 };
+            Equipment e7 = new Equipment() { Name = "Notebook Dell", Description = "Notebook 2gb RAM entreda VGA e HDMI", Number = 6776};
+            Equipment e8 = new Equipment() { Name = "Notebook LG", Description = "Projetor com entrada HDMI", Number = 6765};
+            Equipment e9 = new Equipment() { Name = "Caixa de Som Retry", Description = "Entrada P2 e USB", Number = 5675};
+            Equipment e10 = new Equipment() { Name = "Projetor Dell 2V", Description = "Projetor com entrada VGA", Number = 4554};
 
             Schedule m1 = new Schedule() { Id = 1, Period = "Manhã", HourInitial = new TimeSpan(8, 0, 0), HourFinal = new TimeSpan(9, 0, 0) };
             Schedule m2 = new Schedule() { Id = 2, Period = "Manhã", HourInitial = new TimeSpan(9, 0, 0), HourFinal = new TimeSpan(10, 0, 0) };
