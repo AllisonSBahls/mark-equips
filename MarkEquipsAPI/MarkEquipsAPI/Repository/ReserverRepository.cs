@@ -52,7 +52,7 @@ namespace MarkEquipsAPI.Repository
             }
         }
 
-        public async Task RevokeAsync(Reserver reserver)
+        public async Task StatusReserverAsync(Reserver reserver)
         {
             try { 
             _context.Reservations.Attach(reserver);
@@ -64,6 +64,7 @@ namespace MarkEquipsAPI.Repository
                 throw new Exception("Error in Update Reservations" + e.Message);
             }
         }
+
 
         public async Task DeleteAsync(Reserver reserver)
         {
@@ -109,35 +110,58 @@ namespace MarkEquipsAPI.Repository
             return await result.ToListAsync();
         }
 
-
-        public int GetCount(string FullNameUser, string FullNameEquipment)
-        {
-           var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser) ||
-           x.Equipment.Name.Contains(FullNameEquipment)).Count();
-
-            return result;
-        }
-
         public async Task<List<Reserver>> FindWithPagedSearchForUser(int id, string equipment, int size, int offset)
         {
             IQueryable<Reserver> result = _context.Reservations
                .Include(c => c.User)
                .Include(e => e.Equipment)
-               .Include(s => s.Schedule).Where(x => x.User.Id.Equals(id));
+               .Include(s => s.Schedule);
 
             if (!string.IsNullOrWhiteSpace(equipment))
             {
                 result = result.Where(x => x.UserId.Equals(id) && x.Equipment.Name.Contains(equipment));
             }
+            else
+            {
+                result = result.Where(x => x.UserId.Equals(id));
+            }
             result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
 
             return await result.ToListAsync();
         }
+
+        public async Task<List<Reserver>> FindWithPagedSearchForDate(int size, int offset, DateTime date)
+        {
+            IQueryable<Reserver> result = _context.Reservations
+               .Include(c => c.User)
+               .Include(e => e.Equipment)
+               .Include(s => s.Schedule).Where(x => x.Date.Equals(date));
+
+            result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
+
+            return await result.ToListAsync();
+        }
+
         public int GetCountResUser(int id, string FullNameEquipment)
         {
             var result = _context.Reservations.Where(x => x.UserId.Equals(id) &&
                      x.Equipment.Name.Contains(FullNameEquipment)).Count();
             return result;
         }
+
+        public int GetCount(string FullNameUser, string FullNameEquipment)
+        {
+            var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser) ||
+            x.Equipment.Name.Contains(FullNameEquipment)).Count();
+            return result;
+        }
+
+        public int GetCountDate(DateTime date)
+        {
+            var result = _context.Reservations.Where(x => x.Date.Equals(date)).Count();
+            return result;
+        }
+        
+
     }
 }

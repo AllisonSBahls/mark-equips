@@ -45,7 +45,13 @@ namespace MarkEquipsAPI.Controllers
             return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page));
         }
 
-
+        [HttpGet("date/{sortDirection}/{pageSize}/{page}")]
+        [Authorize]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> Get([FromQuery] DateTime? date, string sortDirection, int pageSize, int page)
+        {
+            return Ok(await _entityService.FindWithPageSearchForDate(sortDirection, pageSize, page, date));
+        }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
@@ -71,6 +77,36 @@ namespace MarkEquipsAPI.Controllers
             try { 
             await _entityService.RevokeAsync(id);
             return this.StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Update Controller Reservations" + e.Message);
+            }
+        }
+
+        [HttpPatch("deliver/{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> PatchDeliver(int id)
+        {
+            try
+            {
+                await _entityService.DeliverAsync(id);
+                return this.StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Update Controller Reservations" + e.Message);
+            }
+        }
+
+        [HttpPatch("take/{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> PatchTake(int id)
+        {
+            try
+            {
+                await _entityService.TakeAsync(id);
+                return this.StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {

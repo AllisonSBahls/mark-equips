@@ -16,4 +16,11 @@ namespace MarkEquipsAPI.Data.DTOs
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
     }
+
+    public class EquipmentReserverDto
+    {
+        public string Name { get; set; }
+        public int Number { get; set; }
+    }
+
 }

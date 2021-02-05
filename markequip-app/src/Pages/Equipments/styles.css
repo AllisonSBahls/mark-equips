@@ -1,7 +1,6 @@
 .equipment-container{
-    position: relative;
     width: 80vw;
-    margin-left: 18%;
+    margin-left: 17.5%;
     margin-top: 20px;
 
 }
@@ -9,6 +8,11 @@
 .equipment-content{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.equipment-content.equipment-justify{
+    justify-content: flex-start;
 }
 
 .equipment{
@@ -66,7 +70,7 @@
 
 .equipment-action-content{
     background-color: white;
-    width: 94%;
+    width: 100%;
     height: 70px;
     padding: 30px;
     border-radius: 10px;

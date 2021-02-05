@@ -18,4 +18,9 @@ namespace MarkEquipsAPI.Data.DTOs
         public List<string> Roles { get; set; }
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
+
+    public class UserReserverDto
+    {
+        public string FullName { get; set; }
+    }
 }

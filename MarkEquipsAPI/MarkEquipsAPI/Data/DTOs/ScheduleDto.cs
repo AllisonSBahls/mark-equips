@@ -14,4 +14,11 @@ namespace MarkEquipsAPI.Data.DTOs
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
     }
+
+    public class SchedulesReserverDto
+    {
+        public string HourInitial { get; set; }
+        public string HourFinal { get; set; }
+        public string Period { get; set; }
+    }
 }

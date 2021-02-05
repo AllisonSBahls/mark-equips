@@ -15,7 +15,7 @@ import EquipmentReserver from "./EquipmentReserver";
 export default function Equipment() {
 
   const [equipments, SetEquipments] = useState<IEquipment[]>([]);
-  const [totalResult, setTotalResult] = useState();
+  const [totalResult, setTotalResult] = useState(0);
   const [page] = useState(1);
   const [pageB, setPageB] = useState(2);
   const [name, setName] = useState('');
@@ -30,6 +30,7 @@ export default function Equipment() {
         Authorization: `Bearer ${token}`   
     }
   }
+
   useEffect(() =>{
      fetchEquipmentsCard();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +40,7 @@ export default function Equipment() {
   async function fetchEquipmentsCard(){
       try{
       const response = await fetchEquipment(page, authorization, name);
-      setTotalResult(response.data.totalResult)
+      setTotalResult(response.data.totalResults)
       SetEquipments(response.data.list);
       setPageB(page+1);
     }catch(err){
@@ -81,7 +82,7 @@ export default function Equipment() {
           </div>
             <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Novo</button>
         </div>
-        <div className="equipment-content">
+        <div className={`equipment-content ${totalResult < 4 ? "equipment-justify" : ""}`}>
         {equipments.map(equipment =>(
           <EquipmentCard 
             key={equipment.id}

@@ -75,7 +75,33 @@ namespace MarkEquipsAPI.Services.Implementations
             try
             {
                 var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.CANCELED };
-                await _repository.RevokeAsync(statusUpdate);
+                await _repository.StatusReserverAsync(statusUpdate);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Update Reservations" + e.Message);
+            }
+        }
+
+        public async Task DeliverAsync(int id)
+        {
+            try
+            {
+                var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.USING };
+                await _repository.StatusReserverAsync(statusUpdate);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in Update Reservations" + e.Message);
+            }
+        }
+
+        public async Task TakeAsync(int id)
+        {
+            try
+            {
+                var statusUpdate = new Reserver() { Id = id, Status = ReserveStatus.FINISHED };
+                await _repository.StatusReserverAsync(statusUpdate);
             }
             catch (Exception e)
             {
@@ -119,6 +145,36 @@ namespace MarkEquipsAPI.Services.Implementations
             };
             return searchPage;
         }
+
+        public async Task<PagedSearchDTO<ReserverDto>> FindWithPageSearchForDate(string sortDirection, int pageSize, int page, DateTime? date)
+        {
+            var sort = (!string.IsNullOrWhiteSpace(sortDirection) && !sortDirection.Equals("desc")) ? "asc" : "desc";
+            var size = (pageSize < 1) ? 10 : pageSize;
+            var offset = page > 0 ? (page - 1) * size : 0;
+            DateTime dateTime;
+            if (date.HasValue)
+            {
+                dateTime = date.Value;
+            }
+            else
+            {
+                dateTime = DateTime.Today;
+            }
+
+            var reservations = await _repository.FindWithPagedSearchForDate(size, offset, dateTime);
+            var totalResult = _repository.GetCountDate(dateTime);
+
+            var searchPage = new PagedSearchDTO<ReserverDto>
+            {
+                CurrentPage = page,
+                List = _mapper.Map<List<ReserverDto>>(reservations),
+                PageSize = size,
+                SortDirections = sort,
+                TotalResults = totalResult
+            };
+            return searchPage;
+        }
+
     }
 }
 

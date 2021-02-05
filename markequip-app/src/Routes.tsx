@@ -4,6 +4,7 @@ import Collaborator from "./Pages/Collaborator";
 import Sidebar from "./Pages/Sidebar";
 import Schedule from "./Pages/Schedule";
 import Equipment from "./Pages/Equipments";
+import Reservations from "./Pages/Reservations";
 
 export default function Routes(){
     return (
@@ -22,6 +23,9 @@ export default function Routes(){
                 </Route>           
                 <Route path="/horarios" exact>
                     <Schedule />
+                </Route>           
+                <Route path="/reservas" exact>
+                    <Reservations />
                 </Route>           
             </Switch>
         </BrowserRouter>
