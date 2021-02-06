@@ -16,13 +16,14 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [equipmentReservations, setEquipmentReservations] = useState<IEquipment[]>([]);
   const [selectSchedules, setSelectSchedules] = useState<ISchedule[]>([]);
-
-  const [date, setDate] = useState("");
+  var datas = new Date();
+  const [date, setDate] = useState(datas.toLocaleDateString('en-CA'));
   const [nameEquipment, setNameEquipment] = useState("");
+  
   const token = localStorage.getItem("Token");
   const fullName = localStorage.getItem("fullName")!;
   const userId = localStorage.getItem("id");
-
+  
   const authorization = {
     headers: {
       Authorization: `Bearer ${token}`,
