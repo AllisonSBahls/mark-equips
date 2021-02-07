@@ -1,41 +1,15 @@
 import { IReserver } from "./types";
-import { toast } from "react-toastify";
-import { cancelReserver, deliverReserver } from "../../Services/reserver";
 
 import "./styles.css";
 
 type Props = {
   reserver: IReserver;
-  token: string;
+  revokeReserver: () => void;
+  deliverEquipment: () => void;
 };
 
-export default function ReservedCard({ reserver, token }: Props) {
-
-  const authorization = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-
-  async function revokeReserver(id: number) {
-    try {
-      await cancelReserver(id, authorization);
-      toast.success(`Reserva cancelado com sucesso ${reserver.id}`);
-    } catch (err) {
-      toast.error(`Erro ao cancelar a reserva`);
-    }
-  }
-
-  async function deliverEquipment(id: number) {
-    try {
-      await deliverReserver(id, authorization);
-      toast.success(`${reserver.equipment.name} entregue`);
-    } catch (err) {
-      toast.error(`Erro ao entregar o equipamento `);
-    }
-  }
-
+export default function ReservedCard({ reserver, revokeReserver, deliverEquipment }: Props) {
+  
   return (
     <>
       <div className="reserver-card">
@@ -48,7 +22,7 @@ export default function ReservedCard({ reserver, token }: Props) {
           </p>
         </div>
         <div className="reserver-btn">
-          <button className="reserver-btn-deliver" onClick={() => deliverEquipment(reserver.id)}>Entregar</button>
+          <button className="reserver-btn-deliver" onClick={() => deliverEquipment()}>Entregar</button>
           <button
             className="reserver-btn-cancel"
             onClick={() => {
@@ -57,7 +31,7 @@ export default function ReservedCard({ reserver, token }: Props) {
                   `Você tem certeza que deseja cancelar a reserva: ${reserver.id}`
                 )
               ) {
-                revokeReserver(reserver.id);
+                revokeReserver();
               }
             }}
           >

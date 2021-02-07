@@ -15,7 +15,8 @@ export interface IReserver{
     schedule: ISchedule;
 }
 
-export enum StatusReserver {
+export enum ReserveStatus
+{
     RESERVED = 1,
     USING = 2,
     FINISHED = 3,

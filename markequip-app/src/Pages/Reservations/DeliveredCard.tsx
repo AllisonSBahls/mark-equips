@@ -4,12 +4,12 @@ import "./styles.css";
 
 type Props = {
   reserver: IReserver;
+  collectEquipment: () => void;
+
 }
 
-export default function DeliveredCard({reserver}: Props) {
-
+export default function DeliveredCard({reserver, collectEquipment}: Props) {
  
-  
   return (
     <>
       <div className="reserver-card">
@@ -20,7 +20,7 @@ export default function DeliveredCard({reserver}: Props) {
           <p className="reserver-schedules">{reserver.schedule.hourInitial} - {reserver.schedule.hourFinal}</p>
         </div>
         <div className="reserver-btn">
-          <button className="reserver-btn-take">Recolher</button>
+          <button className="reserver-btn-take" onClick={() => collectEquipment()}>Recolher</button>
           <button className="reserver-btn-deliver">Reverter</button>
         </div>
       </div>
