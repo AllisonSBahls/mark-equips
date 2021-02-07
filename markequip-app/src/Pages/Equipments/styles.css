@@ -1,8 +1,7 @@
 .equipment-container{
-    width: 80vw;
-    margin-left: 17.5%;
+    width: 95vw;
     margin-top: 20px;
-
+    margin: 20px auto;
 }
 
 .equipment-content{
@@ -17,10 +16,10 @@
 
 .equipment{
     margin: 10px 10px 10px 0;
-    width: 250px;
+    width: 240px;
     height: 150px;
-    color: rgb(82, 82, 82);
-    background-color: white;
+    color: rgb(255, 255, 255);
+    background-color: #272757;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px 15px;

@@ -1,31 +1,38 @@
-.main-navbar{
-    width: 100%;
-}
-.container-navbar{
-    display: flex;
-
-}
-
-.main-navbar{
-    background:var(--primary-color);
-    height: 1.8em;
+.navbar{
+    background: #000043;
     padding-left: 40px;
     color: var(--ligh-color);
     display: flex;
     align-items: center;
 }
 
-.text-main-navbar{
+.navbar-title{
     font-size: 0.9em;
 }
 
-.menu-main-navbar{
+.navbar-menu{
+
+    font-size: 0.85em;
+    margin-left: 5%;
+}
+
+.navbar-menu ul {
     display: flex;
     list-style: none;
-    font-size: 0.85em;
 }
-.menu-main-navbar li{
-    margin-left: 10%;
+
+.navbar-menu a{
+    color: white;
+    border-collapse: collapse;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    margin-left: -1px;
+    border-radius: 4px;
+    padding: 5px 20px
+}
+
+.navbar-menu a:hover{
+    background-color: #3d3d61;
 }
 
 .user-navbar{
@@ -36,10 +43,9 @@
 .user-navbar ul li{
     font-size: 0.9em;
     list-style: none;
-
 }
 
-.user-navbar ul li a{
+.user-navbar a{
     margin-left: 7px;
     color: var(--ligh-color);
     margin-right: 5px;
@@ -51,62 +57,17 @@
 
 }
 
-.menu-main-navbar li a {
-    color: var(--ligh-color);
-    padding-top: 0.35em;
-    padding-bottom: 0.35em;
-    padding-right: 10%;
-    padding-left: 15%;
-    transition: all .5s;
-    border: 1px solid transparent;
-}
-
-
-.menu-main-navbar li a:hover{
-    background-color:var(--primary-hover-color);
-    border: 1px solid var(--ligh-color);
-    border-radius: 10%;
-}
-
 .description-container{
     background: var(--ligh-color);
     display: flex;
     align-items: center;
-    padding-left: 5em;
-    color: rgb(121, 120, 120);
-    font-size: 10px;
+    padding: 1em;
+    color: rgb(83, 83, 83);
+    font-size: 12px;
     border-bottom: 1px solid rgb(214, 214, 214);
     -webkit-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
     -moz-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
     box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
-}
-
-.description-container h1{
-    margin-left: 40px;
-}
-
-
-
-.btn-make-reserver{
-    position: relative;
-    margin-left: auto;
-    display: flex;
-    margin-right: 20%;
-    margin-top: 10px;
-    color: var(--ligh-color);
-    padding-left: 1.5%;
-    padding-right: 1.5%;
-    font-size: 17px;
-    margin-bottom: 20px;
-    background: var(--primary-color);
-    border-radius: 25px;
-}
-
-.btn-make-reserver:hover{
-    -webkit-transform: scale(1.01);
-    -ms-transform: scale(1.01);
-    transform: scale(1.01); 
-    background: var(--secondary-color);
 }
 
 .icon-btn-reserver{

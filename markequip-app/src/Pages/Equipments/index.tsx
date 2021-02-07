@@ -1,5 +1,4 @@
 import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
 import EquipmentCard from "./EquipmentCard";
 import "./styles.css";
 
@@ -72,8 +71,7 @@ export default function Equipment() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      <Navbar title={"Equipamentos e Laboratórios"}/>
       <div className="equipment-container">
         <div className="equipment-action-content">
         <div className="field-search">

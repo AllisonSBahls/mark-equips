@@ -1,19 +1,22 @@
-.reserver-container{
-    position: relative;
-    width: 80%;
-    margin-top: 20px;
-    margin-left: 17.5%;
-}
-
 .reserver-content{
-    background-color: white;
+    background-color: var(--ligh-color);
     margin-bottom: 20px;
+    position: relative;
+
+
 }
 
-.reserver-content h3 {
+.reserver-content-action {
     margin-bottom: 10px;
     padding: 10px;
     border-bottom: 1px solid black;
+
+}
+
+.reserver-content-action{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .reserver-today{

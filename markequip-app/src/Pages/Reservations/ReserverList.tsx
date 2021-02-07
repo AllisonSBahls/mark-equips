@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { cancelReserver, deliverReserver, fetchReserverCollect, fetchReserverDelived, fetchReserverReserved, finishReserver } from "../../Services/reserver";
-import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
 import ReservedCard from "./ReservedCard";
 import "./styles.css";
 import { IReserver, ReserveStatus } from "./types";
@@ -10,22 +8,19 @@ import DeliveredCard from "./DeliveredCard";
 import ColletedCard from "./ColletedCard";
 import SearchInput from "../../Components/Debounced/SearchInput";
 
-export default function Reservations() {
-  const [reservations, setReservations] = useState<IReserver[]>([]);
+export default function ReservationsList() {
   const [reservationsDelivered, setReservationsDelivered] = useState<IReserver[]>([]);
   const [reserved, setReserved] = useState<IReserver[]>([]);
   const [statusUpdate, setStatusUpdate] = useState<number>(1);
   const [totalResult, setTotalResult] = useState<number>(0);
   const [reservationsCollected, setReservationsCollected] = useState<IReserver[]>([]);
-  const [pageA, setPageA] = useState<number>(1);
+  const [pageA] = useState<number>(1);
   const [pageB, setPageB] = useState<number>(2);
 
   var today = new Date();
   const [date] = useState<string>(today.toLocaleDateString('en-CA'));
-  const [name, SetName] = useState<string>('');
   const [nameReserved, SetNameReserved] = useState<string>('');
   const [nameUsing, SetNameUsing] = useState<string>('');
-  const [equipment, SetEquipment] = useState<string>('');
   const [equipmentReserved, SetEquipmentReserved] = useState<string>('');
   const [equipmentUsing, SetEquipmentUsing] = useState<string>('');
   const [statusCollect] = useState<ReserveStatus>(ReserveStatus.FINISHED);
@@ -131,19 +126,19 @@ async function fetchMoreDelivered() {
   }
 
   return (
-  <>
-    <Navbar/>
-    <Sidebar/>
-    
+  <>  
     <div className="reserver-container">
       <div className="reserver-action">
         <div className="reserver-action-search"></div>
       </div>
       <div className="reserver-content">
-        <h3>Reservados para hoje
+        <div className="reserver-content-action">
+          <h3>Reservados para hoje</h3>
+          <div>
         <SearchInput value ={nameReserved} onChange={(search: string) => {SetNameReserved(search)}}/>
         <SearchInput value ={equipmentReserved} onChange={(search: string) => {SetEquipmentReserved(search)}}/>
-        </h3>
+        </div>
+        </div>
         <div className="reserver-today">
           {reserved.map((reserver) => (
           <ReservedCard 

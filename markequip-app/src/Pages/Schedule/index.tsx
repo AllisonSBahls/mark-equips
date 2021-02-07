@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
 import { ISchedule } from "./types";
 
 import "./styles.css";
@@ -60,8 +59,7 @@ export default function Schedule() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      <Navbar title={"Horários"}/>
       <div className="container-schedule">
         <div className="conenet-schedule">
           <div className="btn-insert-field">

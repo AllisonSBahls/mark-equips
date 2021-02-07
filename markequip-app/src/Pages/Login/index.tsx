@@ -25,7 +25,7 @@ export default function Login() {
         localStorage.setItem('fullName', response.data.fullName);
         localStorage.setItem('id', response.data.id);
         localStorage.setItem('role', response.data.role);
-        history.push('/colaboradores');
+        history.push('/inicio');
 
     }catch(error){
       toast.error('Usuário ou Senha Inválidos, tente novamente')

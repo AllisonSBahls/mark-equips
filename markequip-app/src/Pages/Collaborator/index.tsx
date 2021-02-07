@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { IUsers } from "./types";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import Sidebar from "../Sidebar";
 import SearchInput from "../../Components/Debounced/SearchInput";
 
 import "./styles.css";
@@ -69,8 +68,7 @@ export default function Collaborator() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      <Navbar title={"Colaboradores"}/>
       <div className="background-effect"></div>
 
       <div className="container-collaborators">
