@@ -86,41 +86,116 @@ namespace MarkEquipsAPI.Repository
             return await validate.AnyAsync();
         }
 
-        public async Task<List<Reserver>> FindWithPagedSearch(string FullNameUser, string FullNameEquipment, int size, int offset )
+        public async Task<List<Reserver>> FindWithPagedSearch(
+            string FullNameUser,
+            string FullNameEquipment, 
+            int size, int offset, 
+            DateTime? date, 
+            int status)
         {
+
+    
             IQueryable<Reserver> result = _context.Reservations
                 .Include(c => c.User)
                 .Include(e => e.Equipment)
                 .Include(s => s.Schedule);
 
-            if (!string.IsNullOrWhiteSpace(FullNameUser) && !string.IsNullOrWhiteSpace(FullNameEquipment))
+           ReserveStatus reserveStatus = (ReserveStatus)status;
+            
+          if (!string.IsNullOrWhiteSpace(FullNameUser) && 
+              !string.IsNullOrWhiteSpace(FullNameEquipment) &&
+              date.HasValue &&
+              status != 0)
+          {
+              result = result.Where(x => x.User.FullName.Contains(FullNameUser) && x.Equipment.Name.Contains(FullNameEquipment) && x.Date.Equals(date) && x.Status.Equals(reserveStatus));
+          }
+
+         
+          else if (!string.IsNullOrWhiteSpace(FullNameUser) && 
+                string.IsNullOrWhiteSpace(FullNameEquipment) && 
+                date.HasValue &&
+                status != 0)
+          {
+              result = result.Where(x => x.User.FullName.Contains(FullNameUser) && x.Date.Equals(date) && x.Status.Equals(reserveStatus));
+          }
+       
+           else if (
+                string.IsNullOrWhiteSpace(FullNameUser) && 
+                !string.IsNullOrWhiteSpace(FullNameEquipment) &&
+                date.HasValue &&
+                status != 0)
+           {
+               result = result.Where(x => x.Equipment.Name.Contains(FullNameEquipment) && x.Date.Equals(date) && x.Status.Equals(reserveStatus));
+           }
+          
+            else if (string.IsNullOrWhiteSpace(FullNameUser) && 
+                string.IsNullOrWhiteSpace(FullNameEquipment) && 
+                date.HasValue &&
+                status != 0)
             {
-                result = result.Where(x => x.User.FullName.Contains(FullNameUser) && x.Equipment.Name.Contains(FullNameEquipment));
+                result = result.Where(x => x.Date.Equals(date) && x.Status.Equals(reserveStatus));
             }
-            else if (!string.IsNullOrWhiteSpace(FullNameUser) && string.IsNullOrWhiteSpace(FullNameEquipment))
+           
+            else if (string.IsNullOrWhiteSpace(FullNameUser) &&
+                string.IsNullOrWhiteSpace(FullNameEquipment) &&
+                !date.HasValue &&
+                status != 0)
             {
-                result = result.Where(x => x.User.FullName.Contains(FullNameUser));
+                result = result.Where(x => x.Status.Equals(reserveStatus));
             }
-            else if (string.IsNullOrWhiteSpace(FullNameUser) && !string.IsNullOrWhiteSpace(FullNameEquipment))
+
+            else if (!string.IsNullOrWhiteSpace(FullNameUser) &&
+             string.IsNullOrWhiteSpace(FullNameEquipment) &&
+             !date.HasValue &&
+             status != 0)
             {
-                result = result.Where(x => x.Equipment.Name.Contains(FullNameEquipment));
+                result = result.Where(x => x.Status.Equals(reserveStatus));
             }
+            else if (string.IsNullOrWhiteSpace(FullNameUser) &&
+               !string.IsNullOrWhiteSpace(FullNameEquipment) &&
+               !date.HasValue &&
+               status != 0)
+            {
+                result = result.Where(x => x.Status.Equals(reserveStatus));
+            }
+
+            else if (string.IsNullOrWhiteSpace(FullNameUser) &&
+              !string.IsNullOrWhiteSpace(FullNameEquipment) &&
+              !date.HasValue &&
+              status == 0)
+            {
+                result = result.Where(x => x.Status.Equals(reserveStatus));
+            }
+            else if (!string.IsNullOrWhiteSpace(FullNameUser) &&
+                string.IsNullOrWhiteSpace(FullNameEquipment) &&
+                !date.HasValue &&
+                status == 0)
+            {
+                result = result.Where(x => x.Status.Equals(reserveStatus));
+            }
+
             result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
 
             return await result.ToListAsync();
         }
 
-        public async Task<List<Reserver>> FindWithPagedSearchForUser(int id, string equipment, int size, int offset)
+        public async Task<List<Reserver>> FindWithPagedSearchForUser(int id, string equipment, int size, int offset, DateTime? date, ReserveStatus? status)
         {
             IQueryable<Reserver> result = _context.Reservations
                .Include(c => c.User)
                .Include(e => e.Equipment)
                .Include(s => s.Schedule);
 
-            if (!string.IsNullOrWhiteSpace(equipment))
+            if (!string.IsNullOrWhiteSpace(equipment) && date.HasValue && !string.IsNullOrWhiteSpace(status.ToString()) && date.HasValue && status.HasValue)
+            {
+                result = result.Where(x => x.UserId.Equals(id) && x.Equipment.Name.Contains(equipment) && x.Date.Equals(date) && x.Status.Equals(status));
+            } 
+
+            else if (!string.IsNullOrWhiteSpace(equipment))
             {
                 result = result.Where(x => x.UserId.Equals(id) && x.Equipment.Name.Contains(equipment));
             }
+
             else
             {
                 result = result.Where(x => x.UserId.Equals(id));
@@ -130,38 +205,12 @@ namespace MarkEquipsAPI.Repository
             return await result.ToListAsync();
         }
 
-        public async Task<List<Reserver>> FindWithPagedSearchForDate(int size, int offset, DateTime date)
-        {
-            IQueryable<Reserver> result = _context.Reservations
-               .Include(c => c.User)
-               .Include(e => e.Equipment)
-               .Include(s => s.Schedule).Where(x => x.Date.Equals(date));
-
-            result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
-
-            return await result.ToListAsync();
-        }
-
-        public int GetCountResUser(int id, string FullNameEquipment)
+         public int GetCountResUser(int id, string FullNameEquipment, DateTime? date, ReserveStatus status)
         {
             var result = _context.Reservations.Where(x => x.UserId.Equals(id) &&
-                     x.Equipment.Name.Contains(FullNameEquipment)).Count();
+                     x.Equipment.Name.Contains(FullNameEquipment) && x.Date.Equals(date) && x.Status.Equals(status)).Count();
             return result;
         }
-
-        public int GetCount(string FullNameUser, string FullNameEquipment)
-        {
-            var result = _context.Reservations.Where(x => x.User.FullName.Contains(FullNameUser) ||
-            x.Equipment.Name.Contains(FullNameEquipment)).Count();
-            return result;
-        }
-
-        public int GetCountDate(DateTime date)
-        {
-            var result = _context.Reservations.Where(x => x.Date.Equals(date)).Count();
-            return result;
-        }
-        
 
     }
 }

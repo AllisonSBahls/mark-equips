@@ -14,11 +14,8 @@ namespace MarkEquipsAPI.Repository
         Task StatusReserverAsync(Reserver reserver);
         Task DeleteAsync(Reserver reserver);
         Task<bool> IsValidationAsync(int equipId, int schedId, DateTime date, ReserveStatus status);
-        Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset);
-        Task<List<Reserver>> FindWithPagedSearchForUser(int id, string nameEquipment, int size, int offset);
-        Task<List<Reserver>> FindWithPagedSearchForDate(int size, int offset, DateTime date);
-        int GetCountResUser(int id, string FullNameEquipment);
-        int GetCount(string nameCollaborator, string nameEquipment);
-        int GetCountDate(DateTime date);
+        Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset, DateTime? date, int status);
+        Task<List<Reserver>> FindWithPagedSearchForUser(int id, string nameEquipment, int size, int offset, DateTime? date, ReserveStatus? status);
+        int GetCountResUser(int id, string FullNameEquipment, DateTime? date, ReserveStatus status);
     }
 }

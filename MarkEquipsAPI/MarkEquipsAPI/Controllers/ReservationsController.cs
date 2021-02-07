@@ -1,5 +1,6 @@
 ﻿using MarkEquipsAPI.Data.DTOs;
 using MarkEquipsAPI.Hypermedia.Filters;
+using MarkEquipsAPI.Models.Enums;
 using MarkEquipsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,32 +26,37 @@ namespace MarkEquipsAPI.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get()
         {
-            return  Ok(await _entityService.FindAllAsync());
+            return Ok(await _entityService.FindAllAsync());
         }
 
-        #nullable enable
+#nullable enable
         [HttpGet("{sortDirection}/{pageSize}/{page}")]
         [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> Get([FromQuery] string? name, string? equipment, string sortDirection, int pageSize, int page)
+        public async Task<IActionResult> Get(
+            [FromQuery] string? name,
+            [FromQuery] string? equipment,
+            [FromQuery] DateTime? date,
+            [FromQuery] string? status,
+            string sortDirection,
+            int pageSize,
+            int page)
         {
-            return Ok(await _entityService.FindWithPageSearch(name, equipment, sortDirection, pageSize, page));
+
+            int statusId = !string.IsNullOrWhiteSpace(status) ? int.Parse(status) : 0;
+            return Ok(await _entityService.FindWithPageSearch(name, equipment, sortDirection, pageSize, page, date, statusId));
         }
 
         [HttpGet("user/{sortDirection}/{pageSize}/{page}")]
         [Authorize]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> Get([FromQuery]string? equipment, string sortDirection, int pageSize, int page)
+        public async Task<IActionResult> Get([FromQuery] string? equipment, [FromQuery] DateTime? date, [FromQuery] string? status, string sortDirection, int pageSize, int page)
         {
-            return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page));
-        }
+            var statusEnum = new ReserveStatus();
+            if (!string.IsNullOrWhiteSpace(status)) statusEnum = (ReserveStatus)Enum.Parse(typeof(ReserveStatus), status);
 
-        [HttpGet("date/{sortDirection}/{pageSize}/{page}")]
-        [Authorize]
-        [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> Get([FromQuery] DateTime? date, string sortDirection, int pageSize, int page)
-        {
-            return Ok(await _entityService.FindWithPageSearchForDate(sortDirection, pageSize, page, date));
+
+            return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page, date, statusEnum));
         }
 
         [HttpGet("{id}")]
@@ -71,12 +77,14 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPatch("cancel/{id}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Patch(int id)
         {
-            try { 
-            await _entityService.RevokeAsync(id);
-            return this.StatusCode(StatusCodes.Status200OK);
+            try
+            {
+                await _entityService.RevokeAsync(id);
+                return this.StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {
@@ -85,8 +93,9 @@ namespace MarkEquipsAPI.Controllers
         }
 
         [HttpPatch("deliver/{id}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public async Task<IActionResult> PatchDeliver(int id)
+        public async Task<IActionResult> PutDeliver(int id)
         {
             try
             {
@@ -99,7 +108,8 @@ namespace MarkEquipsAPI.Controllers
             }
         }
 
-        [HttpPatch("take/{id}")]
+        [HttpPatch("collect/{id}")]
+        [Authorize(Roles = "Administrator")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> PatchTake(int id)
         {
