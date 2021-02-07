@@ -27,10 +27,8 @@ export function fetchReserverCollect(
     page: number, 
     token:AxiosRequestConfig, 
     date:string, 
-    name: string, 
-    equipment:string, 
     status: number){
-        return api.get(`api/v1/reservations/asc/4/${page}/?date=${date}&status=${status}&name=${name}&equipment=${equipment}`, token);
+        return api.get(`api/v1/reservations/asc/4/${page}/?date=${date}&status=${status}`, token);
     }
 export function fetchReserverReserved(    
     page: number, 

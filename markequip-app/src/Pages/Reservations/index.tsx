@@ -8,6 +8,7 @@ import { IReserver, ReserveStatus } from "./types";
 import {toast} from "react-toastify"
 import DeliveredCard from "./DeliveredCard";
 import ColletedCard from "./ColletedCard";
+import SearchInput from "../../Components/Debounced/SearchInput";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState<IReserver[]>([]);
@@ -20,12 +21,16 @@ export default function Reservations() {
   const [pageB, setPageB] = useState<number>(2);
 
   var today = new Date();
-  const [date, setDate] = useState<string>(today.toLocaleDateString('en-CA'));
+  const [date] = useState<string>(today.toLocaleDateString('en-CA'));
   const [name, SetName] = useState<string>('');
+  const [nameReserved, SetNameReserved] = useState<string>('');
+  const [nameUsing, SetNameUsing] = useState<string>('');
   const [equipment, SetEquipment] = useState<string>('');
-  const [statusCollect, SetStatusCollect] = useState<ReserveStatus>(ReserveStatus.FINISHED);
-  const [statusDelivered, SetStatusDelivered] = useState<ReserveStatus>(ReserveStatus.USING);
-  const [statusReserved, SetStatusReserved] = useState<ReserveStatus>(ReserveStatus.RESERVED);
+  const [equipmentReserved, SetEquipmentReserved] = useState<string>('');
+  const [equipmentUsing, SetEquipmentUsing] = useState<string>('');
+  const [statusCollect] = useState<ReserveStatus>(ReserveStatus.FINISHED);
+  const [statusDelivered] = useState<ReserveStatus>(ReserveStatus.USING);
+  const [statusReserved] = useState<ReserveStatus>(ReserveStatus.RESERVED);
 
   const token = localStorage.getItem('Token')!;
 
@@ -36,15 +41,15 @@ export default function Reservations() {
   }
 
   useEffect(() => {
-    fetchReservationsReserved();
-    fetchReservationsDelivered();
+    fetchReserved();
+    fetchDelivered();
     fetchReservationsCollect();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, statusUpdate])
+  }, [token, statusUpdate, nameReserved, nameUsing, equipmentReserved, equipmentUsing])
 
-  async function fetchReservationsReserved(){
+  async function fetchReserved(){
     try{
-    const response = await fetchReserverReserved(pageA, authorization, date, name, equipment, statusReserved)
+    const response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
     setReserved(response.data.list);
   }catch(err){
     toast.error("Erro ao listar as reservas")
@@ -53,7 +58,7 @@ export default function Reservations() {
 
 async function fetchMoreReserved() {
   try{
-    const response = await fetchReserverCollect(pageB, authorization,  date, name, equipment, statusReserved)
+    const response = await fetchReserverReserved(pageB, authorization,  date, nameReserved, equipmentReserved, statusReserved)
     setTotalResult(response.data.totalResults);
     setReserved([...reserved, ...response.data.list]);
     setPageB(pageB+1);
@@ -61,25 +66,36 @@ async function fetchMoreReserved() {
     toast.error("Erro ao listar os Colaboradores")
   } 
 }
+
+async function fetchDelivered(){
+  try{
+  const response = await fetchReserverDelived(pageA, authorization, date, nameUsing, equipmentUsing, statusDelivered)
+  setReservationsDelivered(response.data.list);
+  
+}catch(err){
+  toast.error("Erro ao listar as reservas")
+}
+}
+
+async function fetchMoreDelivered() {
+  try{
+    const response = await fetchReserverDelived(pageB, authorization,  date, nameUsing, equipmentUsing, statusReserved)
+    setTotalResult(response.data.totalResults);
+    setReservationsDelivered([...reserved, ...response.data.list]);
+    setPageB(pageB+1);
+  }catch(err){
+    toast.error("Erro ao listar os Colaboradores")
+  } 
+}
   async function fetchReservationsCollect(){
     try{
-    const response = await fetchReserverCollect(pageA, authorization, date, name, equipment, statusCollect)
+    const response = await fetchReserverCollect(pageA, authorization, date, statusCollect)
     setReservationsCollected(response.data.list);
   }catch(err){
     toast.error("Erro ao listar as reservas")
   }
   }
-
-  async function fetchReservationsDelivered(){
-    try{
-    const response = await fetchReserverDelived(pageA, authorization, date, name, equipment, statusDelivered)
-    setReservationsDelivered(response.data.list);
-    
-  }catch(err){
-    toast.error("Erro ao listar as reservas")
-  }
-  }
-  
+ 
   async function revokeReserver(id: number) {
     try {
       await cancelReserver(id, authorization);
@@ -124,7 +140,10 @@ async function fetchMoreReserved() {
         <div className="reserver-action-search"></div>
       </div>
       <div className="reserver-content">
-        <h3>Reservados para hoje</h3>
+        <h3>Reservados para hoje
+        <SearchInput value ={nameReserved} onChange={(search: string) => {SetNameReserved(search)}}/>
+        <SearchInput value ={equipmentReserved} onChange={(search: string) => {SetEquipmentReserved(search)}}/>
+        </h3>
         <div className="reserver-today">
           {reserved.map((reserver) => (
           <ReservedCard 
@@ -133,16 +152,24 @@ async function fetchMoreReserved() {
             deliverEquipment={() => deliverEquipment(reserver.id, reserver.equipment.name)}
             reserver = {reserver}/>
           ))}
-          <div>
+          
+        </div>
+        <div>
             <button   
             onClick={fetchMoreReserved}>
             {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
-            Carregar mais</button>
+            </button>
+            <button   
+            onClick={fetchMoreReserved}>
+            Ver todos
+            </button>
           </div>
-        </div>
       </div>
       <div className="reserver-content">
-        <h3>Em uso</h3>
+        <h3>Em uso
+        <SearchInput value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
+        <SearchInput value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
+        </h3>
         <div className="reserver-today">
         {reservationsDelivered.map((reserver) => (
           <DeliveredCard 
@@ -151,8 +178,12 @@ async function fetchMoreReserved() {
             reserver = {reserver}/>
           ))}
         </div>
+        <button   
+            onClick={fetchMoreDelivered}>
+            {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
+            </button>
       </div>
-
+      
       <div className="reserver-content">
         <h3>Últimos Devolvidos</h3>
         <div className="reserver-today">

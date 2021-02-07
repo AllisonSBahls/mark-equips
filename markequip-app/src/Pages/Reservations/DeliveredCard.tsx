@@ -21,7 +21,6 @@ export default function DeliveredCard({reserver, collectEquipment}: Props) {
         </div>
         <div className="reserver-btn">
           <button className="reserver-btn-take" onClick={() => collectEquipment()}>Recolher</button>
-          <button className="reserver-btn-deliver">Reverter</button>
         </div>
       </div>
      </>

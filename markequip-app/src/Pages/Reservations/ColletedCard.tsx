@@ -4,6 +4,7 @@ import "./styles.css";
 
 type Props = {
   reserver: IReserver;
+ 
 }
 
 export default function ColletedCard({reserver}: Props) {
@@ -16,9 +17,7 @@ export default function ColletedCard({reserver}: Props) {
           <p className="reserver-date">{reserver.date}</p>
           <p className="reserver-schedules">{reserver.schedule.hourInitial} - {reserver.schedule.hourFinal}</p>
         </div>
-        <div className="reserver-btn">
-          <button className="reserver-btn-deliver">Reverter</button>
-        </div>
+
       </div>
      </>
   );
