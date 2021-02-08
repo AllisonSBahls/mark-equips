@@ -5,9 +5,18 @@
 }
 
 .equipment-content{
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    border: 1px solid black;
+}
+
+.equipment-content-action{
+    display: flex;
+}
+
+.equipment-content-search{
+    display: flex;
 }
 
 .equipment-content.equipment-justify{
@@ -19,7 +28,8 @@
     width: 240px;
     height: 150px;
     color: rgb(255, 255, 255);
-    background-color: #272757;
+    background-color: #2a2a4b;
+    margin: 10px 30px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px 15px;
@@ -103,12 +113,12 @@
 }
 
 .equipment-btn-reserver{
-    background-color: #198754;
-    border: 1px solid  #198754;
+    background-color: #20947b;
+    border: 1px solid  #20947b;
 }
 
 .equipment-btn-reserver:hover{
-    background-color: #0b4f53;
+    background-color: #2b5f54;
 }
 .equipment-btn-delete{
     float: right;
