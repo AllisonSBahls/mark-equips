@@ -134,9 +134,9 @@ async function fetchMoreDelivered() {
       <div className="reserver-content">
         <div className="reserver-content-action">
           <h3>Reservados para hoje</h3>
-          <div>
-        <SearchInput value ={nameReserved} onChange={(search: string) => {SetNameReserved(search)}}/>
-        <SearchInput value ={equipmentReserved} onChange={(search: string) => {SetEquipmentReserved(search)}}/>
+        <div className="reserver-content-search">
+            <label>Colaborador: </label><SearchInput value ={nameReserved} onChange={(search: string) => {SetNameReserved(search)}}/>
+            <label>Equipamento: </label><SearchInput value ={equipmentReserved} onChange={(search: string) => {SetEquipmentReserved(search)}}/>
         </div>
         </div>
         <div className="reserver-today">
@@ -162,8 +162,8 @@ async function fetchMoreDelivered() {
       </div>
       <div className="reserver-content">
         <h3>Em uso
-        <SearchInput value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
-        <SearchInput value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
+        <SearchInput className="reserver-search-name" value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
+        <SearchInput className="reserver-search-equipment" value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
         </h3>
         <div className="reserver-today">
         {reservationsDelivered.map((reserver) => (

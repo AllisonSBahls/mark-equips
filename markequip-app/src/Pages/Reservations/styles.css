@@ -1,22 +1,39 @@
 .reserver-content{
-    background-color: var(--ligh-color);
+    background-color: #f5f5f5;
     margin-bottom: 20px;
     position: relative;
-
-
+    margin: 0 10px 30px 10px;
 }
 
 .reserver-content-action {
     margin-bottom: 10px;
     padding: 10px;
-    border-bottom: 1px solid black;
-
-}
-
-.reserver-content-action{
+    border-bottom: 1px solid #000043;
+    border-left: 5px solid #000043;
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+
+
+.reserver-content-search{
+    width: 55%;
+    display: flex;
+    font-size: 13px;
+    color: #000043;
+    align-items: center;
+}
+
+.reserver-content-search label{
+    margin-right: 10px;
+}
+
+.reserver-content-search input{  
+    margin-right: 10px;
+    width: 40%;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #000043;
 }
 
 .reserver-today{
@@ -28,14 +45,41 @@
 }
 
 .reserver-card{
-    border: 1px solid black;
-    padding: 10px;
-    width: 300px;
+    border: 1px solid #000043;
+    background: #2a2a4b;
+    font-size: 13px;
+    padding: 5px;
+    color: white;
+    width: 240px;
     margin-bottom: 10px;
-
 }
 
 .reserver-info{
     display: flex;
     justify-content: space-between;
+}
+
+.reserver-btn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.reserver-btn button{
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 5px;
+    color: white;
+}
+
+.reserver-btn-deliver{
+    background-color: rgb(32, 148, 123);
+    border: 1px solid rgb(32, 148, 123);
+}
+
+.reserver-btn-cancel{
+    background: unset;
+    border: unset;
+    font-weight: bold;
 }
