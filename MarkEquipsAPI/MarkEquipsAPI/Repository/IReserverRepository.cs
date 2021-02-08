@@ -17,5 +17,6 @@ namespace MarkEquipsAPI.Repository
         Task<List<Reserver>> FindWithPagedSearch(string nameCollaborator, string nameEquipment, int size, int offset, DateTime? date, int status);
         Task<List<Reserver>> FindWithPagedSearchForUser(int id, string nameEquipment, int size, int offset, DateTime? date, ReserveStatus? status);
         int GetCountResUser(int id, string FullNameEquipment, DateTime? date, ReserveStatus status);
+        int GetCount(string nameCollaborator, string FullNameEquipment, DateTime? date, int status);
     }
 }

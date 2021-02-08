@@ -15,6 +15,14 @@ export interface IReserver{
     schedule: ISchedule;
 }
 
+export interface IReserve{
+    date: string;
+    userId: number;
+    equipmentId: number;
+    scheduleId: number;
+}
+
+
 export enum ReserveStatus
 {
     RESERVED = 1,

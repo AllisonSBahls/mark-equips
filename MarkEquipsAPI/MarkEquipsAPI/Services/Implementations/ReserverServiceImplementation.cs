@@ -47,7 +47,7 @@ namespace MarkEquipsAPI.Services.Implementations
             var size = (pageSize < 1) ? 10 : pageSize;
             var offset = page > 0 ? (page - 1) * size : 0;
             var reservations = await _repository.FindWithPagedSearch(nameCollaborator, nameEquipment, size, offset, date, status);
-            var totalResult = reservations.Count;
+            var totalResult =   _repository.GetCount(nameCollaborator, nameEquipment, date, status);
 
             var searchPage = new PagedSearchDTO<ReserverDto>
             {

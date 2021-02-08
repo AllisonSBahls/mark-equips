@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 
 import Modal from "../../Components/Modal/Modal";
-// import { findById, register, updateEquipments } from "../../Services/equipment";
 import { toast } from "react-toastify";
 import { findById } from "../../Services/equipment";
 import { fetchSchedule } from "../../Services/schedule";
@@ -11,8 +10,14 @@ import { checkIsSelected } from "./helpers";
 import { ScheduleList } from "./SchedulesList";
 import { IEquipment } from "./types";
 import { reserver } from "../../Services/reserver";
+import { IReserve, IReserver } from "../Reservations/types";
 
-export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
+type Props = {
+  equipmentId: number | null,
+  onClickClose: () => void;
+}
+
+export default function EquipmentReserver({ equipmentId, onClickClose }: Props) {
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [equipmentReservations, setEquipmentReservations] = useState<IEquipment[]>([]);
   const [selectSchedules, setSelectSchedules] = useState<ISchedule[]>([]);
@@ -22,7 +27,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
   
   const token = localStorage.getItem("Token");
   const fullName = localStorage.getItem("fullName")!;
-  const userId = localStorage.getItem("id");
+  const Iduser = localStorage.getItem("id");
   
   const authorization = {
     headers: {
@@ -39,20 +44,23 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
   async function reserverEquipment(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const response = selectSchedules.map(async (schedule) => {
-        const scheduleId = schedule.id;
-        const data = {
-          userId,
-          equipmentId,
-          date,
-          scheduleId,
-        };
-        await reserver(data, authorization);
-      });
+      if(Iduser !== null && equipmentId !== null){
+        const response = selectSchedules.map(async (schedule) => {
+          const scheduleId = schedule.id;
+          const userId: number = +Iduser;
+          const data: IReserve = {
+            userId,
+            equipmentId,
+            date,
+            scheduleId,
+          };
+          await reserver(data, authorization);
+        });
       await Promise.all(response);
       toast.success("Reservar realizada");
       setSelectSchedules([]);
       onClickClose();
+    }
     } catch (err) {
       toast.error("Erro ao fazer a reserva");
     }
@@ -133,7 +141,6 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: any) {
                 Selecione os horários que desejar e disponiveis para reservar.
               </h4>
               <div className="equipment-reserver-schedule">
-                
                 <ScheduleList
                   schedules={schedules}
                   isSelected={selectSchedules}

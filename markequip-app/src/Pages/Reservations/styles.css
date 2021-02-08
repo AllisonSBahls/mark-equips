@@ -3,6 +3,9 @@
     margin-bottom: 20px;
     position: relative;
     margin: 0 10px 30px 10px;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
+    box-shadow: 0px 3px 5px 3px rgba(184,175,184,1);
 }
 
 .reserver-content-action {
@@ -72,6 +75,17 @@
     border-radius: 5px;
     color: white;
 }
+.reserver-btn-deliver:hover{
+    background-color: #145346;
+    border: 1px solid #155547;
+    transition: 0.6s;
+}
+
+.reserver-btn-cancel:hover{
+    color: red;
+    transition: 0.6s;
+}
+
 
 .reserver-btn-deliver{
     background-color: rgb(32, 148, 123);
@@ -82,4 +96,26 @@
     background: unset;
     border: unset;
     font-weight: bold;
+}
+
+.reserver-btn-action{
+    padding: 0 20px 20px;
+    margin-left: 80%; 
+}
+
+.reserver-btn-action button{
+    margin-left: 10px;
+    padding: 4px;
+    background-color: #20947b;
+    color: white;
+    border: 1px solid #20947b;
+    border-radius: 3px;
+    box-shadow: 0px 3px 5px 1px rgba(184,175,184,1);
+    cursor: pointer;
+}
+
+.reserver-btn-action button:hover{
+    background-color: #145346;
+    border: 1px solid #155547;
+    transition: 0.6s;
 }

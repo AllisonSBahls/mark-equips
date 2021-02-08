@@ -211,6 +211,30 @@ namespace MarkEquipsAPI.Repository
                      x.Equipment.Name.Contains(FullNameEquipment) && x.Date.Equals(date) && x.Status.Equals(status)).Count();
             return result;
         }
+             public int GetCount(string name, string equipment, DateTime? date, int status)
+        {
+            ReserveStatus reserveStatus = (ReserveStatus)status;
+            string fullName = "";
+            string nameEquipment = "";
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                fullName = name;
+            }
+            if (!string.IsNullOrWhiteSpace(equipment))
+            {
+                nameEquipment = equipment;
+            }
+            var result = _context.Reservations
+               .Include(c => c.User)
+               .Include(e => e.Equipment)
+               .Include(s => s.Schedule)
+               .Where(x => x.User.FullName.Contains(fullName) &&
+                     x.Equipment.Name.Contains(nameEquipment) && 
+                     x.Date.Equals(date) && 
+                     x.Status.Equals(reserveStatus))
+               .Count();
+            return result;
+        }
 
     }
 }

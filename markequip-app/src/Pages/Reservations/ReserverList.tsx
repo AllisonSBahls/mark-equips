@@ -45,6 +45,7 @@ export default function ReservationsList() {
   async function fetchReserved(){
     try{
     const response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
+    setTotalResult(response.data.totalResults);
     setReserved(response.data.list);
   }catch(err){
     toast.error("Erro ao listar as reservas")
@@ -54,7 +55,6 @@ export default function ReservationsList() {
 async function fetchMoreReserved() {
   try{
     const response = await fetchReserverReserved(pageB, authorization,  date, nameReserved, equipmentReserved, statusReserved)
-    setTotalResult(response.data.totalResults);
     setReserved([...reserved, ...response.data.list]);
     setPageB(pageB+1);
   }catch(err){
@@ -66,7 +66,7 @@ async function fetchDelivered(){
   try{
   const response = await fetchReserverDelived(pageA, authorization, date, nameUsing, equipmentUsing, statusDelivered)
   setReservationsDelivered(response.data.list);
-  
+  setPageB(pageA + 1);
 }catch(err){
   toast.error("Erro ao listar as reservas")
 }
@@ -149,12 +149,12 @@ async function fetchMoreDelivered() {
           ))}
           
         </div>
-        <div>
-            <button   
+        <div className="reserver-btn-action">
+            <button  className="reserver-btn-loading"
             onClick={fetchMoreReserved}>
             {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
             </button>
-            <button   
+            <button  className="reserver-btn-all" 
             onClick={fetchMoreReserved}>
             Ver todos
             </button>
@@ -173,7 +173,7 @@ async function fetchMoreDelivered() {
             reserver = {reserver}/>
           ))}
         </div>
-        <button   
+        <button 
             onClick={fetchMoreDelivered}>
             {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
             </button>

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { IReserve } from "../Pages/Reservations/types";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -6,11 +7,11 @@ export const api = axios.create({
 
 })
 
-export function fetchReserver(page: any, token:any, name:any, equipment:string){
+export function fetchReserver(page: number, token:AxiosRequestConfig, name:string, equipment:string){
     return api.get(`api/v1/reservations/asc/12/${page}/?name=${name}&equipment=${equipment}`, token);
 }
 
-export function fetchReserverUsers(page: any, token:any, name:any){
+export function fetchReserverUsers(page: number, token:AxiosRequestConfig, name:string){
     return api.get(`api/v1/reservations/users/asc/12/${page}/?name=${name}`, token);
 }
 
@@ -40,11 +41,11 @@ export function fetchReserverReserved(
         return api.get(`api/v1/reservations/asc/5/${page}/?date=${date}&status=${status}&name=${name}&equipment=${equipment}`, token);
     }
 
-export function findById(id: number, token: any){
+export function findById(id: number, token: AxiosRequestConfig){
     return api.get(`api/v1/reservations/${id}`, token);
 }
 
-export function reserver(equipment: any, token: any){
+export function reserver(equipment: IReserve, token: AxiosRequestConfig){
     return api.post('api/v1/reservations', equipment, token);
 }
 
