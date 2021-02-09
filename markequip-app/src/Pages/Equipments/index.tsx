@@ -75,52 +75,25 @@ export default function Equipment() {
       <div className="equipment-container">
         <div className="equipment-content">
           <div className="equipment-content-action">
-            <h3>Equipamentos e Laboratórios: </h3>
+            <h3>Total de equipamentos e laboratórios: {totalResult}  </h3>
             <div className="equipment-content-search">
               <div className="field-search">
                 <FaSearch className="icon icon-search" />
                 <SearchInput value={name} onChange={(search: string) => { setName(search) }} />
               </div>
-              <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Novo</button>
+              <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Cadastrar</button>
             </div>
           </div>
-        <div className={`equipment-content ${totalResult < 4 ? "equipment-justify" : ""}`}>
-          <div className="equipment">
-            <div className="equipment-title">
-              <h4 className="equipment-name">Projetor</h4>
-              <h5 className="equipment-tombo">Nº 2312</h5>
-            </div>
-            <div className="equipment-description">
-              <p>Porta HDMI, VGA saida de som, qualidade</p>
-            </div>
-            <div className="equipment-btn-action">
-              <button className="equipment-btn-reserver" >Reservar</button>
-              {/* <button
-            className="equipment-btn-delete"
-            onClick={() => {
-              if (window.confirm(`Você tem certeza que deseja remover o(a): ${equipment.name}`)) { 
-                deleteEquipment(equipment.id); 
-              }
-            }}>
-            Deletar
-          </button> */}
-              {/* <button
-            className="equipment-btn-edit"
-            onClick={() => onClickInfo(equipment.id)}
-          >
-            Editar
-          </button> */}
-            </div>
+          <div className={`equipment-content-cards ${totalResult < 4 ? "equipment-justify" : ""}`}>
+            {equipments.map(equipment => (
+              <EquipmentCard
+                key={equipment.id}
+                equipment={equipment}
+                onClickInfo={setEquipmentId}
+                onClickReserver={setEquipmentReserver}
+                deleteEquipment={deleteEquipment} />
+            ))}
           </div>
-          {equipments.map(equipment => (
-            <EquipmentCard
-              key={equipment.id}
-              equipment={equipment}
-              onClickInfo={setEquipmentId}
-              onClickReserver={setEquipmentReserver}
-              deleteEquipment={deleteEquipment} />
-          ))}
-        </div>
         </div>
 
         <button

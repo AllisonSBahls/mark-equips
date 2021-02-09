@@ -16,7 +16,7 @@ export default function EquipmentCard({
         </div>
         <div className="equipment-btn-action">
           <button className="equipment-btn-reserver" onClick={() => onClickReserver(equipment.id)}>Reservar</button>
-          {/* <button
+          <button
             className="equipment-btn-delete"
             onClick={() => {
               if (window.confirm(`Você tem certeza que deseja remover o(a): ${equipment.name}`)) { 
@@ -24,13 +24,13 @@ export default function EquipmentCard({
               }
             }}>
             Deletar
-          </button> */}
-          {/* <button
+          </button>
+          <button
             className="equipment-btn-edit"
             onClick={() => onClickInfo(equipment.id)}
           >
             Editar
-          </button> */}
+          </button>
         </div>
       </div>
     </>

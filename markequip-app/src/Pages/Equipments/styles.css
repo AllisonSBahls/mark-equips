@@ -6,17 +6,36 @@
 
 .equipment-content{
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    border: 1px solid black;
+    margin: 0 10px 30px 10px;
+    box-shadow: 0px 3px 5px 3px rgb(184 175 184);
 }
 
 .equipment-content-action{
     display: flex;
 }
 
+.equipment-content-action{
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border-bottom: 1px solid #000043;
+    border-left: 5px solid #000043;
+    display: flex;
+    font-size: 14px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .equipment-content-search{
     display: flex;
+}
+
+.equipment-content-cards{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    position: relative;
+    justify-content: space-around;
 }
 
 .equipment-content.equipment-justify{
@@ -24,22 +43,21 @@
 }
 
 .equipment{
-    margin: 10px 10px 10px 0;
     width: 240px;
-    height: 150px;
+    height: 130px;
     color: rgb(255, 255, 255);
     background-color: #2a2a4b;
-    margin: 10px 30px;
+    margin: 10px 0;
     padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px 15px;
+    font-size: 13px;
+    border: 1px solid #2a2a4b;
+    border-radius: 10px;
     box-shadow: 3px 4px 4px rgb(126, 125, 125);
+    transition: 4s;
 }
 
 .equipment-title{
-    font-size: 14px;
     border-bottom: 1px solid;
-    border-radius: 5px;
     margin-bottom: 10px;
     min-height: 40px;
     display: flex;
@@ -48,7 +66,6 @@
 }
 
 .equipment-tombo{
-    border-left: 1px solid;
     padding-left: 5px;
     border-radius: 3px;
     max-width: 30px;
@@ -56,12 +73,9 @@
 
 .equipment-description{
     font-size: 12px;
-    border-bottom: 1px solid;
     margin-bottom: 10px;
     min-width: 100%;
-    min-height: 40px;
-    text-align: center;
-
+    min-height: 30px;
 }
 
 .equipment-description-title{
@@ -69,12 +83,12 @@
 }
 
 .equipment-btn-action button{
-    padding: 4px;
+    padding: 3px;
     border: none;
     color: white;
-    margin-right: 5px;
     cursor: pointer;
     border-radius: 10px;
+    font-size: 12px;
 }
 
 .equipment-action-content{
@@ -101,10 +115,12 @@
     cursor: pointer;
     display: flex;
     background-color: #4da060;
+    align-items: center;
     padding: 7px 25px;
     border-radius: 15px;
     color: white;
     border: 1px solid #4da060;
+    transition: 0.5s;
 }
 .equipment-btn-insert:hover{
     background-color: #238d3c;

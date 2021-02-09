@@ -4,16 +4,13 @@ import ReservedCard from "./ReservedCard";
 import "./styles.css";
 import { IReserver, ReserveStatus } from "./types";
 import {toast} from "react-toastify"
-import DeliveredCard from "./DeliveredCard";
-import ColletedCard from "./ColletedCard";
 import SearchInput from "../../Components/Debounced/SearchInput";
 
 export default function ReservationsList() {
-  const [reservationsDelivered, setReservationsDelivered] = useState<IReserver[]>([]);
+  const [inUse, setInUse] = useState<IReserver[]>([]);
   const [reserved, setReserved] = useState<IReserver[]>([]);
   const [statusUpdate, setStatusUpdate] = useState<number>(1);
   const [totalResult, setTotalResult] = useState<number>(0);
-  const [reservationsCollected, setReservationsCollected] = useState<IReserver[]>([]);
   const [pageA] = useState<number>(1);
   const [pageB, setPageB] = useState<number>(2);
 
@@ -23,8 +20,7 @@ export default function ReservationsList() {
   const [nameUsing, SetNameUsing] = useState<string>('');
   const [equipmentReserved, SetEquipmentReserved] = useState<string>('');
   const [equipmentUsing, SetEquipmentUsing] = useState<string>('');
-  const [statusCollect] = useState<ReserveStatus>(ReserveStatus.FINISHED);
-  const [statusDelivered] = useState<ReserveStatus>(ReserveStatus.USING);
+  const [statusinUse] = useState<ReserveStatus>(ReserveStatus.USING);
   const [statusReserved] = useState<ReserveStatus>(ReserveStatus.RESERVED);
 
   const token = localStorage.getItem('Token')!;
@@ -37,8 +33,7 @@ export default function ReservationsList() {
 
   useEffect(() => {
     fetchReserved();
-    fetchDelivered();
-    fetchReservationsCollect();
+    fetchInUse();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, statusUpdate, nameReserved, nameUsing, equipmentReserved, equipmentUsing])
 
@@ -62,34 +57,26 @@ async function fetchMoreReserved() {
   } 
 }
 
-async function fetchDelivered(){
+async function fetchInUse(){
   try{
-  const response = await fetchReserverDelived(pageA, authorization, date, nameUsing, equipmentUsing, statusDelivered)
-  setReservationsDelivered(response.data.list);
+  const response = await fetchReserverDelived(pageA, authorization, date, nameUsing, equipmentUsing, statusinUse)
+  setInUse(response.data.list);
   setPageB(pageA + 1);
 }catch(err){
   toast.error("Erro ao listar as reservas")
 }
 }
 
-async function fetchMoreDelivered() {
+async function fetchMoreInUse() {
   try{
     const response = await fetchReserverDelived(pageB, authorization,  date, nameUsing, equipmentUsing, statusReserved)
     setTotalResult(response.data.totalResults);
-    setReservationsDelivered([...reserved, ...response.data.list]);
+    setInUse([...reserved, ...response.data.list]);
     setPageB(pageB+1);
   }catch(err){
     toast.error("Erro ao listar os Colaboradores")
   } 
 }
-  async function fetchReservationsCollect(){
-    try{
-    const response = await fetchReserverCollect(pageA, authorization, date, statusCollect)
-    setReservationsCollected(response.data.list);
-  }catch(err){
-    toast.error("Erro ao listar as reservas")
-  }
-  }
  
   async function revokeReserver(id: number) {
     try {
@@ -116,9 +103,8 @@ async function fetchMoreDelivered() {
   async function  collectEquipment(id: number, equipment: string){
     try{
       await finishReserver(id, authorization);
-      toast.success(`${equipment} devolvido`);
+      toast.success(`${equipment} Recolhido`);
       setStatusUpdate(statusUpdate+1)
-
     }
     catch (err) {
       toast.error(`Erro ao recolher o equipamento `);
@@ -131,6 +117,7 @@ async function fetchMoreDelivered() {
       <div className="reserver-action">
         <div className="reserver-action-search"></div>
       </div>
+      {/* Listagem dos equipamentos reservados esperando o usuário buscar */}
       <div className="reserver-content">
         <div className="reserver-content-action">
           <h3>Reservados para hoje</h3>
@@ -145,6 +132,7 @@ async function fetchMoreDelivered() {
             key={reserver.id}
             revokeReserver={() => revokeReserver(reserver.id)}
             deliverEquipment={() => deliverEquipment(reserver.id, reserver.equipment.name)}
+            collectEquipment = {() => collectEquipment(reserver.id, reserver.equipment.name)}
             reserver = {reserver}/>
           ))}
           
@@ -160,34 +148,37 @@ async function fetchMoreDelivered() {
             </button>
           </div>
       </div>
+
+      {/* Listagem dos equipamentos que já foram entregues ao cliente e estão em uso */}
       <div className="reserver-content">
-        <h3>Em uso
-        <SearchInput className="reserver-search-name" value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
-        <SearchInput className="reserver-search-equipment" value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
-        </h3>
+        <div className="reserver-content-action">
+          <h3>Em uso</h3>
+        <div className="reserver-content-search">
+            <label>Colaborador: </label><SearchInput value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
+            <label>Equipamento: </label><SearchInput value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
+        </div>
+        </div>
         <div className="reserver-today">
-        {reservationsDelivered.map((reserver) => (
-          <DeliveredCard 
+          {inUse.map((reserver) => (
+          <ReservedCard 
             key={reserver.id}
-            collectEquipment={() => collectEquipment(reserver.id, reserver.equipment.name)}
+            revokeReserver={() => revokeReserver(reserver.id)}
+            deliverEquipment={() => deliverEquipment(reserver.id, reserver.equipment.name)}
+            collectEquipment = {() => collectEquipment(reserver.id, reserver.equipment.name)}
             reserver = {reserver}/>
           ))}
+          
         </div>
-        <button 
-            onClick={fetchMoreDelivered}>
-            {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
+        <div className="reserver-btn-action">
+            <button  className="reserver-btn-loading"
+            onClick={fetchMoreInUse}>
+            {totalResult === inUse.length ? 'Fim da Página' : 'Carregar mais'}
             </button>
-      </div>
-      
-      <div className="reserver-content">
-        <h3>Últimos Devolvidos</h3>
-        <div className="reserver-today">
-        {reservationsCollected.map((reserver) => (
-          <ColletedCard 
-            key={reserver.id}
-            reserver = {reserver}/>
-          ))}
-        </div>
+            <button  className="reserver-btn-all" 
+            onClick={fetchMoreReserved}>
+            Ver todos
+            </button>
+          </div>
       </div>
     </div>
   </>

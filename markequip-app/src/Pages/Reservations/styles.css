@@ -47,14 +47,22 @@
 
 }
 
-.reserver-card{
-    border: 1px solid #000043;
-    background: #2a2a4b;
+.reserver-card-reserved, .reserver-card-inuse{
     font-size: 13px;
     padding: 5px;
     color: white;
     width: 240px;
     margin-bottom: 10px;
+}
+
+.reserver-card-reserved{
+    border: 1px solid #000043;
+    background: #2a2a4b;
+}
+
+.reserver-card-inuse{
+    border: 1px solid #2f5266;
+    background: #315668;
 }
 
 .reserver-info{
