@@ -5,7 +5,7 @@ export const api = axios.create({
 })
 
 export function fetchEquipment(page: any, token:any, name:any){
-    return api.get(`api/v1/equipments/asc/12/${page}/?name=${name}`, token);
+    return api.get(`api/v1/equipments/asc/10/${page}/?name=${name}`, token);
 }
 
 export function findById(id: number, token: any){

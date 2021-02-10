@@ -12,7 +12,7 @@ export default function EquipmentCard({
           <h5 className="equipment-tombo">Nº {equipment.number}</h5>
         </div>
         <div className="equipment-description">
-          <p>{equipment.description}</p>
+          <p>{`${equipment.description.substring(0, 69)}...`}</p>
         </div>
         <div className="equipment-btn-action">
           <button className="equipment-btn-reserver" onClick={() => onClickReserver(equipment.id)}>Reservar</button>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cancelReserver, deliverReserver, fetchReserverCollect, fetchReserverDelived, fetchReserverReserved, finishReserver } from "../../Services/reserver";
+import { cancelReserver, deliverReserver, fetchReserverDelived, fetchReserverReserved, finishReserver } from "../../Services/reserver";
 import ReservedCard from "./ReservedCard";
 import "./styles.css";
 import { IReserver, ReserveStatus } from "./types";

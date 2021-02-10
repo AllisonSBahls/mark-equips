@@ -8,11 +8,15 @@
     width: 100%;
     margin: 0 10px 30px 10px;
     box-shadow: 0px 3px 5px 3px rgb(184 175 184);
+
 }
 
 .equipment-content-action{
     display: flex;
 }
+
+
+
 
 .equipment-content-action{
     margin-bottom: 5px;
@@ -35,25 +39,42 @@
     flex-wrap: wrap;
     margin-bottom: 20px;
     position: relative;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.equipment-content.equipment-justify{
+.equipment-content-cards.equipment-justify{
     justify-content: flex-start;
+    animation: equipment 0.4s;
+
+}
+
+.equipment-content-cards.equipment-justify .equipment{
+    margin: 10px;
 }
 
 .equipment{
     width: 240px;
-    height: 130px;
+    height: 135px;
     color: rgb(255, 255, 255);
     background-color: #2a2a4b;
-    margin: 10px 0;
+    margin: 10px 0px 10px 10px;
     padding: 10px;
     font-size: 13px;
     border: 1px solid #2a2a4b;
     border-radius: 10px;
     box-shadow: 3px 4px 4px rgb(126, 125, 125);
-    transition: 4s;
+    animation: equipment 0.4s;
+}
+
+@keyframes equipment {
+    from {
+        opacity: 0;
+        transform: translate3d(-60px, 0, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .equipment-title{
@@ -75,7 +96,7 @@
     font-size: 12px;
     margin-bottom: 10px;
     min-width: 100%;
-    min-height: 30px;
+    min-height: 35px;
 }
 
 .equipment-description-title{
@@ -221,3 +242,7 @@
     margin-bottom: 10px;
 }
 
+.modal-btn-success{
+    display: inline-flex;
+    align-items: center;
+}

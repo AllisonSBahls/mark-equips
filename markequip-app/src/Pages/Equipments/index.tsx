@@ -10,6 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import SearchInput from "../../Components/Debounced/SearchInput";
 import EquipmentModal from "./EquipmentModal";
 import EquipmentReserver from "./EquipmentReserver";
+import IsLoading from "../../Components/Loading";
 
 export default function Equipment() {
 
@@ -21,7 +22,10 @@ export default function Equipment() {
   const [equipmentId, setEquipmentId] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [equipmentReserver, setEquipmentReserver] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
+  //Render the equipments list every time that save or update
+  const [refresh, setRefresh] = useState(0);
   const token = localStorage.getItem('Token');
 
   const authorization = {
@@ -33,7 +37,7 @@ export default function Equipment() {
   useEffect(() => {
     fetchEquipmentsCard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, name, equipmentId, openModal])
+  }, [token, name, refresh])
 
 
   async function fetchEquipmentsCard() {
@@ -42,6 +46,8 @@ export default function Equipment() {
       setTotalResult(response.data.totalResults)
       SetEquipments(response.data.list);
       setPageB(page + 1);
+
+      setIsLoading(true);
     } catch (err) {
       toast.error("Erro ao listar os Colaboradores")
     }
@@ -84,7 +90,9 @@ export default function Equipment() {
               <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Cadastrar</button>
             </div>
           </div>
-          <div className={`equipment-content-cards ${totalResult < 4 ? "equipment-justify" : ""}`}>
+
+          {isLoading ? (
+          <div className={`equipment-content-cards ${totalResult < 5 ? "equipment-justify" : ""}`}>
             {equipments.map(equipment => (
               <EquipmentCard
                 key={equipment.id}
@@ -94,6 +102,11 @@ export default function Equipment() {
                 deleteEquipment={deleteEquipment} />
             ))}
           </div>
+          ) : (
+            <IsLoading/>
+            )}
+
+
         </div>
 
         <button
@@ -106,6 +119,7 @@ export default function Equipment() {
       <EquipmentModal
         equipmentId={equipmentId}
         openModal={openModal}
+        setRefresh={setRefresh}
         onClickClose={() => [setEquipmentId(null), setOpenModal(false)]} />
 
       <EquipmentReserver
