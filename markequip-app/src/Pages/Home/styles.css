@@ -56,4 +56,28 @@ margin: 20px auto;
 }
 .home-user-info p{
    margin-bottom: 20px;
+   text-align: justify;
+}
+
+@media(max-width: 883px){
+    .home-btn-reserve, .home-btn-reserved{
+        font-size: 14px;
+        width: 100%;   
+    }
+
+    .home-user-info p{
+        font-size: 12px;
+        text-align: justify;
+    }
+}
+
+@media(max-width: 570px){
+    .home-content{
+        display: block;
+    }
+    .home-user, .home-btn{
+        width: 100%;
+    }
+
+
 }

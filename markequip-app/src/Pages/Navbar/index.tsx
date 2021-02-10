@@ -1,6 +1,6 @@
 import "./styles.css";
-import { FaUserAlt } from "react-icons/fa";
-const userName = localStorage.getItem("FullName");
+import { FaUserAlt, FaBars } from "react-icons/fa";
+const userName = localStorage.getItem("fullName");
 type props = {
   title: string;
 };
@@ -9,35 +9,31 @@ export default function Navbar({ title }: props) {
   return (
     <>
       <nav className="navbar">
-        <h1 className="navbar-title">Mark Equip</h1>
+      <input type="checkbox" id="check" />
 
-        <div className="navbar-menu">
-          <ul>
-            <a href="/#">
-              <li>Inicio</li>
-            </a>
-            <a href="/#">
-              <li>Reservas</li>
-            </a>
-            <a href="/#">
-              <li>Equipamentos</li>
-            </a>
-            <a href="/#">
-              <li>Colaboradores</li>
-            </a>
-            <a href="/#">
-              <li>Horários</li>
-            </a>
+      <label htmlFor="check" className="checkbtn">
+          <FaBars />
+        </label>
+        <label className="navbar-title">Mark Equip</label>
+
+          <ul className="navbar-menu">
+            <li> <a href="/#">Inicio </a></li>
+            <li><a href="/#">Reservas</a></li>
+            <li><a href="/#">Equipamentos</a></li>
+            <li><a href="/#">Colaboradores</a></li>
+            <li><a href="/#">Horários</a></li>
+            <li className="navbar-menu-logout"><a href="/#">Logout</a></li>
           </ul>
-        </div>
-        <div className="user-navbar">
-          <ul>
+          <ul className="navbar-user">
+            <li className="navbar-user-name">
+              <FaUserAlt />
+              <a href="/#">{userName}Allison Sousa Bahls</a>
+            </li>
             <li>
               <FaUserAlt />
-              <a href="/#">{userName?.toUpperCase()}</a>
+              <a href="/#">{userName} Sair</a>
             </li>
           </ul>
-        </div>
       </nav>
       <div className="description-container">
         <h2>Mark Equips - {title}</h2>

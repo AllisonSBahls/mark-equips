@@ -1,50 +1,66 @@
-.navbar{
+nav{
     background: #000043;
     padding-left: 40px;
+    width: 100vw;
+    height:50px;
     color: var(--ligh-color);
-    display: flex;
     align-items: center;
 }
 
 .navbar-title{
-    font-size: 0.9em;
+    font-size: 20px;
+    white-space: nowrap;
+    line-height: 50px;
+    font-weight: bold;
+    margin-right: 30px;
+    float:left;
+
 }
 
-.navbar-menu{
 
-    font-size: 0.85em;
-    margin-left: 5%;
-}
-
-.navbar-menu ul {
-    display: flex;
+nav ul {
     list-style: none;
+    float:left;
 }
 
-.navbar-menu a{
+nav ul li{
+    
+    display: inline-block;
+	line-height: 50px;
+}
+
+nav ul li a{
     color: white;
     border-radius: 4px;
-    padding: 5px 20px
+    font-size: 15px;
+    padding: 6px 15px
+}
+.navbar-menu-logout{
+    display: none;
 }
 
-.navbar-menu a:hover{
-    background-color: #3d3d61;
+a.active, a:hover {
+	background: #3d3d61;
+	transition: .5s;
 }
 
 .user-navbar{
-    margin-left: auto;
-    margin-right: 10%;
+    width: 30%;
+    margin-right: 30px;
 }
+
 
 .user-navbar ul li{
     font-size: 0.9em;
+    margin-right: 10px;
     list-style: none;
+    display: inline-block;
+
 }
 
 .user-navbar a{
-    margin-left: 7px;
+    margin-left: 4px;
     color: var(--ligh-color);
-    margin-right: 5px;
     
 }
 .icon-user{
@@ -71,10 +87,85 @@
     margin-right: 4px;
 }
 
-@media(max-width:830px){
-    .description-container{
-        font-size: 9px;
+.checkbtn {
+	font-size: 30px;
+	color: white;
+	float: right;
+    margin-top: 8px;
+	line-height: 40px;
+	margin-right: 40px;
+	cursor: pointer;
+    display: none;
+}
+
+.navbar-user{
+    float:right;
+}
+
+
+#check {
+	display: none;
+}
+
+@media(max-width: 950px){
+    .navbar-title{
+        font-size: 15px;
     }
+
+    .navbar-menu ul li a{
+        font-size: 13px;
+    }
+    
+    .navbar-user{
+        font-size: 13px;
+    }
+    .navbar-user-name{
+        display: none;
+    }
+    .description-container{
+        font-size: 10px;
+    }
+}
+
+@media(max-width:750px){
+    .checkbtn{
+        display: block;
+    }
+    
+    .navbar-user{
+        display: none;
+    }
+
+    .navbar-menu-logout{
+        display: block;
+    }
+
+    ul{
+		position: fixed;
+		width: 100%;
+		height: 50vh;
+		background: #000043;
+		top: 50px;
+		left: -100%;
+		text-align: center;
+		transition: all .5s;
+        z-index: 10000;
+	}
+	nav ul li{
+		display: block;
+		margin: 30px 0;
+		line-height: 20px;
+	}
+	nav ul li a {
+		font-size: 15px;
+	}
+	a:hover, a.active {
+		background: none;
+		color: #5434af;
+	}
+	#check:checked ~ ul {
+		left: 0;
+	}
 }
 
 

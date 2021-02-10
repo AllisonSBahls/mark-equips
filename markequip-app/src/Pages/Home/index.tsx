@@ -20,7 +20,7 @@ export default function Home() {
           </div>
           <div className="home-btn">
             <button className="home-btn-reserve">Reserva Equipamento</button>
-            <button className="home-btn-reserved">Ver Histórico de Reservas</button>
+            <button className="home-btn-reserved">Ver todas de Reservas</button>
           </div>
         </div>
         <div className="home-reserver-today">

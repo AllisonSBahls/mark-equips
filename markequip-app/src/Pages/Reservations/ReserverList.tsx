@@ -142,10 +142,6 @@ async function fetchMoreInUse() {
             onClick={fetchMoreReserved}>
             {totalResult === reserved.length ? 'Fim da Página' : 'Carregar mais'}
             </button>
-            <button  className="reserver-btn-all" 
-            onClick={fetchMoreReserved}>
-            Ver todos
-            </button>
           </div>
       </div>
 
@@ -173,10 +169,6 @@ async function fetchMoreInUse() {
             <button  className="reserver-btn-loading"
             onClick={fetchMoreInUse}>
             {totalResult === inUse.length ? 'Fim da Página' : 'Carregar mais'}
-            </button>
-            <button  className="reserver-btn-all" 
-            onClick={fetchMoreReserved}>
-            Ver todos
             </button>
           </div>
       </div>
