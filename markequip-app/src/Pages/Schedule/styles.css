@@ -1,7 +1,6 @@
 .container-schedule{
-    width: 76%;
-    margin-left: 243px;
-    margin-top: 20px;
+    width: 90vw;
+    margin: 20px auto;
 }
 
 .content-schedule{
@@ -55,7 +54,7 @@
   
   .table-schedule thead th
   {
-    background: linear-gradient(0deg, #4f9c8a 0%, #48b39a 100%);
+    background: #000043;
     border-bottom: 1px solid rgb(143, 142, 142);
     font-weight: bold;
     color: #ffffff;
@@ -82,18 +81,18 @@
   }
 
   .btn-insert-schedule{
-    background-color: #4da060;
+    background-color: #000043;
     border: 1px solid  #4da060;
   }
 
   .btn-insert-schedule:hover{
-    background-color: #238d3c;
-    border: 1px solid #238d3c;
+    background-color: #26265c;
+    border: 1px solid #28286b;
     color: white;
 }
 
-  
-  @media (max-width: 875px){
+
+  @media (max-width: 700px){
     .table-schedule thead th
     {
       font-size: 13px;
@@ -103,16 +102,19 @@
       justify-content: center;
     }
     .container-schedule{
-        margin-left: 103px;
-        margin-top: 20px;
-        
+        margin-left: 15px;
+        margin-top: 20px; 
     }
+
+    .table-content{
+      margin-bottom: 10px;
+      width: 90vw;
+
+    }
+
     
       .table-schedule-responsive, -responsive, .table-schedule-equipments-responsive{
           display: block;
-          position: relative;
-          width: 100%;
-
       }
       
       .table-schedule-responsive thead,
@@ -159,11 +161,4 @@
       table td:last-child{
           padding-bottom: 35px;
       }
-  }
-
-  @media(max-width: 430px){
-    .container-schedule{
-        margin-left: 80px;
-        width: 70%;
-    }
   }

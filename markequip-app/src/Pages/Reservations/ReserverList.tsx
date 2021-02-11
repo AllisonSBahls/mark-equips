@@ -5,6 +5,7 @@ import "./styles.css";
 import { IReserver, ReserveStatus } from "./types";
 import {toast} from "react-toastify"
 import SearchInput from "../../Components/Debounced/SearchInput";
+import IsLoading from "../../Components/Loading";
 
 export default function ReservationsList() {
   const [inUse, setInUse] = useState<IReserver[]>([]);
@@ -13,17 +14,17 @@ export default function ReservationsList() {
   const [totalResult, setTotalResult] = useState<number>(0);
   const [totalResultInUse, setTotalResultInUse] = useState<number>(0);
   const [pageA] = useState<number>(1);
-  const [pageB, setPageB] = useState<number>(2);
-
-  var today = new Date();
-  const [date] = useState<string>(today.toLocaleDateString('en-CA'));
+  const [pageB, setPageB] = useState<number>(2);  
   const [nameReserved, SetNameReserved] = useState<string>('');
   const [nameUsing, SetNameUsing] = useState<string>('');
   const [equipmentReserved, SetEquipmentReserved] = useState<string>('');
   const [equipmentUsing, SetEquipmentUsing] = useState<string>('');
   const [statusinUse] = useState<ReserveStatus>(ReserveStatus.USING);
   const [statusReserved] = useState<ReserveStatus>(ReserveStatus.RESERVED);
+  const [isLoading, setIsLoading] = useState(false);
 
+  var today = new Date();
+  const [date] = useState<string>(today.toLocaleDateString('en-CA'));
   const token = localStorage.getItem('Token')!;
 
   const authorization = {
@@ -45,6 +46,7 @@ export default function ReservationsList() {
     setTotalResult(response.data.totalResults);
     setReserved(response.data.list);
     setPageB(pageA+1);
+    setIsLoading(true);
 
   }catch(err){
     toast.error("Erro ao listar as reservas")
@@ -68,6 +70,7 @@ async function fetchInUse(){
   setTotalResultInUse(response.data.totalResults);
   setInUse(response.data.list);
   setPageB(pageA + 1);
+  setIsLoading(true);
 }catch(err){
   toast.error("Erro ao listar as reservas")
 }
@@ -133,15 +136,18 @@ async function fetchMoreInUse() {
         </div>
         </div>
         <div className="reserver-today">
-          {reserved.map((reserver) => (
-          <ReservedCard 
-            key={reserver.id}
-            revokeReserver={() => revokeReserver(reserver.id)}
-            deliverEquipment={() => deliverEquipment(reserver.id, reserver.equipment.name)}
-            collectEquipment = {() => collectEquipment(reserver.id, reserver.equipment.name)}
-            reserver = {reserver}/>
-          ))}
-          
+          {isLoading ? (
+            <>
+            {reserved.map((reserver) => (
+            <ReservedCard 
+              key={reserver.id}
+              revokeReserver={() => revokeReserver(reserver.id)}
+              deliverEquipment={() => deliverEquipment(reserver.id, reserver.equipment.name)}
+              collectEquipment = {() => collectEquipment(reserver.id, reserver.equipment.name)}
+              reserver = {reserver}/>
+            ))}
+          </>
+          ) : (<IsLoading/>)}
         </div>
         <div className="reserver-btn-action">
             <button  className="reserver-btn-loading"
@@ -161,6 +167,10 @@ async function fetchMoreInUse() {
         </div>
         </div>
         <div className="reserver-today">
+        {!isLoading ? 
+          (<IsLoading/>) : 
+            reserved.length > 0 ?
+          ( <>
           {inUse.map((reserver) => (
           <ReservedCard 
             key={reserver.id}
@@ -169,6 +179,8 @@ async function fetchMoreInUse() {
             collectEquipment = {() => collectEquipment(reserver.id, reserver.equipment.name)}
             reserver = {reserver}/>
           ))}
+           </>
+          ) : (<div>Nenhuma reserva para hoje</div>)}
           
         </div>
         <div className="reserver-btn-action">
