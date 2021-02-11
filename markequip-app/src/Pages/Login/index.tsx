@@ -3,12 +3,13 @@ import {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import {auth} from '../../Services/api';
 import { toast } from 'react-toastify';
-
+import {SpinnerLogin} from '../../Components/Loading/index'
 import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
 
 export default function Login() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   async function login(e: React.FormEvent){
@@ -19,6 +20,7 @@ export default function Login() {
     };
     
     try{
+      setIsLoading(true);
       const  response = await auth(data);
         localStorage.setItem('userName', userName);
         localStorage.setItem('Token', response.data.token);
@@ -28,6 +30,7 @@ export default function Login() {
         history.push('/inicio');
 
     }catch(error){
+      setIsLoading(false);
       toast.error('Usuário ou Senha Inválidos, tente novamente')
     }
 } 
@@ -81,10 +84,15 @@ export default function Login() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}/>
             </label>
-           
+            {isLoading ? (
             <button type="submit" className="btn btn-second">
-              Acessar
-            </button>
+            <SpinnerLogin /> Acessando 
+            </button> 
+              ) : (
+                <button type="submit" className="btn btn-second">
+                 Acessar
+                </button>
+              )}
           </form>
         </div>
       </div>

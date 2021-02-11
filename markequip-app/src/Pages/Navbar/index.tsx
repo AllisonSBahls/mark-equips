@@ -1,5 +1,7 @@
 import "./styles.css";
 import { FaUserAlt, FaBars } from "react-icons/fa";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { IconContext } from "react-icons/lib";
 const userName = localStorage.getItem("fullName");
 type props = {
   title: string;
@@ -27,11 +29,12 @@ export default function Navbar({ title }: props) {
           <ul className="navbar-user">
             <li className="navbar-user-name">
               <FaUserAlt />
-              <a href="/#">{userName}Allison Sousa Bahls</a>
+              <a href="/#">{userName}</a>
             </li>
-            <li>
-              <FaUserAlt />
-              <a href="/#">{userName} Sair</a>
+            <li >
+            <a className="navbar-user-logout" href="/#">
+             Sair
+            </a>
             </li>
           </ul>
       </nav>

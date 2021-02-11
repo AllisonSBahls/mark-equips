@@ -1,9 +1,20 @@
+import { IEquipment } from "./types";
+import {BiEdit} from "react-icons/bi"
+import {AiFillDelete} from "react-icons/ai"
+
+type Props = {
+  equipment: IEquipment;
+  onClickInfo: (equipmentId: number) => void;
+  deleteEquipment: (equipmentId: number) => void;
+  onClickReserver: (equipmentId: number) => void;
+}
+
 export default function EquipmentCard({
   equipment,
   onClickInfo,
   deleteEquipment,
   onClickReserver
-}: any) {
+}: Props) {
   return (
     <>
       <div className="equipment">
@@ -15,7 +26,15 @@ export default function EquipmentCard({
           <p>{`${equipment.description.substring(0, 69)}...`}</p>
         </div>
         <div className="equipment-btn-action">
-          <button className="equipment-btn-reserver" onClick={() => onClickReserver(equipment.id)}>Reservar</button>
+          <div className="equipment-btn-reserver" >
+          <button onClick={() => onClickReserver(equipment.id)}>Reservar</button>
+          </div>
+          <div className="equipment-btn-edit-delete">
+          <button
+            className="equipment-btn-edit"
+            onClick={() => onClickInfo(equipment.id)}>
+            <BiEdit title="Editar"/>
+          </button>
           <button
             className="equipment-btn-delete"
             onClick={() => {
@@ -23,14 +42,9 @@ export default function EquipmentCard({
                 deleteEquipment(equipment.id); 
               }
             }}>
-            Deletar
+            <AiFillDelete title="Deletar"/>
           </button>
-          <button
-            className="equipment-btn-edit"
-            onClick={() => onClickInfo(equipment.id)}
-          >
-            Editar
-          </button>
+          </div>
         </div>
       </div>
     </>

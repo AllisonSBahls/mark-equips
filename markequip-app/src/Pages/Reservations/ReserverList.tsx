@@ -11,6 +11,7 @@ export default function ReservationsList() {
   const [reserved, setReserved] = useState<IReserver[]>([]);
   const [statusUpdate, setStatusUpdate] = useState<number>(1);
   const [totalResult, setTotalResult] = useState<number>(0);
+  const [totalResultInUse, setTotalResultInUse] = useState<number>(0);
   const [pageA] = useState<number>(1);
   const [pageB, setPageB] = useState<number>(2);
 
@@ -32,7 +33,8 @@ export default function ReservationsList() {
   }
 
   useEffect(() => {
-    fetchReserved();
+   fetchReserved();
+
     fetchInUse();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, statusUpdate, nameReserved, nameUsing, equipmentReserved, equipmentUsing])
@@ -42,6 +44,8 @@ export default function ReservationsList() {
     const response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
     setTotalResult(response.data.totalResults);
     setReserved(response.data.list);
+    setPageB(pageA+1);
+
   }catch(err){
     toast.error("Erro ao listar as reservas")
   }
@@ -51,6 +55,7 @@ async function fetchMoreReserved() {
   try{
     const response = await fetchReserverReserved(pageB, authorization,  date, nameReserved, equipmentReserved, statusReserved)
     setReserved([...reserved, ...response.data.list]);
+
     setPageB(pageB+1);
   }catch(err){
     toast.error("Erro ao listar os Colaboradores")
@@ -60,6 +65,7 @@ async function fetchMoreReserved() {
 async function fetchInUse(){
   try{
   const response = await fetchReserverDelived(pageA, authorization, date, nameUsing, equipmentUsing, statusinUse)
+  setTotalResultInUse(response.data.totalResults);
   setInUse(response.data.list);
   setPageB(pageA + 1);
 }catch(err){
@@ -69,9 +75,9 @@ async function fetchInUse(){
 
 async function fetchMoreInUse() {
   try{
-    const response = await fetchReserverDelived(pageB, authorization,  date, nameUsing, equipmentUsing, statusReserved)
-    setTotalResult(response.data.totalResults);
-    setInUse([...reserved, ...response.data.list]);
+    const response = await fetchReserverDelived(pageB, authorization,  date, nameUsing, equipmentUsing, statusinUse)
+    setInUse([...inUse, ...response.data.list]);
+
     setPageB(pageB+1);
   }catch(err){
     toast.error("Erro ao listar os Colaboradores")
@@ -168,7 +174,7 @@ async function fetchMoreInUse() {
         <div className="reserver-btn-action">
             <button  className="reserver-btn-loading"
             onClick={fetchMoreInUse}>
-            {totalResult === inUse.length ? 'Fim da Página' : 'Carregar mais'}
+            {totalResultInUse === inUse.length ? 'Fim da Página' : 'Carregar mais'}
             </button>
           </div>
       </div>

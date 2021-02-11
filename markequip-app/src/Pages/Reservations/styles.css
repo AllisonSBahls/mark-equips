@@ -57,6 +57,19 @@
     color: white;
     width: 240px;
     margin-bottom: 10px;
+    animation: equipment 0.4s;
+
+}
+
+@keyframes equipment {
+    from {
+        opacity: 0;
+        transform: translate3d(-60px, 0, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .reserver-card-reserved{

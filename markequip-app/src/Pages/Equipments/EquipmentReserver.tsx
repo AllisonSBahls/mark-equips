@@ -10,10 +10,10 @@ import { checkIsSelected } from "./helpers";
 import { ScheduleList } from "./SchedulesList";
 import { IEquipment } from "./types";
 import { reserver } from "../../Services/reserver";
-import { IReserve, IReserver } from "../Reservations/types";
+import { IReserve } from "../Reservations/types";
 
 type Props = {
-  equipmentId: number | null,
+  equipmentId: number,
   onClickClose: () => void;
 }
 
@@ -44,7 +44,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
   async function reserverEquipment(e: React.FormEvent) {
     e.preventDefault();
     try {
-      if(Iduser !== null && equipmentId !== null){
+      if(Iduser !== null && equipmentId !== 0){
         const response = selectSchedules.map(async (schedule) => {
           const scheduleId = schedule.id;
           const userId: number = +Iduser;
@@ -68,7 +68,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
 
   async function loadEquipment() {
     try {
-      if (equipmentId != null) {
+      if (equipmentId !== 0) {
         const response = await findById(equipmentId, authorization);
         setNameEquipment(response.data.name)
         setEquipmentReservations(response.data.reservations);
@@ -104,7 +104,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
       <Modal isOpen={Boolean(equipmentId)} onClickClose={onClickClose}>
         <div className="modal-content">
           <h3 className="modal-title">
-            {equipmentId === null
+            {equipmentId === 0
               ? "Novo Equipamento"
               : "Informações do Equipamento"}
           </h3>

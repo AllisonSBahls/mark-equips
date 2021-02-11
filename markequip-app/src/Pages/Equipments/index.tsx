@@ -19,9 +19,9 @@ export default function Equipment() {
   const [page] = useState(1);
   const [pageB, setPageB] = useState(2);
   const [name, setName] = useState('');
-  const [equipmentId, setEquipmentId] = useState(null);
+  const [equipmentId, setEquipmentId] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  const [equipmentReserver, setEquipmentReserver] = useState(null);
+  const [equipmentReserver, setEquipmentReserver] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   //Render the equipments list every time that save or update
@@ -120,11 +120,11 @@ export default function Equipment() {
         equipmentId={equipmentId}
         openModal={openModal}
         setRefresh={setRefresh}
-        onClickClose={() => [setEquipmentId(null), setOpenModal(false)]} />
+        onClickClose={() => [setEquipmentId(0), setOpenModal(false)]} />
 
       <EquipmentReserver
         equipmentId={equipmentReserver}
-        onClickClose={() => [setEquipmentReserver(null), setOpenModal(false)]} />
+        onClickClose={() => [setEquipmentReserver(0), setOpenModal(false)]} />
     </>
 
   );

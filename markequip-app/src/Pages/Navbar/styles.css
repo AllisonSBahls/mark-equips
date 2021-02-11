@@ -71,6 +71,7 @@ a.active, a:hover {
 
 .description-container{
     background: var(--ligh-color);
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 1em;
@@ -80,11 +81,6 @@ a.active, a:hover {
     -webkit-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
     -moz-box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
     box-shadow: 0px 3px 5px 0px rgba(184,175,184,1);
-}
-
-.icon-btn-reserver{
-    margin-top: 3px;
-    margin-right: 4px;
 }
 
 .checkbtn {
@@ -100,8 +96,10 @@ a.active, a:hover {
 
 .navbar-user{
     float:right;
-}
+    margin-right: 30px;
 
+    font-size: 13px;
+}
 
 #check {
 	display: none;

@@ -24,13 +24,6 @@ export function fetchReserverDelived(
     status: number){
     return api.get(`api/v1/reservations/asc/5/${page}/?date=${date}&status=${status}&name=${name}&equipment=${equipment}`, token);
 }
-export function fetchReserverCollect(   
-    page: number, 
-    token:AxiosRequestConfig, 
-    date:string, 
-    status: number){
-        return api.get(`api/v1/reservations/asc/5/${page}/?date=${date}&status=${status}`, token);
-    }
 export function fetchReserverReserved(    
     page: number, 
     token:AxiosRequestConfig, 

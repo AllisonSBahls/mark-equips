@@ -6,7 +6,7 @@ import { findById, register, updateEquipments } from "../../Services/equipment";
 import { toast } from "react-toastify";
 import {SpinnerLoading} from "../../Components/Loading/index"
 type Props = {
-  equipmentId: number | null;
+  equipmentId: number;
   openModal: boolean;
   onClickClose: () => void;
   setRefresh: (refresh: number) => void;
@@ -18,12 +18,12 @@ export default function EquipmentModal({
   onClickClose,
   setRefresh
 }: Props) {
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(0);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [number, setNumber] = useState("");
   const [isLoadingSave, setIsLoadingSave] = useState(false);
-  const [saveRefresh, setSaveRefresh] = useState(0);
+  const [saveRefresh, setSaveRefresh] = useState(1);
   const token = localStorage.getItem("Token");
   const authorization = {
     headers: {
@@ -32,14 +32,14 @@ export default function EquipmentModal({
   };
 
   useEffect(() => {
-    if (openModal || equipmentId === null) openFormsRegister();
+    if (openModal || equipmentId === 0) openFormsRegister();
     else loadEquipment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [equipmentId]);
 
   async function loadEquipment() {
       try {    
-        if (equipmentId !== null) {
+        if (equipmentId !== 0) {
           const response = await findById(equipmentId, authorization);
           setId(response.data.id);
           setName(response.data.name);
@@ -54,7 +54,7 @@ export default function EquipmentModal({
 
   async function openFormsRegister() {
     try {
-      setId(null);
+      setId(0);
       setName("");
       setDescription("");
       setNumber("");
@@ -66,15 +66,15 @@ export default function EquipmentModal({
   async function saveEquipment(e: React.FormEvent) {
     e.preventDefault();
     try {
-      if (equipmentId === null) {
+      if (equipmentId === 0) {
         const data = {
           name,
           description,
           number,
         };
-        setSaveRefresh(saveRefresh+1);
         setIsLoadingSave(true);
         await register(data, authorization);
+        setSaveRefresh(saveRefresh+1);
         toast.success("Equipamento cadastrado com sucesso");
       
       } else {
@@ -84,12 +84,11 @@ export default function EquipmentModal({
           number,
           id: id,
         };
-        setSaveRefresh(saveRefresh+1);
         setIsLoadingSave(true);
         await updateEquipments(data, authorization);
         toast.success("Equipamento alterado com sucesso");
+        setSaveRefresh(saveRefresh+1);
       }
-
       setRefresh(saveRefresh)
       onClickClose();
       setIsLoadingSave(false);
@@ -107,7 +106,7 @@ export default function EquipmentModal({
       >
         <div className="modal-content">
           <h3 className="modal-title">
-            {equipmentId === null
+            {equipmentId === 0
               ? "Novo Equipamento"
               : "Informações do Equipamento"}
           </h3>
@@ -143,9 +142,9 @@ export default function EquipmentModal({
             {isLoadingSave ?
                 (
                   <button className="modal-btn-success" disabled>
-                {equipmentId === null ? "Salvando" : "Atualizando"} <SpinnerLoading /> </button>)
+                {equipmentId === 0 ? "Salvando" : "Atualizando"} <SpinnerLoading /> </button>)
                  : (   <button className="modal-btn-success">
-                {equipmentId === null ? "Salvar" : "Atualizar"}</button>)
+                {equipmentId === 0 ? "Salvar" : "Atualizar"}</button>)
                 }
           </form>
         </div>

@@ -19,8 +19,22 @@
     border-radius: 50%;
     animation: spin 2s linear infinite;
     margin-left: 5px;
-
 }
+
+.spinner-login{
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #000043;
+  border-left: 2px solid #000043;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  margin-left: 50%;
+  margin-top: 5px;
+}
+
 
   @keyframes spin {
     0% { transform: rotate(0deg); }

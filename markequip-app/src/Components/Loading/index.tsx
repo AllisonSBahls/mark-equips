@@ -11,3 +11,9 @@ export function SpinnerLoading(){
         <div className="spinner"></div>
     )
 }
+
+export function SpinnerLogin(){
+    return(
+        <div className="spinner-login"></div>
+    )
+}

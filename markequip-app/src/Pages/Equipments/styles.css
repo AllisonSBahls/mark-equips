@@ -103,13 +103,18 @@
     font-weight: bold;
 }
 
+.equipment-btn-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .equipment-btn-action button{
     padding: 3px;
     border: none;
     color: white;
     cursor: pointer;
     border-radius: 10px;
-    font-size: 12px;
 }
 
 .equipment-action-content{
@@ -143,6 +148,11 @@
     border: 1px solid #4da060;
     transition: 0.5s;
 }
+
+.equipment-btn-edit-delete button{
+    margin-top: -5px ;
+}
+
 .equipment-btn-insert:hover{
     background-color: #238d3c;
     border: 1px solid #238d3c;
@@ -150,33 +160,36 @@
 }
 
 .equipment-btn-reserver{
+    margin-top: -15px;
+}
+
+.equipment-btn-reserver button{
     background-color: #20947b;
     border: 1px solid  #20947b;
 }
 
-.equipment-btn-reserver:hover{
+.equipment-btn-reserver button:hover{
     background-color: #2b5f54;
+    border: 1px solid  #2b5f54;
 }
+
 .equipment-btn-delete{
-    float: right;
-    background-color:#dc3545;
-    border: 1px solid #dc3545;
+    background-color: transparent;
+    font-size: 25px;
 }
 
 .equipment-btn-delete:hover{
-    background-color: #6b2128;
+    color: #ac2d3a;
 }
 
 .equipment-btn-edit{
-    float: right;
-    background-color:#0d6efd;
-    border: 1px solid #0d6efd;
+    background-color: transparent;
+    align-items: center;
+    font-size: 25px;
 }
-
 .equipment-btn-edit:hover{
-    background-color:#103d81;
+    color: #1c49c5;
 }
-
 .equipment-reserver-schedule{
     display: flex;
 }
