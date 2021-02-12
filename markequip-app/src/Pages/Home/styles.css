@@ -24,7 +24,7 @@ margin: 20px auto;
     flex-wrap: wrap;
 }
 
-.home-btn button {
+.home-btn a {
     margin-bottom: 10px;
 
 }
@@ -78,6 +78,4 @@ margin: 20px auto;
     .home-user, .home-btn{
         width: 100%;
     }
-
-
 }

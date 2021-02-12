@@ -15,7 +15,7 @@ export function fetchReserverUsers(page: number, token:AxiosRequestConfig, name:
     return api.get(`api/v1/reservations/users/asc/12/${page}/?name=${name}`, token);
 }
 
-export function fetchReserverDelived(
+export function fetchReserverDelivered(
     page: number, 
     token:AxiosRequestConfig, 
     date:string, 

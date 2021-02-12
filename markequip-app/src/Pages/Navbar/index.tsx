@@ -1,13 +1,21 @@
 import "./styles.css";
 import { FaUserAlt, FaBars } from "react-icons/fa";
-import { RiLogoutBoxRFill } from "react-icons/ri";
-import { IconContext } from "react-icons/lib";
+import { Link, useHistory } from "react-router-dom";
 const userName = localStorage.getItem("fullName");
 type props = {
   title: string;
 };
 
 export default function Navbar({ title }: props) {
+  
+  const history = useHistory();
+
+
+  function logout(){
+    localStorage.clear();
+    history.push('/')
+  }
+
   return (
     <>
       <nav className="navbar">
@@ -19,11 +27,11 @@ export default function Navbar({ title }: props) {
         <label className="navbar-title">Mark Equip</label>
 
           <ul className="navbar-menu">
-            <li> <a href="/#">Inicio </a></li>
-            <li><a href="/#">Reservas</a></li>
-            <li><a href="/#">Equipamentos</a></li>
-            <li><a href="/#">Colaboradores</a></li>
-            <li><a href="/#">Horários</a></li>
+            <li> <Link to="/inicio">Inicio </Link></li>
+            <li><Link to="/reservas">Reservas</Link></li>
+            <li><Link to="/equipamentos">Equipamentos</Link></li>
+            <li><Link to="/colaboradores">Colaboradores</Link></li>
+            <li><Link to="/horarios">Horários</Link></li>
             <li className="navbar-menu-logout"><a href="/#">Logout</a></li>
           </ul>
           <ul className="navbar-user">
@@ -32,7 +40,7 @@ export default function Navbar({ title }: props) {
               <a href="/#">{userName}</a>
             </li>
             <li >
-            <a className="navbar-user-logout" href="/#">
+            <a href="/#" className="navbar-user-logout" type="button" onClick={logout}>
              Sair
             </a>
             </li>
