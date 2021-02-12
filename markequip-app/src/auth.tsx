@@ -1,3 +1,3 @@
-export const isAuthenticated = () => {
-    return Boolean(localStorage.getItem('Token'));
-}
+export const isAuthenticated = () => (
+     !!localStorage.getItem('Token')
+)
