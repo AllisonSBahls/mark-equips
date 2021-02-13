@@ -10,22 +10,36 @@ import Collaborator from "./Pages/Collaborator";
 import Schedule from "./Pages/Schedule";
 import Equipment from "./Pages/Equipments";
 import Home from "./Pages/Home";
-import { isAuthenticated } from "./auth";
+import { IsAuthenticated } from "./auth"
+import { useEffect, useState } from "react";
 
 interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
   component: any;
 }
-
 const PrivateRoute = (props: PrivateRouteProps) => {
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const result = await IsAuthenticated();
+        setIsAuthenticated(result);
+        setLoading(false);
+    };
+    fetchData();
+}, [isAuthenticated]);
+
   const { component: Component, ...rest } = props;
 
   return (
     <Route
       {...rest}
       render={(RouteProps) => 
-        isAuthenticated() ? (
+        isAuthenticated ? (
           <Component {...props} />
+        ) : loading ? (
+          <div>LOADING...</div>
         ) : (
           <Redirect to={{ pathname: "/", state: { from: RouteProps.location } }} />
         )
