@@ -10,7 +10,7 @@ import Collaborator from "./Pages/Collaborator";
 import Schedule from "./Pages/Schedule";
 import Equipment from "./Pages/Equipments";
 import Home from "./Pages/Home";
-import { IsAuthenticated } from "./auth"
+import { decodeJWT, IsAuthenticated } from "./auth"
 import { useEffect, useState } from "react";
 
 interface PrivateRouteProps extends RouteProps {
@@ -18,6 +18,37 @@ interface PrivateRouteProps extends RouteProps {
   component: any;
 }
 const PrivateRoute = (props: PrivateRouteProps) => {
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const result = await IsAuthenticated();
+        setIsAuthenticated(result);
+        setLoading(false);
+    };
+    fetchData();
+}, [isAuthenticated]);
+
+  const { component: Component, ...rest } = props;
+  return (
+    <Route
+      {...rest}
+      render={(RouteProps) => 
+        isAuthenticated && decodeJWT() === "Administrator" ? (
+          <Component {...props} />
+        ) : loading ? (
+          <div>LOADING...</div>
+        ) : (
+          <Redirect to={{ pathname: "/", state: { from: RouteProps.location } }} />
+        )
+      }/>
+  );
+};
+
+const PrivateRouteCustom = (props: PrivateRouteProps) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -36,7 +67,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
     <Route
       {...rest}
       render={(RouteProps) => 
-        isAuthenticated ? (
+        isAuthenticated? (
           <Component {...props} />
         ) : loading ? (
           <div>LOADING...</div>
@@ -47,6 +78,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
   );
 };
 
+
 export default function Routes() {
   return (
     <BrowserRouter>
@@ -54,9 +86,9 @@ export default function Routes() {
         <Route path="/" exact>
           <Login />
         </Route>
-        <PrivateRoute path="/inicio" exact component={Home}/>
+        <PrivateRouteCustom path="/inicio" exact component={Home}/>
         <PrivateRoute path="/colaboradores" exact component={Collaborator} />
-        <PrivateRoute path="/equipamentos"  exact component={Equipment}/>
+        <PrivateRouteCustom path="/equipamentos"  exact component={Equipment}/>
         <PrivateRoute path="/horarios" exact component={Schedule}/>
       </Switch>
     </BrowserRouter>

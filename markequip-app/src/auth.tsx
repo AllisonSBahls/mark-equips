@@ -1,4 +1,5 @@
 import { validateToken } from "./Services/api";
+import jwt from 'jwt-decode'
 
 export const IsAuthenticated = async () => {
   const tokenUser = localStorage.getItem("Token")!;
@@ -16,6 +17,13 @@ export const IsAuthenticated = async () => {
       console.log("Invalid Token");
     }
   }
-
   return false;
 };
+
+
+export function decodeJWT() {  
+  var token = localStorage.getItem('Token')!;
+   var tokenJwt = token.replace('Bearer','')
+  let decode  = jwt<{role: string}>(tokenJwt)
+  return decode.role;
+}

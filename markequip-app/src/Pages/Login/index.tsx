@@ -26,7 +26,6 @@ export default function Login() {
         localStorage.setItem('Token', response.data.token);
         localStorage.setItem('fullName', response.data.fullName);
         localStorage.setItem('id', response.data.id);
-        localStorage.setItem('role', response.data.role);
         history.push('/inicio');
 
     }catch(error){
