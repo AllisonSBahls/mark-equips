@@ -7,13 +7,24 @@ export const api = axios.create({
 
 })
 
-export function fetchReserver(page: number, token:AxiosRequestConfig, name:string, equipment:string){
-    return api.get(`api/v1/reservations/asc/12/${page}/?name=${name}&equipment=${equipment}`, token);
+export function fetchAllMyReservers(  
+    page: number, 
+    token:AxiosRequestConfig, 
+    date:string, 
+    equipment:string, 
+    status: number){
+    return api.get(`api/v1/reservations/my/asc/5/${page}/?date=${date}&status=${status}&equipment=${equipment}`, token);
 }
 
-export function fetchReserverUsers(page: number, token:AxiosRequestConfig, name:string){
-    return api.get(`api/v1/reservations/users/asc/12/${page}/?name=${name}`, token);
+export function fetchAllMyInUse(  
+    page: number, 
+    token:AxiosRequestConfig, 
+    date:string, 
+    equipment:string, 
+    status: number){
+    return api.get(`api/v1/reservations/my/asc/5/${page}/?date=${date}&status=${status}&equipment=${equipment}`, token);
 }
+
 
 export function fetchReserverDelivered(
     page: number, 

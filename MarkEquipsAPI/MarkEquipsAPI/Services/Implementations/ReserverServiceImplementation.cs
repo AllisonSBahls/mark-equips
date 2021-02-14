@@ -60,11 +60,18 @@ namespace MarkEquipsAPI.Services.Implementations
             return searchPage;
         }
 
-        public async Task<PagedSearchDTO<ReserverDto>> FindWithPageSearchForUser(string equipment, string sortDirection, int pageSize, int page, DateTime? date, ReserveStatus status)
+        public async Task<PagedSearchDTO<ReserverDto>> FindWithPageSearchForUser(
+            string equipment, 
+            string sortDirection, 
+            int pageSize, 
+            int page, 
+            DateTime? date, 
+            int status)
         {
             var sort = (!string.IsNullOrWhiteSpace(sortDirection) && !sortDirection.Equals("desc")) ? "asc" : "desc";
             var size = (pageSize < 1) ? 10 : pageSize;
             var offset = page > 0 ? (page - 1) * size : 0;
+
             int userId = int.Parse(_user.Id);
 
             var reservations = await _repository.FindWithPagedSearchForUser(userId, equipment, size, offset, date, status);

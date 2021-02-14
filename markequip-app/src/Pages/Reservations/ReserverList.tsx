@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { cancelReserver, deliverReserver, fetchReserverDelivered, fetchReserverReserved, finishReserver } from "../../Services/reserver";
+import { 
+  cancelReserver, 
+  deliverReserver, 
+  fetchAllMyInUse, 
+  fetchAllMyReservers, 
+  fetchReserverDelivered, 
+  fetchReserverReserved, 
+  finishReserver } from "../../Services/reserver";
 import ReservedCard from "./ReservedCard";
 import "./styles.css";
 import { IReserver, ReserveStatus } from "./types";
@@ -45,7 +52,12 @@ export default function ReservationsList() {
 
   async function fetchReserved(){
     try{
-    const response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
+      var response;
+      roleValidate() === "Administrator" ?(
+        response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
+        ) : (
+        response = await fetchAllMyReservers(pageA, authorization, date, equipmentUsing, statusReserved)
+        )
     setTotalResult(response.data.totalResults);
     setReserved(response.data.list);
     setPageB(pageA+1);
@@ -57,7 +69,12 @@ export default function ReservationsList() {
 
 async function fetchMoreReserved() {
   try{
-    const response = await fetchReserverReserved(pageB, authorization,  date, nameReserved, equipmentReserved, statusReserved)
+    var response;
+    roleValidate() === "Administrator" ?(
+      response = await fetchReserverReserved(pageB, authorization, date, nameReserved, equipmentReserved, statusReserved)
+      ) : (
+      response = await fetchAllMyReservers(pageB, authorization, date, equipmentUsing, statusReserved)
+      )
     setReserved([...reserved, ...response.data.list]);
     setTotalResult(response.data.totalResults);
     setPageB(pageB+1);
@@ -70,7 +87,12 @@ async function fetchMoreReserved() {
 
 async function fetchInUse(){
   try{
-  const response = await fetchReserverDelivered(pageInUse, authorization, '', nameUsing, equipmentUsing, statusinUse)
+  var response;
+  roleValidate() === "Administrator" ?(
+    response = await fetchReserverDelivered(pageInUse, authorization, '', nameUsing, equipmentUsing, statusinUse)
+    ) : (
+    response = await fetchAllMyInUse(pageInUse, authorization, '', equipmentUsing, statusinUse)
+    )
   setTotalResultInUse(response.data.totalResults);
   setInUse(response.data.list);
   setPageBInUse(pageInUse + 1);
@@ -82,7 +104,12 @@ async function fetchInUse(){
 
 async function fetchMoreInUse() {
   try{
-    const response = await fetchReserverDelivered(pageBInUse, authorization, '', nameUsing, equipmentUsing, statusinUse)
+    var response;
+  roleValidate() === "Administrator" ?(
+    response = await fetchReserverDelivered(pageBInUse, authorization, '', nameUsing, equipmentUsing, statusinUse)
+    ) : (
+    response = await fetchAllMyInUse(pageBInUse, authorization, '', equipmentUsing, statusinUse)
+    )
     setInUse([...inUse, ...response.data.list]);
     setTotalResultInUse(response.data.totalResults);
     setPageBInUse(pageBInUse+1);

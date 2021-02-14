@@ -47,16 +47,13 @@ namespace MarkEquipsAPI.Controllers
             return Ok(await _entityService.FindWithPageSearch(name, equipment, sortDirection, pageSize, page, date, statusId));
         }
 
-        [HttpGet("user/{sortDirection}/{pageSize}/{page}")]
+        [HttpGet("my/{sortDirection}/{pageSize}/{page}")]
         [Authorize]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Get([FromQuery] string? equipment, [FromQuery] DateTime? date, [FromQuery] string? status, string sortDirection, int pageSize, int page)
         {
-            var statusEnum = new ReserveStatus();
-            if (!string.IsNullOrWhiteSpace(status)) statusEnum = (ReserveStatus)Enum.Parse(typeof(ReserveStatus), status);
-
-
-            return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page, date, statusEnum));
+            int statusId = !string.IsNullOrWhiteSpace(status) ? int.Parse(status) : 0;
+            return Ok(await _entityService.FindWithPageSearchForUser(equipment, sortDirection, pageSize, page, date, statusId));
         }
 
         [HttpGet("{id}")]
