@@ -16,13 +16,14 @@ export default function ReservedCard({
   collectEquipment,
 }: Props) {
   const date = new Date(reserver.date);
+  console.log(reserver.date);
   return (
     <>
       <div className={`${reserver.status === ReserveStatus.RESERVED ? "reserver-card-reserved" : "reserver-card-inuse"}`}>
         <p className="reserver-collaborator">{reserver.user.fullName}</p>
         <p className="reserver-equipment">{reserver.equipment.name}</p>
         <div className="reserver-info">
-          <p className="reserver-date">{date.toLocaleDateString()}</p>
+          <p className="reserver-date">{reserver.date}</p>
           <p className="reserver-schedules">
             {reserver.schedule.hourInitial} - {reserver.schedule.hourFinal}
           </p>

@@ -56,7 +56,7 @@ export default function ReservationsList() {
       roleValidate() === "Administrator" ?(
         response = await fetchReserverReserved(pageA, authorization, date, nameReserved, equipmentReserved, statusReserved)
         ) : (
-        response = await fetchAllMyReservers(pageA, authorization, date, equipmentUsing, statusReserved)
+        response = await fetchAllMyReservers(pageA, authorization, date, equipmentReserved, statusReserved)
         )
     setTotalResult(response.data.totalResults);
     setReserved(response.data.list);
@@ -73,7 +73,7 @@ async function fetchMoreReserved() {
     roleValidate() === "Administrator" ?(
       response = await fetchReserverReserved(pageB, authorization, date, nameReserved, equipmentReserved, statusReserved)
       ) : (
-      response = await fetchAllMyReservers(pageB, authorization, date, equipmentUsing, statusReserved)
+      response = await fetchAllMyReservers(pageB, authorization, date, equipmentReserved, statusReserved)
       )
     setReserved([...reserved, ...response.data.list]);
     setTotalResult(response.data.totalResults);
@@ -94,8 +94,6 @@ async function fetchInUse(){
     response = await fetchAllMyInUse(pageInUse, authorization, '', equipmentUsing, statusinUse)
     )
   setTotalResultInUse(response.data.totalResults);
-  console.log(response.data);
-
   setInUse(response.data.list);
   setPageBInUse(pageInUse + 1);
   setIsLoading(true);
