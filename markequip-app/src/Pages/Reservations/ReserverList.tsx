@@ -94,6 +94,8 @@ async function fetchInUse(){
     response = await fetchAllMyInUse(pageInUse, authorization, '', equipmentUsing, statusinUse)
     )
   setTotalResultInUse(response.data.totalResults);
+  console.log(response.data);
+
   setInUse(response.data.list);
   setPageBInUse(pageInUse + 1);
   setIsLoading(true);
@@ -209,7 +211,7 @@ async function fetchMoreInUse() {
             ): null}
             <label>Equipamento: </label><SearchInput value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
         </div>
-        </div>--
+        </div>
         <div className="reserver-today">
         {!isLoading ? 
           (<IsLoading/>) : 

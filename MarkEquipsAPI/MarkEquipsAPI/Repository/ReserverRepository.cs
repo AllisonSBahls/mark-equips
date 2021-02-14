@@ -278,14 +278,24 @@ namespace MarkEquipsAPI.Repository
             var result = _context.Reservations
                .Include(c => c.User)
                .Include(e => e.Equipment)
-               .Include(s => s.Schedule)
-               .Where(x => x.UserId.Equals(id) &&
+               .Include(s => s.Schedule);
+
+            var countResult = date.HasValue ?
+                (
+               result.Where(x => x.UserId.Equals(id) &&
                      x.Equipment.Name.Contains(nameEquipment) &&
                      x.Date.Equals(date) &&
                      x.Status.Equals(reserveStatus))
-               .Count();
+               .Count()
+                   ) : (
 
-            return result;
+               result.Where(x => x.UserId.Equals(id) &&
+                         x.Equipment.Name.Contains(nameEquipment) &&
+                         x.Status.Equals(reserveStatus))
+                   .Count()
+           );
+
+            return countResult;
         }
 
         public int GetCount(string name, string equipment, DateTime? date, int status)
@@ -301,16 +311,27 @@ namespace MarkEquipsAPI.Repository
             {
                 nameEquipment = equipment;
             }
+
             var result = _context.Reservations
-               .Include(c => c.User)
-               .Include(e => e.Equipment)
-               .Include(s => s.Schedule)
-               .Where(x => x.User.FullName.Contains(fullName) &&
+                .Include(c => c.User)
+                .Include(e => e.Equipment)
+                .Include(s => s.Schedule);
+
+            var countResult = date.HasValue ?
+                 (
+                        result.Where(x => x.User.FullName.Contains(fullName) &&
                      x.Equipment.Name.Contains(nameEquipment) &&
                      x.Date.Equals(date) &&
                      x.Status.Equals(reserveStatus))
-               .Count();
-            return result;
+                    .Count()
+                    ) : (
+                   result.Where(x => x.User.FullName.Contains(fullName) &&
+                             x.Equipment.Name.Contains(nameEquipment) &&
+                             x.Status.Equals(reserveStatus))
+                            .Count()
+            );
+
+            return countResult;
         }
     }
 }
