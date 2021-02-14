@@ -1,7 +1,7 @@
 import "./styles.css";
 import { FaUserAlt, FaBars } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
-const userName = localStorage.getItem("fullName");
+import { roleValidate } from "../../auth";
 type props = {
   title: string;
 };
@@ -10,6 +10,7 @@ export default function Navbar({ title }: props) {
   
   const history = useHistory();
 
+  const userName = localStorage.getItem("fullName");
 
   function logout(){
     localStorage.clear();
@@ -27,11 +28,21 @@ export default function Navbar({ title }: props) {
         <label className="navbar-title">Mark Equip</label>
 
           <ul className="navbar-menu">
-            <li> <Link to="/inicio">Inicio </Link></li>
-            <li><Link to="/reservas">Reservas</Link></li>
-            <li><Link to="/equipamentos">Equipamentos</Link></li>
-            <li><Link to="/colaboradores">Colaboradores</Link></li>
-            <li><Link to="/horarios">Horários</Link></li>
+            {roleValidate() === "Administrator" ? (
+              <>
+                <li> <Link to="/inicio">Inicio </Link></li>
+                <li><Link to="/reservas">Reservas</Link></li>
+                <li><Link to="/equipamentos">Equipamentos</Link></li>
+                <li><Link to="/colaboradores">Colaboradores</Link></li>
+                <li><Link to="/horarios">Horários</Link></li>
+              </>
+              ) : (
+                <>
+                <li> <Link to="/inicio">Início </Link></li>
+                <li><Link to="/reservas">Minhas Reservas</Link></li>
+                <li><Link to="/equipamentos">Equipamentos</Link></li>
+                  </>
+              )}
             <li className="navbar-menu-logout"><a href="/#">Logout</a></li>
           </ul>
           <ul className="navbar-user">

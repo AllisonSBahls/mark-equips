@@ -10,7 +10,7 @@ import Collaborator from "./Pages/Collaborator";
 import Schedule from "./Pages/Schedule";
 import Equipment from "./Pages/Equipments";
 import Home from "./Pages/Home";
-import { decodeJWT, IsAuthenticated } from "./auth"
+import { roleValidate, IsAuthenticated } from "./auth"
 import { useEffect, useState } from "react";
 
 interface PrivateRouteProps extends RouteProps {
@@ -37,7 +37,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
     <Route
       {...rest}
       render={(RouteProps) => 
-        isAuthenticated && decodeJWT() === "Administrator" ? (
+        isAuthenticated && roleValidate() === "Administrator" ? (
           <Component {...props} />
         ) : loading ? (
           <div>LOADING...</div>

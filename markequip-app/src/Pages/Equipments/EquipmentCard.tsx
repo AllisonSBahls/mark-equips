@@ -1,6 +1,7 @@
 import { IEquipment } from "./types";
 import {BiEdit} from "react-icons/bi"
 import {AiFillDelete} from "react-icons/ai"
+import { roleValidate } from "../../auth";
 
 type Props = {
   equipment: IEquipment;
@@ -8,7 +9,6 @@ type Props = {
   deleteEquipment: (equipmentId: number) => void;
   onClickReserver: (equipmentId: number) => void;
 }
-
 export default function EquipmentCard({
   equipment,
   onClickInfo,
@@ -23,13 +23,17 @@ export default function EquipmentCard({
           <h5 className="equipment-tombo">Nº {equipment.number}</h5>
         </div>
         <div className="equipment-description">
+          {equipment.description.length > 69 ? (
           <p>{`${equipment.description.substring(0, 69)}...`}</p>
+          ) : (<p>{equipment.description}</p>)}
         </div>
         <div className="equipment-btn-action">
           <div className="equipment-btn-reserver" >
           <button onClick={() => onClickReserver(equipment.id)}>Reservar</button>
           </div>
           <div className="equipment-btn-edit-delete">
+          {roleValidate() === "Administrator" ? (
+            <>
           <button
             className="equipment-btn-edit"
             onClick={() => onClickInfo(equipment.id)}>
@@ -44,6 +48,7 @@ export default function EquipmentCard({
             }}>
             <AiFillDelete title="Deletar"/>
           </button>
+            </> ) : (null)}
           </div>
         </div>
       </div>

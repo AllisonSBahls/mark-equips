@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -149,6 +150,38 @@ namespace MarkEquipsAPI.Services.Implementations
         {
             var result = await _userManager.FindByIdAsync(id.ToString());
             await _userManager.DeleteAsync(result);
+        }
+
+
+        public bool ValidateToken(string authToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = GetValidationParameters();
+
+            SecurityToken validatedToken;
+            try
+            {
+                IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private TokenValidationParameters GetValidationParameters()
+        {
+            return new TokenValidationParameters()
+            {
+                ValidateLifetime = false,
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidIssuer = "Sample",
+                ValidAudience = "Sample",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                             .GetBytes(_configuration.GetSection("AppSettings:Token").Value))
+            };
         }
     }
 }

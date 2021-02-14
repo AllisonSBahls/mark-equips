@@ -11,6 +11,7 @@ import SearchInput from "../../Components/Debounced/SearchInput";
 import EquipmentModal from "./EquipmentModal";
 import EquipmentReserver from "./EquipmentReserver";
 import IsLoading from "../../Components/Loading";
+import { roleValidate } from "../../auth";
 
 export default function Equipment() {
 
@@ -87,7 +88,9 @@ export default function Equipment() {
                 <FaSearch className="icon icon-search" />
                 <SearchInput value={name} onChange={(search: string) => { setName(search) }} />
               </div>
+              {roleValidate() === "Administrator" ? (
               <button onClick={() => setOpenModal(true)} className="equipment-btn-insert">Cadastrar</button>
+              ) : (null)}
             </div>
           </div>
 

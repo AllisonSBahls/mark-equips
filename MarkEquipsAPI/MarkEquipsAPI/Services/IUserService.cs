@@ -15,5 +15,6 @@ namespace MarkEquipsAPI.Services
         Task<LoginDto> LoginAsync(LoginDto user);
         Task DeleteAsync(int id);
         Task<PagedSearchDTO<UserDto>> FindWithPageSearch(string fullname, string sortDirection, int pageSize, int page);
+        bool ValidateToken(string authToken);
     }
 }

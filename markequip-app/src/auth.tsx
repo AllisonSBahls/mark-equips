@@ -21,7 +21,7 @@ export const IsAuthenticated = async () => {
 };
 
 
-export function decodeJWT() {  
+export function roleValidate() {  
   var token = localStorage.getItem('Token')!;
    var tokenJwt = token.replace('Bearer','')
   let decode  = jwt<{role: string}>(tokenJwt)

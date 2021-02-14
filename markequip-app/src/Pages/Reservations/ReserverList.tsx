@@ -6,6 +6,7 @@ import { IReserver, ReserveStatus } from "./types";
 import {toast} from "react-toastify"
 import SearchInput from "../../Components/Debounced/SearchInput";
 import IsLoading from "../../Components/Loading";
+import { roleValidate } from "../../auth";
 
 export default function ReservationsList() {
   const [inUse, setInUse] = useState<IReserver[]>([]);
@@ -134,9 +135,13 @@ async function fetchMoreInUse() {
       {/* Listagem dos equipamentos reservados esperando o usuário buscar */}
       <div className="reserver-content">
         <div className="reserver-content-action">
-          <h3>Reservados para hoje: {totalResult}</h3>
+          <h3>{roleValidate()  === "Administrator" ? "Reservados para hoje:" : "Minhas reservas para hoje:" }  {totalResult}</h3>
         <div className="reserver-content-search">
+          {roleValidate()  === "Administrator" ? (
+            <>
             <label>Colaborador: </label><SearchInput value ={nameReserved} onChange={(search: string) => {SetNameReserved(search)}}/>
+            </>
+            ): null}
             <label>Equipamento: </label><SearchInput value ={equipmentReserved} onChange={(search: string) => {SetEquipmentReserved(search)}}/>
         </div>
         </div>
@@ -168,9 +173,13 @@ async function fetchMoreInUse() {
       {/* Listagem dos equipamentos que já foram entregues ao cliente e estão em uso */}
       <div className="reserver-content">
         <div className="reserver-content-action">
-          <h3>Em uso: {totalResultInUse}</h3>
+          <h3>{roleValidate()  === "Administrator" ? "Em uso:" : "Em minha posse:" } {totalResultInUse}</h3>
         <div className="reserver-content-search">
+        {roleValidate()  === "Administrator" ? (
+            <>
             <label>Colaborador: </label><SearchInput value ={nameUsing} onChange={(search: string) => {SetNameUsing(search)}}/>
+            </>
+            ): null}
             <label>Equipamento: </label><SearchInput value ={equipmentUsing} onChange={(search: string) => {SetEquipmentUsing(search)}}/>
         </div>
         </div>--
