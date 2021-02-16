@@ -1,0 +1,37 @@
+version: '3.4'
+
+networks:
+  markequips-network:
+    driver: bridge
+services:
+  db:
+    image: markequips-db
+    command: --lower_case_table_names=1
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_DATABASE: markequips
+    ports:
+      - 3308:3306  
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    restart: always
+    networks:
+      - markequips-network
+  markequipsapi:
+    image: markequipsapi
+    build:
+      context: .
+      dockerfile: MarkEquipsAPI/Dockerfile
+    environment:
+      TZ: America/Sao_Paulo
+      ASPNETCORE_ENVIRONMENT: Production
+    depends_on:
+      - db
+    networks:
+      - markequips-network
+    ports:
+      - 44300:80

@@ -26,6 +26,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MarkEquipsAPI.Helpers;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace MarkEquipsAPI
 {
@@ -78,7 +79,7 @@ namespace MarkEquipsAPI
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
-                
+
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
@@ -91,9 +92,17 @@ namespace MarkEquipsAPI
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            var connection = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(connection));
+            services.AddDbContext<MarkEquipsContext>(option => option.UseMySql(
+                Configuration.GetConnectionString("DefaultConnection"),
+                mySqlOptions =>
+            {
+                mySqlOptions.ServerVersion(new Version(5, 7, 22), ServerType.MySql)
+                .EnableRetryOnFailure(
+                maxRetryCount: 10,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+            }));
 
             services.AddMvc(options =>
             {
@@ -146,16 +155,21 @@ namespace MarkEquipsAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingReservations seedingReservations)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env
+            // SeedingReservations seedingReservations
+            )
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                seedingReservations.SeedRoles();
-                seedingReservations.SeedUsers();
-                seedingReservations.SeedOther();
+                //seedingReservations.SeedRoles();
+                //seedingReservations.SeedUsers();
+                //seedingReservations.SeedOther();
             }
-            
+
 
             app.UseHttpsRedirection();
 
