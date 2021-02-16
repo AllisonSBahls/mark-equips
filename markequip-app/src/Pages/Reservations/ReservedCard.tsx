@@ -15,7 +15,8 @@ export default function ReservedCard({
   deliverEquipment,
   collectEquipment,
 }: Props) {
-
+  const date = new Date(reserver.date);
+  console.log(reserver.date);
   return (
     <>
       <div className={`${reserver.status === ReserveStatus.RESERVED ? "reserver-card-reserved" : "reserver-card-inuse"}`}>
