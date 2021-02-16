@@ -14,9 +14,9 @@ export default function Schedule() {
   const [schedulesMorning, setschedulesMorning] = useState<ISchedule[]>([]);
   const [schedulesAfternoon, setschedulesAfternoon] = useState<ISchedule[]>([]);
   const [schedulesNight, setschedulesNight] = useState<ISchedule[]>([]);
-  const [scheduleId, setScheduleId] = useState(null);
+  const [scheduleId, setScheduleId] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  
+  const [refresh, setRefresh] = useState(0);
 
   let morning = new Array();
   let afternoon = new Array();
@@ -32,7 +32,7 @@ export default function Schedule() {
   useEffect(() => {
     findSchedules();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token, refresh]);
 
   async function findSchedules() {
     try {
@@ -80,7 +80,8 @@ export default function Schedule() {
         <ScheduleModal
           scheduleId={scheduleId}
           openModal={openModal}
-          onClickClose={() => [setScheduleId(null), setOpenModal(false)]}
+          refresh = {setRefresh}
+          onClickClose={() => [setScheduleId(0), setOpenModal(false)]}
           />
 
     </>

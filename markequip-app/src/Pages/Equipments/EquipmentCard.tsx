@@ -23,8 +23,8 @@ export default function EquipmentCard({
           <h5 className="equipment-tombo">Nº {equipment.number}</h5>
         </div>
         <div className="equipment-description">
-          {equipment.description.length > 69 ? (
-          <p>{`${equipment.description.substring(0, 69)}...`}</p>
+          {equipment.description.length > 60 ? (
+          <p>{`${equipment.description.substring(0, 63)}...`}</p>
           ) : (<p>{equipment.description}</p>)}
         </div>
         <div className="equipment-btn-action">
