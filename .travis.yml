@@ -6,7 +6,7 @@ dotnet: 5.0
 services: docker
 before_install:
   - cd MarkEquipsAPI
-  - echo "We are in the right folder"]
+  - echo "We are in the right folder"
 script:
   - docker-compose build
 before-deploy:
@@ -19,7 +19,7 @@ deploy:
     docker push $DOCKER_USERNAME/markequipsapi:$TRAVIS_JOB_ID;
     docker push $DOCKER_USERNAME/markequips-db:$TRAVIS_JOB_ID;
   on:
-    branch: master
+    branch: main
 notifications:
   email: false
     
