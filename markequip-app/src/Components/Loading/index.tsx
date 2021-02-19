@@ -3,6 +3,7 @@ import "./loading.css"
 export default function IsLoading(){
     return(
         <div className="loader"></div>
+        
     )
 }
 

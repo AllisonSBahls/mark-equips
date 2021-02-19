@@ -58,7 +58,7 @@ export default function ScheduleModal({scheduleId, openModal, refresh, onClickCl
       var period;
       if(hourInitial >= '05:00' && hourInitial <= '12:00'){
         period = "Manhã"
-      } else if(hourInitial > '12:00' && hourInitial <= '18:00'){
+      } else if(hourInitial > '12:00' && hourInitial < '17:59'){
         period = "Tarde"
       } else{
         period = "Noite"
@@ -127,7 +127,7 @@ export default function ScheduleModal({scheduleId, openModal, refresh, onClickCl
                       value={hourInitial}
                       onChange={(e) => setHourInitial(e.target.value)}
                       type="time"
-                      min="06:00" max="22:00"
+                      min="06:00" max="23:00"
                       className="input"
                       placeholder="Insira o usuário"
                     ></input>
@@ -138,7 +138,7 @@ export default function ScheduleModal({scheduleId, openModal, refresh, onClickCl
                       value={hourFinal}
                       onChange={(e) => setHourFinal(e.target.value)}
                       type="time"
-                      min="07:00" max="23:00"
+                      min="07:00" max="00:00"
                       className="input"
                       placeholder="Insira a senha"
                     ></input>
