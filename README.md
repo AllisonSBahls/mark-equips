@@ -1,9 +1,5 @@
 ## Mark Equips - Reserva de Equipamentos
 [![Build Status](https://travis-ci.com/AllisonSBahls/mark-equips.svg?branch=main)](https://travis-ci.com/AllisonSBahls/mark-equips)
-
-<p align="center">Sistema de Reserva de Equipamentos e Laboratórios</p>
-<p align="center">API - <a href="https://markequips.azurewebsites.net/">https://markequips.azurewebsites.net/</a></p>
-
 <p align="center">Painel do Administrador</p>
 <p align="center">
     <a href="https://i.imgur.com/QIVucI4.jpg">
