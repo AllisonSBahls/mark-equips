@@ -12,7 +12,7 @@
     <img src="https://i.imgur.com/QIVucI4.jpg" alt="Página com as reservas para hoje" height="215">
   </a>
    <a href="https://i.imgur.com/HybLaUB.jpg">
-    <img src="https://i.imgur.com/HybLaUB.jpg" alt="Equipamentos para reservar" height="225">
+    <img src="https://i.imgur.com/HybLaUB.jpg" alt="Equipamentos para reservar" height="215">
   </a>
 </p>
 
