@@ -44,8 +44,8 @@ O sistema possui dois niveis de acesso sendo eles como Usuário colaborador e ad
 ## Colaborador
 -   Solicitar a reserva de equipamentos ou laboratórios
 -   Verificar disponibilidade dos equipamentos
--   Cancelar a própia reserva
--   Consultar as reservas solicitadas e equipamento em uso
+-   Cancelar a reserva
+-   Verificar a disponibilidade do equipamento ou laboratório
 
 ### **Tecnologias**
 
