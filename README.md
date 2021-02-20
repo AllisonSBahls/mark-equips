@@ -9,7 +9,7 @@
 <p align="center">Painel do Administrador</p>
 <p align="center">
     <a href="https://i.imgur.com/QIVucI4.jpg">
-    <img src="https://i.imgur.com/QIVucI4.jpg" alt="Página com as reservas para hoje" height="215">
+    <img src="https://i.imgur.com/QIVucI4.jpg" alt="Página com as reservas para hoje" height="200">
   </a>
    <a href="https://i.imgur.com/HybLaUB.jpg">
     <img src="https://i.imgur.com/HybLaUB.jpg" alt="Equipamentos para reservar" height="215">
@@ -19,10 +19,10 @@
 <p align="center">Painel do Colaborador</p>
 <p align="center">
    <a href="https://i.imgur.com/gcNFFlk.jpg">
-    <img src="https://i.imgur.com/gcNFFlk.jpg" alt="Painel inicial do colaborador" height="225">
+    <img src="https://i.imgur.com/gcNFFlk.jpg" alt="Painel inicial do colaborador" height="200">
   </a>
     <a href="https://i.imgur.com/i5ifyEX.jpg">
-    <img src="https://i.imgur.com/i5ifyEX.jpg" alt="Reservando Equipamentos" height="215">
+    <img src="https://i.imgur.com/i5ifyEX.jpg" alt="Reservando Equipamentos" height="200">
   </a>
 </p>
 
