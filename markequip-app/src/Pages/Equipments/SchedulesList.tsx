@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { ISchedule } from "../Schedule/types";
 import { checkIsSelected } from "./helpers";
-import { IEquipment } from "./types";
+import { IEquipmentReserver } from "./types";
 
 type Props = {
   schedules: ISchedule[];
-  equipments: IEquipment[];
+  equipments: IEquipmentReserver[];
   isSelected: ISchedule[];
   dateReservation: string;
   onSelectSchedules: (schedules: ISchedule) => void;
 };
 
 export function ScheduleList({ equipments, schedules, isSelected, onSelectSchedules, dateReservation }: Props) {
-  const [equipmentNotAvaliable, setEquipmentNotAvaliable] = useState<number[]>(
-    []
-  );
+  const [equipmentNotAvaliable, setEquipmentNotAvaliable] = useState<number[]>([]);
   const notAvalaiable: number[] = [];
 
   useEffect(() => {

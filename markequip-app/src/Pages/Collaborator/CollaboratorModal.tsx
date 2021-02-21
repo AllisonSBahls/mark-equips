@@ -4,13 +4,20 @@ import "./styles.css";
 
 import {register, findById, updateCollaborator} from "../../Services/collaborator";
 import Modal from "../../Components/Modal/Modal";
+import { IUsers } from "./types";
+
+type Props = {
+  collaboratorId: number;
+  onClickClose: () => void;
+  openModal: boolean;
+}
 
 export default function CollaboratorModal({
   collaboratorId,
   onClickClose,
   openModal,
-}: any) {
-  const [id, setId] = useState(null);
+}: Props) {
+  const [id, setId] = useState(0);
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +31,7 @@ export default function CollaboratorModal({
   };
 
   useEffect(() => {
-    if (openModal || collaboratorId === null) openFormsRegister();
+    if (openModal || collaboratorId === 0) openFormsRegister();
     else loadCollaborator();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collaboratorId]);
@@ -43,7 +50,7 @@ export default function CollaboratorModal({
 
   async function openFormsRegister() {
     try {
-      setId(null);
+      setId(0);
       setFullName("");
       setUserName("");
       setPassword("");
@@ -53,24 +60,25 @@ export default function CollaboratorModal({
     }
   }
 
-  async function saveCollaborator(e: any) {
+  async function saveCollaborator(e: React.FormEvent) {
     e.preventDefault();
     try {
-      if (collaboratorId === null) {
-        const data = {
+      if (collaboratorId === 0) {
+        const data: IUsers = {
           fullName,
           userName,
           password,
-          role,
+          roles: role,
+          id: id
         };
         await register(data, authorization);
         toast.success("Colaborador cadastrado com sucesso");
       } else {
-        const data = {
+        const data: IUsers = {
           fullName,
           userName,
           password,
-          role,
+          roles: role,
           id: id,
         };
         await updateCollaborator(data, authorization);
@@ -82,7 +90,7 @@ export default function CollaboratorModal({
     }
   }
 
-  function onValueChange(event: any) {
+  function onValueChange(event: React.ChangeEvent<HTMLInputElement>) {
     setRole(event.target.value);
   }
   
@@ -94,7 +102,7 @@ export default function CollaboratorModal({
         <div className="register-container">
           <div className="register">
             <h3 className="subtitle">
-              {collaboratorId === null
+              {collaboratorId === 0
                 ? "Registrar Colaborador"
                 : "Informações do Colaborador"}
             </h3>
@@ -127,7 +135,7 @@ export default function CollaboratorModal({
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       type="password"
-                      disabled ={collaboratorId === null ? false : true}
+                      disabled ={collaboratorId === 0 ? false : true}
                       className="input"
                       placeholder="Insira a senha"
                     ></input>
@@ -137,7 +145,7 @@ export default function CollaboratorModal({
               <div className="roles">
                 <h4>Função</h4>
                 <div className="radio">
-                  {collaboratorId === null ? (
+                  {collaboratorId === 0 ? (
                     <>
                       <label>Colaborador</label>
                       <input
@@ -172,7 +180,7 @@ export default function CollaboratorModal({
                 <input
                   type="submit"
                   className="button-save"
-                  value={collaboratorId === null ? "Salvar" : "Atualizar"}
+                  value={collaboratorId === 0 ? "Salvar" : "Atualizar"}
                 ></input>
               </div>
             </form>

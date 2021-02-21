@@ -5,6 +5,7 @@ import {auth} from '../../Services/api';
 import { toast } from 'react-toastify';
 import {SpinnerLogin} from '../../Components/Loading/index'
 import {  AiFillGithub,  AiFillLinkedin,  AiOutlineUser,  AiFillLock} from "react-icons/ai";
+import { IUserLogin } from "../Collaborator/types";
 
 export default function Login() {
   const [userName, setUserName] = useState('');
@@ -14,7 +15,7 @@ export default function Login() {
 
   async function login(e: React.FormEvent){
     e.preventDefault();
-    const data = {
+    const data: IUserLogin = {
       userName,
       password,
     };

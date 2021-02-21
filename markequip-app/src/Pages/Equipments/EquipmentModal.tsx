@@ -5,6 +5,7 @@ import Modal from "../../Components/Modal/Modal";
 import { findById, register, updateEquipments } from "../../Services/equipment";
 import { toast } from "react-toastify";
 import {SpinnerLoading} from "../../Components/Loading/index"
+import { IEquipment } from "./types";
 type Props = {
   equipmentId: number;
   openModal: boolean;
@@ -65,12 +66,14 @@ export default function EquipmentModal({
 
   async function saveEquipment(e: React.FormEvent) {
     e.preventDefault();
+    var intNumber: number = +number;
     try {
       if (equipmentId === 0) {
-        const data = {
+        const data: IEquipment = {
           name,
           description,
-          number,
+          number: intNumber,
+          id: id
         };
         setIsLoadingSave(true);
         await register(data, authorization);
@@ -78,10 +81,10 @@ export default function EquipmentModal({
         toast.success("Equipamento cadastrado com sucesso");
       
       } else {
-        const data = {
+        const data: IEquipment = {
           name,
           description,
-          number,
+          number: intNumber,
           id: id,
         };
         setIsLoadingSave(true);

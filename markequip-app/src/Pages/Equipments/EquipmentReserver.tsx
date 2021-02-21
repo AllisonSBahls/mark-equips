@@ -8,7 +8,7 @@ import { fetchSchedule } from "../../Services/schedule";
 import { ISchedule } from "../Schedule/types";
 import { checkIsSelected } from "./helpers";
 import { ScheduleList } from "./SchedulesList";
-import { IEquipment } from "./types";
+import { IEquipmentReserver } from "./types";
 import { reserver } from "../../Services/reserver";
 import { IReserve } from "../Reservations/types";
 
@@ -19,7 +19,7 @@ type Props = {
 
 export default function EquipmentReserver({ equipmentId, onClickClose }: Props) {
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
-  const [equipmentReservations, setEquipmentReservations] = useState<IEquipment[]>([]);
+  const [equipmentReservations, setEquipmentReservations] = useState<IEquipmentReserver[]>([]);
   const [selectSchedules, setSelectSchedules] = useState<ISchedule[]>([]);
   var datas = new Date();
   const [date, setDate] = useState(datas.toLocaleDateString('en-CA'));

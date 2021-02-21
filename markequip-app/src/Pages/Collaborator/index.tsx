@@ -11,7 +11,6 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import CollaboratorList from "./CollaboratorsList";
 import CollaboratorModal from "./CollaboratorModal";
-import IsLoading from "../../Components/Loading";
 
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
@@ -20,7 +19,7 @@ export default function Collaborator() {
   const [pageB, setPageB] = useState(2);
   const [name, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
-  const [collaboratorId, setCollaboratorId] = useState(null);
+  const [collaboratorId, setCollaboratorId] = useState(0);
 
   const token = localStorage.getItem("Token");
 
@@ -104,7 +103,7 @@ export default function Collaborator() {
       <CollaboratorModal 
         collaboratorId={collaboratorId}
         openModal ={openModal}
-        onClickClose={() => [setCollaboratorId(null), setOpenModal(false)]}
+        onClickClose={() => [setCollaboratorId(0), setOpenModal(false)]}
         />
     </>
   );

@@ -1,10 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { IUserLogin } from "../Pages/Collaborator/types";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
 })
 
-export function auth(login: any){
+export function auth(login: IUserLogin){
    return api.post('api/v1/auth/login', login);
 }
 
