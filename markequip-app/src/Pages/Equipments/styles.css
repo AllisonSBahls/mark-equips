@@ -29,6 +29,7 @@
 
 .equipment-content-cards{
     display: flex;
+    min-height:100px;
     flex-wrap: wrap;
     margin-bottom: 20px;
     position: relative;
@@ -156,12 +157,18 @@
     margin-top: -15px;
 }
 
-.equipment-btn-reserver button{
+.equipment-btn-reserver-c{
+    margin-top: -6px;
+}
+
+.equipment-btn-reserver button,
+.equipment-btn-reserver-c button{
     background-color: #20947b;
     border: 1px solid  #20947b;
 }
 
-.equipment-btn-reserver button:hover{
+.equipment-btn-reserver button:hover,
+.equipment-btn-reserver-c button:hover{
     background-color: #2b5f54;
     border: 1px solid  #2b5f54;
 }

@@ -11,6 +11,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import CollaboratorList from "./CollaboratorsList";
 import CollaboratorModal from "./CollaboratorModal";
+import IsLoading from "../../Components/Loading";
 
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
@@ -69,8 +70,6 @@ export default function Collaborator() {
   return (
     <>
       <Navbar title={"Colaboradores"}/>
-      <div className="background-effect"></div>
-
       <div className="container-collaborators">
         <div className="action-collaborators">
           <div className="field-search">

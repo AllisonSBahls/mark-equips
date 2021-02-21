@@ -1,6 +1,7 @@
 import { IReserver, ReserveStatus } from "./types";
 
 import "./styles.css";
+import { roleValidate } from "../../auth";
 
 type Props = {
   reserver: IReserver;
@@ -15,18 +16,20 @@ export default function ReservedCard({
   deliverEquipment,
   collectEquipment,
 }: Props) {
+ var date = new Date(reserver.date).toLocaleDateString();
   return (
     <>
       <div className={`${reserver.status === ReserveStatus.RESERVED ? "reserver-card-reserved" : "reserver-card-inuse"}`}>
         <p className="reserver-collaborator">{reserver.user.fullName}</p>
         <p className="reserver-equipment">{reserver.equipment.name}</p>
         <div className="reserver-info">
-          <p className="reserver-date">{reserver.date}</p>
+          <p className="reserver-date">{date}</p>
           <p className="reserver-schedules">
             {reserver.schedule.hourInitial} - {reserver.schedule.hourFinal}
           </p>
         </div>
 
+        {roleValidate() === "Administrator" ? (<> 
         <div className="reserver-btn">
           {reserver.status === ReserveStatus.RESERVED ? (
             <button
@@ -55,6 +58,7 @@ export default function ReservedCard({
             X
           </button>
         </div>
+        </>) : (null)}
       </div>
     </>
   );

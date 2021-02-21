@@ -12,7 +12,8 @@ import Equipment from "./Pages/Equipments";
 import Home from "./Pages/Home";
 import { roleValidate, IsAuthenticated } from "./auth"
 import { useEffect, useState } from "react";
-import IsLoading from "./Components/Loading";
+import LoadingPage from "./Components/Loading";
+import Reservations from "./Pages/Reservations";
 
 interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
@@ -41,7 +42,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
         isAuthenticated && roleValidate() === "Administrator" ? (
           <Component {...props} />
         ) : loading ? (
-          <IsLoading/>
+          <LoadingPage/>
         ) : (
           <Redirect to={{ pathname: "/", state: { from: RouteProps.location } }} />
         )
@@ -71,7 +72,7 @@ const PrivateRouteCustom = (props: PrivateRouteProps) => {
         isAuthenticated? (
           <Component {...props} />
         ) : loading ? (
-          <IsLoading/>
+          <LoadingPage/>
         ) : (
           <Redirect to={{ pathname: "/", state: { from: RouteProps.location } }} />
         )
@@ -91,6 +92,7 @@ export default function Routes() {
         <PrivateRoute path="/colaboradores" exact component={Collaborator} />
         <PrivateRouteCustom path="/equipamentos"  exact component={Equipment}/>
         <PrivateRoute path="/horarios" exact component={Schedule}/>
+        <PrivateRoute path="/reservas" exact component={Reservations}/>
       </Switch>
     </BrowserRouter>
   );

@@ -94,20 +94,21 @@ export default function Equipment() {
             </div>
           </div>
 
-          {isLoading ? (
           <div className={`equipment-content-cards ${totalResult < 5 ? "equipment-justify" : ""}`}>
-            {equipments.map(equipment => (
+          {isLoading ? (
+            equipments.map(equipment => (
               <EquipmentCard
                 key={equipment.id}
                 equipment={equipment}
                 onClickInfo={setEquipmentId}
                 onClickReserver={setEquipmentReserver}
                 deleteEquipment={deleteEquipment} />
-            ))}
-          </div>
-          ) : (
+            ))
+             ) : (
             <IsLoading/>
             )}
+          </div>
+         
 
 
         </div>

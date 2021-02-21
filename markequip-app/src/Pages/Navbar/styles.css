@@ -1,8 +1,7 @@
 nav{
     background: #000043;
-    padding-left: 40px;
-    width: 100vw;
-    height:50px;
+    width: 100%;
+    height: 50px;
     color: var(--ligh-color);
     align-items: center;
 }
@@ -13,6 +12,7 @@ nav{
     line-height: 50px;
     font-weight: bold;
     margin-right: 30px;
+    margin-left: 30px;
     float:left;
 
 }
@@ -97,7 +97,6 @@ a.active, a:hover {
 .navbar-user{
     float:right;
     margin-right: 30px;
-
     font-size: 13px;
 }
 

@@ -18,3 +18,12 @@ export function SpinnerLogin(){
         <div className="spinner-login"></div>
     )
 }
+
+export function LoadingPage(){
+    return(
+        <div className="loader-page">
+            <div className="loader-page-spinner"></div>
+            <h1>Carregando</h1>
+        </div>
+    )
+}
