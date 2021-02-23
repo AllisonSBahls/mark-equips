@@ -173,7 +173,7 @@ namespace MarkEquipsAPI.Repository
                 result = result.Where(x => x.Status.Equals(reserveStatus));
             }
 
-            result = result.OrderBy(d => d.Date).Skip(offset).Take(size);
+            result = result.OrderBy(d => d.Date).ThenBy(h => h.Schedule.HourInitial).Skip(offset).Take(size);
 
             return await result.ToListAsync();
         }
