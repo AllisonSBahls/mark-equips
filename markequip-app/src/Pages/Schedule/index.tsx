@@ -17,7 +17,7 @@ export default function Schedule() {
   const [scheduleId, setScheduleId] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [refresh, setRefresh] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   let morning = new Array();
   let afternoon = new Array();
   let night = new Array();
@@ -51,6 +51,7 @@ export default function Schedule() {
       setschedulesMorning(morning);
       setschedulesAfternoon(afternoon);
       setschedulesNight(night);
+      setIsLoading(true);
 
     } catch (error) {
       toast.error("Erro ao listar os horarios da manhã" + error);
@@ -73,6 +74,7 @@ export default function Schedule() {
           morning={schedulesMorning}
           afternoon={schedulesAfternoon}
           night={schedulesNight}
+          loading = {isLoading}
           onClickInfo={setScheduleId}
           onClickOpenModal={setOpenModal}/>
       </div>

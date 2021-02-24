@@ -11,6 +11,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import CollaboratorList from "./CollaboratorsList";
 import CollaboratorModal from "./CollaboratorModal";
+import IsLoading from "../../Components/Loading";
 
 export default function Collaborator() {
   const [collaborators, setCollaborators] = useState<IUsers[]>([]);
@@ -20,7 +21,7 @@ export default function Collaborator() {
   const [name, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [collaboratorId, setCollaboratorId] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false)
   const token = localStorage.getItem("Token");
 
   const authorization={
@@ -40,6 +41,7 @@ export default function Collaborator() {
       const response = await fetchCollaborator(page, authorization, name)
       setCollaborators(response.data.list);
       setPageB(page+1);
+      setIsLoading(true);
     }catch(err){
       toast.error("Erro ao listar os Colaboradores")
     } 
@@ -85,11 +87,13 @@ export default function Collaborator() {
         </div>
 
         <div className="collaborators-content">
+          {isLoading ? (
         <CollaboratorList 
           collaborators={collaborators}
           deleteCollaborator={deleteCollaborator}
           onClickInfo={setCollaboratorId}
         />
+        ) : (<IsLoading/>)}
 
         <button 
         className="btn-action btn-more-list" 
