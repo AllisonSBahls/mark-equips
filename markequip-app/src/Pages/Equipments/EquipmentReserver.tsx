@@ -24,7 +24,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
   var datas = new Date();
   const [date, setDate] = useState(datas.toLocaleDateString('en-CA'));
   const [nameEquipment, setNameEquipment] = useState("");
-  
+  const [isLoading, setIsloading] = useState(false);
   const token = localStorage.getItem("Token");
   const fullName = localStorage.getItem("fullName")!;
   const Iduser = localStorage.getItem("id");
@@ -43,6 +43,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
 
   async function reserverEquipment(e: React.FormEvent) {
     e.preventDefault();
+    setIsloading(true);
     try {
       if(Iduser !== null && equipmentId !== 0){
         const response = selectSchedules.map(async (schedule) => {
@@ -60,6 +61,7 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
       toast.success("Reservar realizada");
       setSelectSchedules([]);
       onClickClose();
+      setIsloading(false);
     }
     } catch (err) {
       toast.error("Erro ao fazer a reserva");
@@ -150,11 +152,17 @@ export default function EquipmentReserver({ equipmentId, onClickClose }: Props) 
                 />
               </div>
             </div>
+            {isLoading ? (
             <input
               className="modal-btn-success"
               type="submit"
-              value="Reservar"
+              value="Reservando..."
             ></input>
+            ):( <input
+              className="modal-btn-success"
+              type="submit"
+              value="Reservar"
+            ></input>)}
           </form>
         </div>
       </Modal>

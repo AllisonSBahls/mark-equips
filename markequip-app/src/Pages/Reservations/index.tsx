@@ -1,10 +1,13 @@
-import { LoadingPage } from "../../Components/Loading";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 import "./styles.css";
 
 export default function Reservations() {
   return (
     <>
-     <LoadingPage/>
+     <Navbar title={"Reservas"}/>
+     <div className="reserver-container"></div>
+     <Footer/>
     </>
   );
 }

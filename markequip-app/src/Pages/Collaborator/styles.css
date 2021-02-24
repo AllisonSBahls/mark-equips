@@ -2,6 +2,8 @@
     max-width: 95vw;
     margin-top: 20px;
     margin: 20px auto;
+    min-height: 71vh;
+
 }            
 
 .action-collaborators{
@@ -91,13 +93,13 @@
 
 
 .btn-more-list{
-    background-color: #0dcaf0;
-    border: 1px solid #0dcaf0; 
+    background-color: #20947b;
+    border: 1px solid #20947b; 
 }
 
 .btn-more-list:hover{
-    background-color:  #0e94af;
-    border: 1px solid #1299b4; 
+    background-color:  #236456;
+    border: 1px solid #236456; 
     color: white;
 
 }

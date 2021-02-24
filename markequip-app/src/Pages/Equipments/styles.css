@@ -2,6 +2,8 @@
     width: 95vw;
     margin-top: 20px;
     margin: 20px auto;
+    min-height: 71vh;
+
 }
 
 .equipment-content{
@@ -134,7 +136,7 @@
 .equipment-btn-insert{
     cursor: pointer;
     display: flex;
-    background-color: #4da060;
+    background-color: #c2ccc4;
     align-items: center;
     padding: 7px 25px;
     border-radius: 15px;

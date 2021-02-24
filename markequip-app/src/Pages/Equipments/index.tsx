@@ -12,6 +12,7 @@ import EquipmentModal from "./EquipmentModal";
 import EquipmentReserver from "./EquipmentReserver";
 import IsLoading from "../../Components/Loading";
 import { roleValidate } from "../../auth";
+import Footer from "../Footer";
 
 export default function Equipment() {
 
@@ -129,6 +130,8 @@ export default function Equipment() {
       <EquipmentReserver
         equipmentId={equipmentReserver}
         onClickClose={() => [setEquipmentReserver(0), setOpenModal(false)]} />
+
+        <Footer/>
     </>
 
   );

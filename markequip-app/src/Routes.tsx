@@ -10,7 +10,7 @@ import Collaborator from "./Pages/Collaborator";
 import Schedule from "./Pages/Schedule";
 import Equipment from "./Pages/Equipments";
 import Home from "./Pages/Home";
-import { roleValidate, IsAuthenticated } from "./auth"
+import { IsAuthenticated } from "./auth"
 import { useEffect, useState } from "react";
 import LoadingPage from "./Components/Loading";
 import Reservations from "./Pages/Reservations";
@@ -23,8 +23,6 @@ const PrivateRoute = (props: PrivateRouteProps) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
         const result = await IsAuthenticated();
@@ -35,36 +33,6 @@ const PrivateRoute = (props: PrivateRouteProps) => {
 }, [isAuthenticated]);
 
   const { component: Component, ...rest } = props;
-  return (
-    <Route
-      {...rest}
-      render={(RouteProps) => 
-        isAuthenticated && roleValidate() === "Administrator" ? (
-          <Component {...props} />
-        ) : loading ? (
-          <LoadingPage/>
-        ) : (
-          <Redirect to={{ pathname: "/", state: { from: RouteProps.location } }} />
-        )
-      }/>
-  );
-};
-
-const PrivateRouteCustom = (props: PrivateRouteProps) => {
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-        const result = await IsAuthenticated();
-        setIsAuthenticated(result);
-        setLoading(false);
-    };
-    fetchData();
-}, [isAuthenticated]);
-
-  const { component: Component, ...rest } = props;
-
   return (
     <Route
       {...rest}
@@ -88,9 +56,9 @@ export default function Routes() {
         <Route path="/" exact>
           <Login />
         </Route>
-        <PrivateRouteCustom path="/inicio" exact component={Home}/>
+        <PrivateRoute path="/inicio" exact component={Home}/>
         <PrivateRoute path="/colaboradores" exact component={Collaborator} />
-        <PrivateRouteCustom path="/equipamentos"  exact component={Equipment}/>
+        <PrivateRoute path="/equipamentos"  exact component={Equipment}/>
         <PrivateRoute path="/horarios" exact component={Schedule}/>
         <PrivateRoute path="/reservas" exact component={Reservations}/>
       </Switch>

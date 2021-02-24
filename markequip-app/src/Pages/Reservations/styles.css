@@ -1,3 +1,6 @@
+.reserver-container{
+    min-height: 71vh;
+}
 .reserver-content{
     background-color: #f5f5f5;
     margin-bottom: 20px;
